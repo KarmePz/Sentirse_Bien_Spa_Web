@@ -1,0 +1,63 @@
+:root {
+    --verdeColor: #69a02b;
+    --verdeOscuroColor: #4a7023;
+    --rosaColor: #dc1659;
+    --rosaOscuro: #a11245;
+    --amarilloColor: #e1bc00;
+    --amarilloOscuro: #d29500;
+    --grisClaro: #f5f5f5; 
+    --grisOscuro: #3c3c3c; 
+  }
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+body{
+    background-color: var(--rosaOscuro);
+    min-width: 940px;
+}
+.Logo{
+    
+    margin-right: auto;
+    margin-left: 10px;
+}
+nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color:var(--rosaOscuro);
+
+}
+header{
+    background-color: antiquewhite;
+    background-color: hsla(132, 0%, 100%, 1);
+    
+    background-image: radial-gradient(circle at 91% 11%, hsla(13, 100%, 88%, 0.66) 4.038772213247173%, transparent 37.2265767974114%), radial-gradient(circle at 66% 37%, hsla(323, 100%, 88%, 1) 0%, transparent 63.33640956108327%), radial-gradient(circle at 36% 87%, hsla(268, 100%, 88%, 1) 12.107536057085522%, transparent 63.33640956108327%);
+    background-blend-mode: normal, normal, normal;
+}
+main{
+    background-color: beige;
+}
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;  
+}
+nav .Logo img{
+    
+    height: 70px;
+    width: auto;
+}
+.nav_ul_buttons div{
+    background-color: #a11245;
+    color: #e1bc00;
+    padding: 10px, 5px;
+}
+nav li{
+    margin: 0px 20px;
+}
+
