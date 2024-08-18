@@ -6,7 +6,11 @@
     --rosaOscuro: #a11245;
     --amarilloColor: #e1bc00;
     --amarilloOscuro: #d29500;
+<<<<<<< HEAD
     --grisClaro: hsl(0, 68%, 94%); 
+=======
+    --grisClaro: #f5f5f5; 
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     --grisOscuro: #3c3c3c; 
 }
 
@@ -15,16 +19,22 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
     font-family: "Grand Hotel", cursive;
     font-style: normal;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
 }
 
 body {
     background-color: var(--rosaOscuro);
     min-width: 940px;
     font-family: Arial, sans-serif;
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
 }
 
 /* Estilos para la barra de navegación */
@@ -53,7 +63,10 @@ nav .Logo img {
 .nav_ul_buttons div {
     background-color: var(--rosaOscuro);
     color: var(--amarilloColor);
+<<<<<<< HEAD
     font-size: 25px;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     padding: 20px 30px;
     border-radius: 5px;
     cursor: pointer;
@@ -71,7 +84,10 @@ ul.nav_ul_buttons li {
 /* Estilo específico para el botón "Acceder" */
 .acceder_boton {
     background-color: var(--verdeColor);
+<<<<<<< HEAD
     font-size: 25px;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     color: white;
     padding: 20px 30px;
     border-radius: 5px;
@@ -83,7 +99,10 @@ ul.nav_ul_buttons li {
 .registrarse_boton {
     background-color: var(--verdeOscuroColor);
     color: white;
+<<<<<<< HEAD
     font-size: 25px;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     padding: 20px 30px;
     border-radius: 5px;
     border: none;
@@ -92,19 +111,27 @@ ul.nav_ul_buttons li {
 
 /* Estilos para el header */
 header {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
+=======
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     padding: 50px 20px;
     background-color: var(--grisClaro);
     text-align: center;
 }
 
 .header_logo img {
+<<<<<<< HEAD
     width: 400px;
+=======
+    width: 100%;
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
     max-width: 300px;
     height: auto;
 }
 
+<<<<<<< HEAD
 .header_descripcion h1{
     font-size: 1.5rem;
     text-align: start;
@@ -298,6 +325,50 @@ ul li {
 .faq_item h4, .reviews_item h4 {
     color: var(--rosaOscuro);
     margin-bottom: 10px;
+=======
+.header_descripcion h1 {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--grisOscuro);
+}
+
+/* Estilos para el main */
+main {
+    padding: 20px;
+}
+
+.main_div_padre {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.main_div_hijo1, .main_div_hijo2 {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--grisClaro);
+}
+
+.main_image_1 img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.main_descripcion {
+    padding: 20px;
+}
+
+.main_descripcion h1 {
+    font-size: 1.5rem;
+    color: var(--grisOscuro);
+}
+
+.main_descripcion p {
+    line-height: 1.6;
+    color: var(--grisOscuro);
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
 }
 
 /* Estilos para el footer */
@@ -306,10 +377,29 @@ footer {
     background-color: var(--rosaOscuro);
     color: var(--grisClaro);
     text-align: center;
+<<<<<<< HEAD
     margin-top: auto;
 }
 
 .footer_content {
     padding: 20px;
     text-align: center;
+=======
+}
+
+.footer_redes img {
+    width: 30px;
+    height: auto;
+    margin: 0 10px;
+}
+
+.divisor_line {
+    height: 1px;
+    background-color: var(--grisClaro);
+    margin: 10px 0;
+}
+
+.disclaimer_copyright {
+    font-size: 0.8rem;
+>>>>>>> edf4d78c6f61dcefc7fba22509bac3ee7fcb0978
 }
