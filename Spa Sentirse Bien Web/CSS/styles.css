@@ -31,15 +31,20 @@ body {
 nav {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    margin-left:10px;
     background-color: var(--rosaOscuro);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.Logo{
+    display: flex;
+    align-items: center;
 }
 
 nav .Logo img {
     height: 85px;
     width: auto;
-    margin-right: 20px; /* Corregido el margin con unidad */
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .nav_ul_buttons {
@@ -48,12 +53,17 @@ nav .Logo img {
     flex: 1;
     flex-direction: row;
     justify-content: space-around;
+    align-content: center;
+    transition: background-color 0.3s ease;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .nav_ul_buttons div {
     background-color: var(--rosaOscuro);
     color: var(--amarilloColor);
-    font-size: 25px;
+    font-size: 20px;
     padding: 20px 30px;
     border-radius: 5px;
     cursor: pointer;
@@ -61,7 +71,7 @@ nav .Logo img {
 }
 
 ul.nav_ul_buttons li {
-    margin: 0 5px;
+    margin: 0 ;
 }
 
 .nav_ul_buttons div:hover {
@@ -70,42 +80,56 @@ ul.nav_ul_buttons li {
 
 /* Estilo específico para el botón "Acceder" */
 .acceder_boton {
+    width: 130px;
+    height: 67px;
     background-color: var(--verdeColor);
-    font-size: 25px;
+    font-size: 20px;
     color: white;
     padding: 20px 30px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+}
+.acceder_boton_li button:hover{
+    background-color: #9bc26f;
+}
+
+.registrarse_boton_li button:hover{
+    background-color: #46602b;
 }
 
 /* Estilo para el botón de Registrarse */
 .registrarse_boton {
+    width: 130px;
+    height: 67px;
     background-color: var(--verdeOscuroColor);
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     padding: 20px 30px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+
+    margin: 0px 10px;
 }
 
 /* Estilos para el header */
-header {
+banner {
     display: flex;
     align-items: center;
     padding: 50px 20px;
+    height: 88vh;
     background-color: var(--grisClaro);
     text-align: center;
 }
 
-.header_logo img {
+.banner_logo img {
     width: 400px;
     max-width: 300px;
     height: auto;
 }
 
-.header_descripcion h1{
+.banner_descripcion h1{
     font-size: 1.5rem;
     text-align: start;
     font-size: 40px;
@@ -115,9 +139,7 @@ header {
 }
 
 /* Estilos para el main */
-main {
-   
-}
+
 
 main h2 {
     color: var(--amarilloColor);
@@ -293,6 +315,27 @@ footer {
 }
 
 .footer_content {
+    height: 20vh;
     padding: 20px;
     text-align: center;
+}
+i{
+    width: 50px;
+}
+a{
+    
+    font-size: 30px;
+    text-decoration: none;
+    color: var(--grisClaro);
+    transition: font-size 0.2s ease-in-out;
+    margin: 0px 10px;
+
+}
+a :visited{
+    text-decoration: none;
+    color: var(--grisClaro);
+}
+a:hover{
+   
+    font-size: 38px;
 }
