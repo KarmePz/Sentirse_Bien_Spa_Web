@@ -22,7 +22,6 @@
     font-style: normal;
 }
 
-body {
 
 body {
     background-color: var(--rosaOscuro);
@@ -341,6 +340,6 @@ a :visited{
     color: var(--grisClaro);
 }
 a:hover{
-   
+
     font-size: 38px;
 }
