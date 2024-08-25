@@ -1,0 +1,493 @@
+/* Variables de colores */
+:root {
+    --verdeColor: #5fa510;
+    --verdeOscuroColor: #315012;
+    --rosaColor: #dc1659;
+    --rosaOscuro: #a11245;
+    --amarilloColor: #e1bc00;
+    --amarilloOscuro: #d29500;
+    --rosaClaro: rgb(248, 213, 219); 
+    --grisOscuro: #3c3c3c; 
+}
+
+
+
+/*++++++++++++++++++++++++++++++++++*/
+/*+++++++ Estilos generales +++++++*/
+/*++++++++++++++++++++++++++++++++*/
+
+body {
+    margin: 0;
+}
+
+
+/*+++++++++++++++++++++++++++++++++++++++*/
+/*+++++++ Estilos del encabezado +++++++*/
+/*+++++++++++++++++++++++++++++++++++++*/
+
+.header {
+    background-color: var(--rosaOscuro); /* Fondo rosa oscuro para encabezado */
+    padding: 5px;
+    overflow: hidden; 
+}
+
+/* Botones de acceso y registro */
+.botones_header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;  
+}
+
+.boton_acceder,
+.boton_registrarse {
+    color: white;
+    border: none;
+    padding: 3px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;/*por definirse*/
+}
+
+/* Estilo específico para el botón "Acceder" */
+.boton_acceder {
+    background-color: var(--verdeColor);
+    
+}
+
+/* Estilo para el botón de Registrarse */
+.boton_registrarse {
+    background-color: var(--verdeOscuroColor);   
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    overflow: hidden; 
+}
+
+.logo_nav {
+    float: left, top;
+}
+
+.nav_opciones {
+    display: flex;
+    width: 100%; 
+    height: 100%;
+}
+
+.nav_opciones a {
+    flex: 1;
+    
+    /*el lugar deonde se encuentra la letra*/
+    text-align: center;
+    padding: 21px;  
+    
+    font-size: 120%;
+    /*font-family: "Grand Hotel", cursive; Por definirse todavia no se*/
+    border-radius: 5px;
+    text-decoration: none;
+
+    /*color de la letra*/
+    color: var(--amarilloColor);
+}
+
+.nav_opciones a:hover {
+    background-color: var(--rosaColor); 
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo del la pestaña de inicio ++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++*/
+
+#pestaña_principal {
+    background-color: var(--rosaClaro); /* Fondo rosa para toda la sección */
+    height: 85vh; /* Altura ajustable, puedes cambiarla a tu preferencia */
+    display: flex;
+    align-items: center; /* Centrar verticalmente el contenido dentro de la sección */
+    justify-content: space-between; /* Coloca los elementos a los extremos: logo a la izquierda, descripción a la derecha */
+    padding: 25px; /* Espaciado interno para que los elementos no estén pegados al borde */
+    overflow: hidden;
+}
+
+/* Estilos para el logo */
+.pestaña_principal_logo img {
+    max-width: 100%; /* Asegura que el logo se ajuste bien al contenedor */
+    height: 100%; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilos para la descripción */
+.pestaña_principal_descripcion {
+    max-width: 60%; /* Limita el ancho de la descripción para que no ocupe toda la sección */
+}
+
+/* Estilos para el título */
+.pestaña_principal_descripcion h1 {
+    font-family: "Grand Hotel", "cursive"; /* Cambia la tipografía */
+    color: var(--verdeOscuroColor); /* Cambia el color del texto */
+    font-size: 45px; /* Ajusta el tamaño del texto */
+    line-height: 1.5; /* Espaciado entre líneas */
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo del la pestaña de Servicios ++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* Estilo para la sección */
+#servicios {
+    background-color: var(--rosaOscuro);
+    padding: 10px 25px;
+    height: 97vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+    grid-template-rows: auto auto; /* Ajusta las filas automáticamente */
+    gap: 20px; /* Espacio entre los ítems */
+    justify-items: center; /* Centra los ítems horizontalmente */
+    align-items: center; /* Centra los ítems verticalmente */
+}
+
+.servicios_titilo {
+    color: var(--amarilloColor);
+    margin-top: 0px;
+    margin-bottom: -20px;
+    font-size: 40px;
+    text-align: center;
+    grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
+}
+
+.item_servicio {
+    background-color: var(--rosaClaro);
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%; /* Ajuste del ancho de los ítems */
+    height: 75%; /* Asegura que los ítems ocupen todo el espacio de la celda */
+    transition: transform 0.3s ease; /* Añade una transición suave */
+}
+
+/* Efecto de agrandamiento al pasar el mouse */
+.item_servicio:hover {
+    transform: scale(1.05); /* Agranda el ítem un 5% */
+}
+
+.contenedor_de_imagen {
+    position:absolute;
+    width: 95%;
+    height: 95%; 
+    z-index: 1;/* Asegura que la imagen se encuentre detras */
+}
+
+.contenedor_de_imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    filter: blur(0) drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    opacity: 0.85;
+    border-radius: 8px;
+    mask-image: linear-gradient(180deg, black 20%, transparent);
+}
+.item_servicio h3 {
+    
+    z-index: 2; /* Asegura que el título esté por encima de la imagen */
+
+    /*cambia como se ve el texto*/
+    font-family: 'Arial', sans-serif; 
+    color: var(--rosaOscuro); 
+    font-size: 24px; 
+
+    /*cambia el lugar donde se encuentra*/
+    text-align: center; 
+    margin-top: 10px;
+    margin-bottom: 0px; 
+}
+
+.item_servicio ul {
+    z-index: 2; /* Asegura que la lista esté por encima de la imagen */
+
+    /*cambia como se ve el texto*/
+    font-family: 'Arial', sans-serif;
+    color: var(--rosaOscuro); 
+    font-size: 18px; 
+    list-style: none; /* Elimina los puntos de la lista */
+
+    /*cambia el lugar donde se encuentra*/
+    text-align: center; /* Centra el texto */
+}
+
+
+.item_servicio button {
+    z-index: 2; /* Asegura que el botón esté por encima de la imagen */
+
+     /*cambia como se ve el texto*/
+    font-family: 'Arial', sans-serif; 
+    background-color: var(--amarilloColor); 
+    color: var(--rosaOscuro);
+
+    /*cambia como se ve el boton */
+    border: none; /* Elimina los bordes */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.5s ease; /* Transición suave */
+    border-radius: 8px; /* Bordes redondeados */
+
+    /*Cambia la ubicacion del boton*/
+    padding: 10px 80px; /* Padding del botón */
+}
+
+.item_servicio button:hover {
+    background-color: transparent; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de la pestaña del personal +++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+
+#personal {
+    background-color: var(--rosaClaro);
+    padding: 10px 25px;
+    height: 97vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    grid-template-rows: auto 1fr; /* Dos filas */
+    gap: 20px; /* Espacio entre los ítems */
+    align-items: start; /* Alinea verticalmente los ítems en la parte superior */
+}
+
+.personal_titulo {
+    color: var(--amarilloColor);
+    margin-top: 0px;
+    margin-bottom: -20px;
+    font-size: 40px;
+    text-align: center;
+    grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
+}
+
+.personal_items {
+    display: block; /* Elimina el flexbox para permitir el float */
+    overflow: hidden; /* Asegura que el contenedor envuelva ambos elementos */
+    margin-bottom: 20px; /* Espacio entre cada personal_item */
+}
+
+.imagen_personal img {
+    float: left; /* Hace que la imagen flote a la izquierda */
+    max-width: 45%; /* Controla el tamaño de la imagen */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 10px 10px 0; /* Margen derecho e inferior */
+}
+
+.descripcion_personal {
+    overflow: hidden; /* Asegura que el contenido no se salga del contenedor */
+}
+
+.descripcion_personal h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: var(--amarilloColor);
+    font-weight: bold;
+}
+
+.descripcion_personal h3 {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    color: var(--verdeOscuroColor);
+    font-style: italic;
+}
+
+.descripcion_personal p {
+    font-family: 'Verdana', sans-serif;
+    font-size: 16px;
+    color: var(--verdeColor);
+    margin: 0; /* Elimina márgenes innecesarios */
+}
+/*+++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de la pestaña de noticias ++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+
+.noticias {
+    background-color: var(--rosaOscuro);
+    padding: 20px;
+    height: 97vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.noticias_titulo {
+    text-align: center;
+    color: var(--amarilloOscuro);
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.carrusel-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
+    max-width: 1200px; /* Ajusta este valor según el tamaño máximo deseado */
+    position: relative
+}
+
+.boton_noticias {
+    flex-shrink: 0;
+    margin: 0 10px; /* Reduce el margen para acercar los botones al carrusel */
+}
+
+.carrusel {
+    display: flex;
+    gap: 10px; /* Ajusta el espacio entre cada noticia */
+    flex: 1; /* Permite que el carrusel ocupe el espacio restante */
+    overflow: hidden;
+
+}
+
+.noticia_op {
+    
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: var(--rosaClaro);
+    border-radius: 10px;
+    text-align: center;
+    flex: 0 0 calc(33.33% - 10px);
+    margin-right: 10px;
+    transition: transform 0.5s ease;
+    z-index: 5; 
+
+}
+
+.imagen_noticia img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.descripcion_noticia h4 {
+    background-color: var(--amarilloOscuro);
+    color: var(--rosaOscuro);
+    display: inline-block;
+    padding: 3px 5px;
+    border-radius: 15px;
+    font-size: 10px;
+}
+
+.descripcion_noticia p {
+    color: var(--verdeColor);
+    font-size: 0.9rem;
+}
+
+.descripcion_noticia h1 {
+    color: var(--verdeOscuroColor);
+    font-size: 1.2rem;
+}
+
+.prev, .next {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    z-index: 10; /* Asegura que los botones estén por encima del carrusel */
+}
+
+.prev:hover, .next:hover {
+    background-color: var(--rosaColor);
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de la pestaña de Preguntas y respuestas ++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+.pregunta_y_resenas {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.preguntas, .reseñas {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.pregunta-formulario, .reseña-formulario {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pregunta-formulario input, .reseña-formulario input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pregunta-formulario button, .reseña-formulario button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reseña-formulario select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.preguntas-lista .pregunta, .reseñas-lista .reseña {
+    margin-bottom: 15px;
+}
+
+.preguntas-lista .pregunta p, .reseñas-lista .reseña p {
+    margin: 5px 0;
+}
+
+.respuesta {
+    color: #555;
+}
+
+.fecha {
+    font-size: 12px;
+    color: #888;
+}
+
+.ver-mas {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ver-mas:hover {
+    text-decoration: underline;
+}
+
+.reseñas .calificacion {
+    font-size: 20px;
+    color: #f39c12;
+    margin-bottom: 5px;
+}
