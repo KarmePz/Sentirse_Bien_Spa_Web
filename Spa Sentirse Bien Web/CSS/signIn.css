@@ -1,0 +1,60 @@
+:root {
+    --verdeColor: #5fa510;
+    --verdeOscuroColor: #315012;
+    --rosaColor: #dc1659;
+    --rosaOscuro: #a11245;
+    --amarilloColor: #e1bc00;
+    --amarilloOscuro: #d29500;
+    --rosaClaro: rgb(248, 213, 219); 
+    --grisOscuro: #3c3c3c; 
+}
+
+/*++++++++++++++++++++++++++++++++++*/
+/*+++++++ Estilos generales +++++++*/
+/*++++++++++++++++++++++++++++++++*/
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+section {
+    height: 100%; /* Ocupa toda la altura del contenedor flex */
+    width: 100%; /* Ocupa todo el ancho del contenedor flex */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el formulario dentro del section */
+    align-items: center; 
+}
+
+.form_container_ingreso, .form_container_Registro {
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--rosaClaro);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Ancho máximo del formulario */
+}
+label, input{
+    display: block;
+}
+.inline{
+    display: inline;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#volver_boton {
+    display: none; /* Ocultar botón 'Volver' por defecto */
+}

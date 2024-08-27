@@ -1,19 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/styles.css">
+    <link rel="stylesheet" href="./CSS/signIn.css">
 
     <script src="https://kit.fontawesome.com/2f5b05c4d7.js" crossorigin="anonymous"></script>
-    
-    <link rel="stylesheet" href="/Spa Sentirse Bien Web/CSS/normalize.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
     <title>Sentirse Bien Spa Sign In</title>
+
 </head>
 <body>
-    
+
+    <!--Botones de testeo para formularios-->
+  
+
+    <!--INGRESAR SECTION-->
+    <section id="ingreso_section">
+        <form class="form_container_ingreso" method="post" action="https://TODO.com"><!--el action es para probar si cumple las restricciones el formulario. Cambiarlo-->
+            <h1>Acceder</h1>
+            <fieldset>
+                <label for="nombreEmail">Ingresa Tu Nombre de usuario o Correo Electrónico:<input id="nombreEmail" name="nombreEmail" type="text" required> </label>
+                <label for="contrasena">Ingresa tu contraseña:<input id="contrasena" name="contrasena" type="password" required></label>
+            </fieldset> 
+            <fieldset>
+                <label for="recordar_usuario">
+                    <input class="inline" id="recordar_usuario" type="checkbox" name="recordar_usuario">Recordar Usuario
+                </label>
+            </fieldset>
+            <input type="submit" value="Ingresar">
+        </form>
+    </section>
+
+
+    <!--REGISTRAR SECTION-->
+    <section id="registro_section">
+        <form class="form_container_Registro" method="post" action="https://TODO.com">
+            <h1>Crear una cuenta</h1>
+            <fieldset>
+                <label for="nombre">Ingresa Tu Nombre de usuario:<input id="nombre" name="nombre" type="text" required></label>
+                <label for="email">Ingresa Tu Correo Electrónico: <input id="email" name="email" type="email" required></label>
+                <label for="nueva_contrasena">Ingresa una nueva contraseña:<span id="nueva_contrasena_requerimientos">(al menos 5 caracteres)</span> <input id="nueva_contrasena" name="nueva_contrasena" type="password" pattern="[A-Za-z0-9]{5,}" required></label>    
+            </fieldset> 
+            <input type="submit" value="Registrarse">
+        </form>
+    </section>  
+    <div>
+        <button id="mostrar_ingreso">Ingresar</button>
+        <button id="mostrar_registro">Registrarse</button>
+    </div>
+
+    <button id="volver_boton">Volver</button>
+    <script src="./JS/loginRegistro.js"></script>
+
+
+
 </body>
 </html>
