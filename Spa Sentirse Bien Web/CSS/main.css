@@ -10,8 +10,6 @@
     --grisOscuro: #3c3c3c; 
 }
 
-
-
 /*++++++++++++++++++++++++++++++++++*/
 /*+++++++ Estilos generales +++++++*/
 /*++++++++++++++++++++++++++++++++*/
@@ -335,7 +333,8 @@ body {
     width: 100%;
     overflow: hidden;
     max-width: 1200px; /* Ajusta este valor según el tamaño máximo deseado */
-    position: relative
+    position: relative;
+    scroll-behavior: smooth;
 }
 
 .boton_noticias {
@@ -348,6 +347,7 @@ body {
     gap: 10px; /* Ajusta el espacio entre cada noticia */
     flex: 1; /* Permite que el carrusel ocupe el espacio restante */
     overflow: hidden;
+    
 
 }
 
@@ -490,4 +490,42 @@ h2 {
     font-size: 20px;
     color: #f39c12;
     margin-bottom: 5px;
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de Footer+++++++++++++++++++++++++++++++++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+footer{
+padding: 20px;
+background-color: var(--rosaOscuro);
+color: var(--rosaClaro);
+text-align: center;
+margin-top: auto;
+}
+
+.footer_content {
+height: 10vh;
+padding: 20px;
+text-align: center;
+}
+
+i{
+width: 50px;
+}
+
+a{
+font-size: 30px;
+text-decoration: none;
+color:var(--rosaClaro);
+transition: font-size 0.2s ease-in-out;
+margin: 0px 10px;
+}
+
+a :visited{
+text-decoration: none;
+color: var(--rosaClaro);
+}
+
+a:hover{
+font-size: 38px;
 }
