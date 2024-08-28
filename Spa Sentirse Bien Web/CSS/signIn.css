@@ -31,6 +31,8 @@ section {
 }
 
 .form_container_ingreso, .form_container_Registro {
+    position: relative;
+    top:30%;
     margin:auto;
     display: flex;
     flex-direction: column;
