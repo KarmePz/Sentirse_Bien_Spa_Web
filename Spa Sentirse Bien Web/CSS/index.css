@@ -10,8 +10,6 @@
     --grisOscuro: #3c3c3c; 
 }
 
-
-
 /*++++++++++++++++++++++++++++++++++*/
 /*+++++++ Estilos generales +++++++*/
 /*++++++++++++++++++++++++++++++++*/
@@ -50,7 +48,7 @@ body {
 
 /* Estilo específico para el botón "Acceder" */
 .boton_acceder {
-    background-color: var(--verdeColor);
+    background-color: var(--verdeOscuroColor);
     
 }
 
@@ -63,17 +61,22 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 70px;
+    height: 56px;
+ 
 }
 
 .logo_nav {
     float: left, top;
+    object-fit: scale-down;
+    height: 85px;
 }
+
 
 .nav_opciones {
     display: flex;
     width: 100%; 
     height: 100%;
+    overflow: hidden;
 }
 
 .nav_opciones a {
@@ -84,7 +87,7 @@ body {
     padding: 21px;  
     
     font-size: 120%;
-    /*font-family: "Grand Hotel", cursive; Por definirse todavia no se*/
+    font-family: "Grand Hotel"; /*cursive; Por definirse todavia no se*/
     border-radius: 5px;
     text-decoration: none;
 
@@ -107,7 +110,7 @@ body {
     align-items: center; /* Centrar verticalmente el contenido dentro de la sección */
     justify-content: space-between; /* Coloca los elementos a los extremos: logo a la izquierda, descripción a la derecha */
     padding: 25px; /* Espaciado interno para que los elementos no estén pegados al borde */
-    overflow: hidden;
+
 }
 
 /* Estilos para el logo */
@@ -334,7 +337,8 @@ body {
     width: 100%;
     overflow: hidden;
     max-width: 1200px; /* Ajusta este valor según el tamaño máximo deseado */
-    position: relative
+    position: relative;
+    scroll-behavior: smooth;
 }
 
 .boton_noticias {
@@ -347,6 +351,7 @@ body {
     gap: 10px; /* Ajusta el espacio entre cada noticia */
     flex: 1; /* Permite que el carrusel ocupe el espacio restante */
     overflow: hidden;
+    
 
 }
 

@@ -1,0 +1,216 @@
+:root {
+    --verdeColor: #5fa510;
+    --verdeOscuroColor: #315012;
+    --rosaColor: #dc1659;
+    --rosaOscuro: #a11245;
+    --amarilloColor: #e1bc00;
+    --amarilloOscuro: #d29500;
+    --rosaClaro: rgb(248, 213, 219); 
+    --grisOscuro: #3c3c3c; 
+}
+
+/*++++++++++++++++++++++++++++++++++*/
+/*+++++++ Estilos generales +++++++*/
+/*++++++++++++++++++++++++++++++++*/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;;
+    color:var(--rosaClaro);
+    
+}/*rgba(95,165,16,1) rgba(49,80,18,1)*/
+
+/* Contenedor de logo del usuario */
+
+.user_logo_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color:#580925;
+}
+.fa-circle-user{
+   font-size: 100px;
+}
+/* circulo de signo mas sin fondo */
+.fa-circle-plus{
+    font-size: 50px;
+    z-index: 100;
+    position: absolute;
+    color:#580925;
+    top: 70px;
+    left: 235px;
+}
+/* fondo que va detras del icono "+" para que no se rompa la imagen */
+.icon-background { 
+    width: 49px; /* Establece el tamaño del contenedor */
+    height: 49px;
+    position: absolute;
+    z-index: 50;
+    top: 71px;
+    left: 237px;
+    background-color: var(--rosaClaro); /* Color de fondo */
+    border-radius: 50%; /* Hace que el contenedor sea circular */
+}
+
+
+
+
+.background_image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    object-fit:cover;
+}
+#imagen_fondo{
+    position: relative;
+    -webkit-filter:  opacity(100%);
+    filter: opacity(100%);
+    max-height:100%;
+    height: auto;
+    width: auto;
+}
+
+
+section {
+    height: 100%; /* Ocupa toda la altura del contenedor flex */
+    width: 100%; /* Ocupa todo el ancho del contenedor flex */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el formulario dentro del section */
+    align-items: center; 
+    
+}
+
+/* -------------------------------------------
+    Formulario Contenedor
+-------------------------------------------    */
+form{
+    box-shadow: 0px 0px 19px 10px rgb(88, 9, 37);
+}
+.form_container_ingreso, .form_container_Registro {
+    position: relative;
+    top:30%;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #58092522; 
+    border: #580925 solid 1px;
+
+    backdrop-filter: blur(10px);
+   
+    
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Ancho máximo del formulario */
+}
+/* -------------------------------------------
+    Labels Contenedores
+-------------------------------------------    */
+
+label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    width: 100%;
+    background-color: #580925;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    gap:5px;
+}
+
+input{
+    flex: 1;
+    color:var(--rosaClaro);
+    min-height: 20px;
+    font-family: 'Lato', sans-serif;
+    background-color: transparent;
+    border:none;
+
+}
+input:focus{
+    outline: none;
+}
+label i{
+    margin-right: 15px;
+}
+.fa-lock{
+    width: 16px;
+}
+
+/* Estilos del checkbox */
+#inline{
+    display: inline;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    width: auto;
+    margin-top: 2px;
+}
+#recordar_usuario_label{
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color:#70656a;
+}
+#recordar_usuario_input{
+    vertical-align: middle;
+    margin-top: 5px;
+}
+.checkbox_text{
+   vertical-align: middle;
+}
+
+.submit_button{
+    background-color: #580925;
+    color:var(--rosaClaro);
+    min-height: 30px;
+    width: 100px;
+    align-self: center;
+    border-radius: 15px;
+}
+.submit_button:hover{
+    background-color: #803540;
+    cursor: pointer;
+}
+
+
+
+
+
+
+button {
+    background-color: #315012;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#volver_boton {
+    display: none; /* Ocultar botón 'Volver' por defecto */
+}
+fieldset{
+    border-top-color: var(--rosaClaro);
+    border-left:none;
+    border-right: none;
+    border-bottom: none;
+    padding-top: 0;
+    padding-bottom: 0;
+
+}
