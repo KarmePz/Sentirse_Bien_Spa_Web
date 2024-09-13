@@ -1,3 +1,12 @@
+
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 /* Variables de colores */
 :root {
     --verdeColor: #5fa510;
@@ -36,14 +45,14 @@ body {
     gap: 10px;  
 }
 
-.boton_acceder,
-.boton_registrarse {
-    color: white;
+.boton_acceder {
+    color: var(--verdeColor);
     border: none;
     padding: 3px 15px;
     cursor: pointer;
     border-radius: 5px;
-    font-family: 'Lato', sans-serif;/*por definirse*/
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
 }
 
 /* Estilo específico para el botón "Acceder" */
@@ -52,16 +61,12 @@ body {
     
 }
 
-/* Estilo para el botón de Registrarse */
-.boton_registrarse {
-    background-color: var(--verdeOscuroColor);   
-}
 
 .nav {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 56px;
+    height: 40px;
  
 }
 
@@ -84,13 +89,11 @@ body {
     
     /*el lugar deonde se encuentra la letra*/
     text-align: center;
-    padding: 21px;  
-    
-    font-size: 120%;
-    font-family: "Grand Hotel"; /*cursive; Por definirse todavia no se*/
+    margin-top: 0%;  
+    font-size: 150%;
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
     border-radius: 5px;
-    text-decoration: none;
-
     /*color de la letra*/
     color: var(--amarilloColor);
 }
@@ -121,14 +124,15 @@ body {
 
 /* Estilos para la descripción */
 .pestaña_principal_descripcion {
-    max-width: 60%; /* Limita el ancho de la descripción para que no ocupe toda la sección */
+    max-width: 59%; /* Limita el ancho de la descripción para que no ocupe toda la sección */
 }
 
 /* Estilos para el título */
-.pestaña_principal_descripcion h1 {
-    font-family: "Grand Hotel", "cursive"; /* Cambia la tipografía */
+.pestaña_principal_descripcion p {
+    font-family: Penultimate, cursive;
+    font-weight:normal;
     color: var(--verdeOscuroColor); /* Cambia el color del texto */
-    font-size: 45px; /* Ajusta el tamaño del texto */
+    font-size: 37px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
 
@@ -154,6 +158,8 @@ body {
     margin-top: 0px;
     margin-bottom: -20px;
     font-size: 40px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
     text-align: center;
     grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
 }
@@ -200,7 +206,8 @@ body {
     z-index: 2; /* Asegura que el título esté por encima de la imagen */
 
     /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif; 
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
     color: var(--rosaOscuro); 
     font-size: 24px; 
 
@@ -214,10 +221,11 @@ body {
     z-index: 2; /* Asegura que la lista esté por encima de la imagen */
 
     /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif;
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
     color: var(--rosaOscuro); 
     font-size: 18px; 
-    list-style: none; /* Elimina los puntos de la lista */
+    list-style: italic; /* Elimina los puntos de la lista */
 
     /*cambia el lugar donde se encuentra*/
     text-align: center; /* Centra el texto */
@@ -227,8 +235,9 @@ body {
 .item_servicio button {
     z-index: 2; /* Asegura que el botón esté por encima de la imagen */
 
-     /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif; 
+    /*cambia como se ve el texto*/
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
     background-color: var(--amarilloColor); 
     color: var(--rosaOscuro);
 
