@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const indice = localStorage.getItem('indiceServicio'); // Recuperar el índice almacenado
     console.log("Índice recuperado:", indice);
     if (indice !== null) {
-        cargarPagina(indice); // Llamar a la función cargarPagina con el índice recuperado
+        // cargarPagina(indice); // Llamar a la función cargarPagina con el índice recuperado
     }
 });
 
@@ -124,7 +124,7 @@ function cargarPagina(indice) {
 
     // Asignar los valores de la página seleccionada
     const servicio = paginas[indice];
-    tituloServicio.textContent = servicio.tituloServicio;
+    // tituloServicio.textContent = servicio.tituloServicio;
 
     imagen_Ficha1.src = servicio.imagen_Ficha1;
     titulo_Ficha1.textContent = servicio.titulo_Ficha1;

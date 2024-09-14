@@ -3,7 +3,7 @@ var botonRegistro = document.getElementById('mostrar_registro');
 var sectionIngreso = document.getElementById('ingreso_section');
 var sectionRegistro = document.getElementById('registro_section');
 var volverBoton = document.getElementById('volver_boton');
-var  windowmain = window.open('/index.html.html');
+var  windowmain = window.open('/index.html');
 activarAcceder();
 sectionRegistro.style.display = 'none';
 
@@ -15,9 +15,7 @@ botonIngreso.addEventListener('click', function(){
 botonRegistro.addEventListener('click', function(){
     activarRegistrarse();
 })
-volverBoton.addEventListener('click', function(){
-    window.location.href= "/index.html";
-})
+volverBoton.addEventListener('click', logout)
 
 
 function activarAcceder(){
@@ -35,7 +33,46 @@ function activarRegistrarse(){
     volverBoton.style.display = 'block';
 }
 
+document.querySelector('.form_container_Registro').addEventListener('submit',async function(event){
+    event.preventDefault();
 
+    var username = document.querySelector('#nombre').value;
+    var email = document.querySelector('#email').value;
+    var password = document.querySelector('#nueva_contrasena').value;
+
+    const datosUsuario = {
+        username: username,
+        email: email,
+        password: password
+    };
+
+    try {
+        const response = await fetch('https://www.ApiSpaDemo.somee.com/api/Account/register', {
+            method: 'POST', // El método debe ser POST para el registro
+            credentials: 'include', // Esto asegura que las cookies se envíen con la solicitud
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosUsuario) // Convertir el objeto a una cadena JSON
+        });
+
+        if (response.ok) {
+            // Procesar la respuesta si la solicitud fue exitosa
+            const result = await response.json();
+            console.log('Registro exitoso:', result);
+            alert('Registro exitoso.');
+        } else {
+            // Manejar los errores de la solicitud
+            const errorResult = await response.json();
+            console.error('Error en el registro:', errorResult);
+            alert('Error en el registro: ' + errorResult.message);
+        }
+    } catch (error) {
+        console.error('Error en la conexión con la API:', error);
+        alert('Error en la conexión con la API.');
+    }
+})
 
 
 
@@ -57,8 +94,9 @@ const datosUsuario = {
 
     try{
         //Petición POST
-        const response = await fetch('https://www.apispademo.somee.com/api/Account/login', {
+        const response = await fetch('https://www.ApiSpaDemo.somee.com/api/Account/login', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -76,8 +114,14 @@ const datosUsuario = {
         else if(response.ok){
             //Si hay login, se redirige y se muestra un mensaje por consola
             console.log("Login Exitoso: ", resultado);
+            sessionStorage.setItem('username', resultado.userName);
+            sessionStorage.setItem('email', resultado.email);
+            sessionStorage.setItem('id', resultado.idUser);
+            var nombreUsuario =  sessionStorage.getItem('username');
+
+            console.log(nombreUsuario);
             //Redirigir
-            window.location.href= "https://www.google.com";
+            window.location.href= "./index.html";
             //TODO
         }else{
             console.error("Error en el login", resultado.message);
@@ -90,3 +134,43 @@ const datosUsuario = {
     }
 
 });
+
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Función para eliminar una cookie
+function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+}
+
+
+async function logout() {
+    try {
+        const response = await fetch('https://www.ApiSpaDemo.somee.com/api/Account/logout', {
+            method: 'POST', // Debe ser POST para logout
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                 // Esto es necesario para enviar cookies si estás usando autenticación basada en cookies
+            },
+           
+        });
+
+        if (response.ok) {
+            console.log('Logout exitoso');
+            deleteCookie();
+            window.location.reload(); // Recarga la página o redirige a otra página
+        } else {
+            console.error('Error en el logout:', response.statusText);
+            alert('Error al cerrar sesión');
+        }
+    } catch (error) {
+        console.error('Error en la conexión con la API:', error);
+        alert('Error en la conexión con la API');
+    }
+}
