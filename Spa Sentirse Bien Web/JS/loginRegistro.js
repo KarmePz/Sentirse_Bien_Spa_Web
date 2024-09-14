@@ -3,7 +3,7 @@ var botonRegistro = document.getElementById('mostrar_registro');
 var sectionIngreso = document.getElementById('ingreso_section');
 var sectionRegistro = document.getElementById('registro_section');
 var volverBoton = document.getElementById('volver_boton');
-
+var  windowmain = window.open('/index.html.html');
 activarAcceder();
 sectionRegistro.style.display = 'none';
 
@@ -16,7 +16,7 @@ botonRegistro.addEventListener('click', function(){
     activarRegistrarse();
 })
 volverBoton.addEventListener('click', function(){
-    window.location.href= "../main.html"
+    window.location.href= "/index.html";
 })
 
 

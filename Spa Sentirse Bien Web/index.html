@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/main.css">
+    <link rel="stylesheet" href="./CSS/index.css">
 
     <script src="https://kit.fontawesome.com/2f5b05c4d7.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     
     <title>Sentirse Bien Spa</title>
@@ -22,10 +23,10 @@
         <div class="botones_header">
             <button class="boton_acceder" id="boton_acceder">Acceder</button>
             <!-- <button class="boton_registrarse"id="boton_registrarse">Registrarse</button>  -->
-            <script src="./JS/main.js"></script>
+            
         </div>
         <nav class="nav">
-            <div class="logo_nav"><a href="#pestaña_principal"><img src="./sources/logo_spa2.png" alt="logo_spa"></a></div>
+            <div class="logo_nav"></div><a href="#pestaña_principal"><img src="/sources/logo_spa2.png" alt="logo_spa"></a></div>
             <div class="nav_opciones">
             <a href="#pestaña_principal">¿Quienes somos?</a>
             <a href="#servicios">Servicios</a>
@@ -43,20 +44,20 @@
 
         <!-- Pestaña Principal-->
         <section name="pestaña_principal" id="pestaña_principal">
-            <div class="pestaña_principal_logo"><img src="./sources/logoSinTexto.png" alt="logo"></div>
+            <div class="pestaña_principal_logo"><img src="/sources/logoSinTexto.png" alt="logo"></div>
             <div class="pestaña_principal_descripcion">
-                <h1>Buscamos atraer la atención de nuestros clientes a través de experiencias inspiradas en la seducción de los sentidos. Adaptamos las propuestas con el objetivo de que logre desconectarse completamente de la rutina y difrute de un momento de bienestar, en total armonía con la naturaleza.</h1>
+                <p>Buscamos atraer la atención de nuestros clientes a través de experiencias inspiradas en la seducción de los sentidos. Adaptamos las propuestas con el objetivo de que logre desconectarse completamente de la rutina y difrute de un momento de bienestar, en total armonía con la naturaleza.</p>
             </div>
         </section>
 
 
         <!-- Pestaña Servicios-->
         <section name="servicios" id="servicios">
-            <h2 class="servicios_titilo">¿Que servicios brindamos?</h2>
+            <h2 class="servicios_titilo">¿Que Servicios Brindamos?</h2>
             
             <div class="item_servicio">
                 <div class="contenedor_de_imagen">
-                    <img class="img_masajes" src="./sources/Servicios/masajes_img.jpg">
+                    <img class="img_masajes" src="/sources/Servicios/masajes_img.jpg">
                 </div>
                 <h3 class="titulo_del_servicio">Masajes:</h3>
                 <ul>
@@ -65,12 +66,12 @@
                     <li>Masajes con piedras calientes</li>
                     <li>Circulatorios</li>
                 </ul>
-                <button class="btn_saber_mas">SABER MÁS</button> 
+                <button class="btn_saber_mas" onclick="irAPagina(0)">SABER MÁS</button> 
             </div>
 
             <div class="item_servicio">
                 <div class="contenedor_de_imagen">
-                    <img class="img_belleza" src="./sources/Servicios/belleza_img.jpg">
+                    <img class="img_belleza" src="/sources/Servicios/belleza_img.jpg">
                 </div>
                 <h3 class="titulo_del_servicio">Belleza:</h3>
                 <ul>
@@ -78,12 +79,12 @@
                     <li>Depilación facial</li>
                     <li>Belleza de manos y pies</li>
                 </ul>
-                <button class="btn_saber_mas">SABER MÁS</button> 
+                <button class="btn_saber_mas" onclick="irAPagina(1)">SABER MÁS</button> 
             </div>
 
             <div class="item_servicio">
                 <div class="contenedor_de_imagen">
-                    <img class="img_tratamientosFaciales" src="./sources/Servicios/tratamientosFaciales_img.jpg">
+                    <img class="img_tratamientosFaciales" src="/sources/Servicios/tratamientosFaciales_img.jpg">
                 </div>
                 <h3 class="titulo_del_servicio">Tratamientos Faciales:</h3>
                 <ul>
@@ -91,12 +92,13 @@
                     <li>Limpieza profunda + Hidratación</li>
                     <li>Crio frecuencia facial</li>
                 </ul>
-                <button class="btn_saber_mas">SABER MÁS</button>
+                <!--<button class="btn_saber_mas">SABER MÁS</button>-->
+                <button class="btn_saber_mas" onclick="irAPagina(2)">SABER MÁS</button>
             </div>
 
             <div class="item_servicio">
                 <div class="contenedor_de_imagen">
-                    <img class="img_tratamientosCorporales" src="./sources/Servicios/tratamientosCorporales_img.jpg">
+                    <img class="img_tratamientosCorporales" src="/sources/Servicios/tratamientosCorporales_img.jpg">
                 </div>
                 <h3 class="titulo_del_servicio">Tratamientos Corporales:</h3>
                 <ul>
@@ -105,7 +107,7 @@
                     <li>Criofrecuencia</li>
                     <li>Ultracavitación</li>
                 </ul>
-                <button class="btn_saber_mas">SABER MÁS</button>
+                <button class="btn_saber_mas" onclick="irAPagina(3)">SABER MÁS</button>
             </div>
         </section>
 
@@ -115,7 +117,7 @@
             <h2 class="personal_titulo">Conócenos mejor:</h2>
             <div class="personal_items">
                 <div class="imagen_personal">
-                    <img src="./sources/Empleados/emcargadad de Belleza y Tratamiento Faciales.jpg">
+                    <img src="/sources/Empleados/emcargadad de Belleza y Tratamiento Faciales.jpg">
                 </div>
                 <div class="descripcion_personal">
                     <h1>Luciana "Luli" García</h1>
@@ -125,7 +127,7 @@
             </div>
             <div class="personal_items">
                 <div class="imagen_personal">
-                    <img src="./sources/Empleados/Encargada de masajes y tratamientos corporales.jpg">
+                    <img src="/sources/Empleados/Encargada de masajes y tratamientos corporales.jpg">
                 </div>
                 <div class="descripcion_personal">
                     <h1>Natalia Mendoza</h1>
@@ -146,7 +148,7 @@
                 <div class="carrusel">
                     <div class="noticia_op">
                         <div class="imagen_noticia">
-                            <img src="./sources/logoSinTexto.png" alt="noticia 1">
+                            <img src="/sources/logoSinTexto.png" alt="noticia 1">
                         </div>
                         <div class="descripcion_noticia">
                             <h4>Tipo de noticia 1</h4>
@@ -156,7 +158,7 @@
                     </div>
                     <div class="noticia_op">
                         <div class="imagen_noticia">
-                            <img src="./sources/logoSinTexto.png" alt="noticia 2">
+                            <img src="/sources/logoSinTexto.png" alt="noticia 2">
                         </div>
                         <div class="descripcion_noticia">
                             <h4>Tipo de noticia 2</h4>
@@ -166,7 +168,7 @@
                     </div>
                     <div class="noticia_op">
                         <div class="imagen_noticia">
-                            <img src="./sources/logoSinTexto.png" alt="noticia 3">
+                            <img src="/sources/logoSinTexto.png" alt="noticia 3">
                         </div>
                         <div class="descripcion_noticia">
                             <h4>Tipo de noticia 3</h4>
@@ -176,7 +178,7 @@
                     </div>
                     <div class="noticia_op">
                         <div class="imagen_noticia">
-                            <img src="./sources/logoSinTexto.png" alt="noticia 4">
+                            <img src="/sources/logoSinTexto.png" alt="noticia 4">
                         </div>
                         <div class="descripcion_noticia">
                             <h4>Tipo de noticia 4</h4>
@@ -262,6 +264,58 @@
                 <a href="#" class="ver-mas">Ver todas las reseñas</a>
             </div>
         </section>
+
+       
+        <!-- Pestaña Contactos -->
+        <section id="contactos" class="contact-section">
+            <div class="contact-info">
+                <h2>Puedes encontrarnos en: French 414</h2>
+                <p>Horarios lunes a viernes: de 8 a 12 o de 16 a 20</p>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
+                    width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <p>También puedes comunicarte en:</p>
+                <div class="social-media">
+                    <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                     <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+    
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="input-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+                    </div>
+                    <div class="input-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
+                    </div>
+                    <div class="input-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" placeholder="ej.: Tu mensaje"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="verification">Verificación</label>
+                        <input type="text" id="verification" name="verification" placeholder="Escribe la palabra clave: SPASB">
+                    </div>                    
+                    <button type="submit">Enviar</button>
+                    <div class="notification success" id="successNotification">Mensaje enviado correctamente</div>
+                    <div class="notification error" id="errorNotification">Error al enviar el mensaje</div>
+                </form>
+            </div>
+        </section>
     </main>
     <!-- Pie de Página -->
     <footer class="footer">
@@ -274,6 +328,11 @@
             <p>Logo, número de teléfono, etc.</p>
         </div>
     </footer>
+    <script src="./JS/contactos.js"></script>
     <script src="./JS/noticia.js"></script>
     <script src="./JS/preguntas_resenas.js"></script>
+    <script src="./JS/tipoDeServicio.js"></script>
+    <script src="./JS/main.js"></script>
+
 </body>
+</html>

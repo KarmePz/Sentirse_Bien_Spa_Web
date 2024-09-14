@@ -1,3 +1,12 @@
+
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 /* Variables de colores */
 :root {
     --verdeColor: #5fa510;
@@ -36,14 +45,14 @@ body {
     gap: 10px;  
 }
 
-.boton_acceder,
-.boton_registrarse {
-    color: white;
+.boton_acceder {
+    color: var(--verdeColor);
     border: none;
     padding: 3px 15px;
     cursor: pointer;
     border-radius: 5px;
-    font-family: 'Lato', sans-serif;/*por definirse*/
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
 }
 
 /* Estilo específico para el botón "Acceder" */
@@ -52,16 +61,12 @@ body {
     
 }
 
-/* Estilo para el botón de Registrarse */
-.boton_registrarse {
-    background-color: var(--verdeOscuroColor);   
-}
 
 .nav {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 56px;
+    height: 40px;
  
 }
 
@@ -84,13 +89,11 @@ body {
     
     /*el lugar deonde se encuentra la letra*/
     text-align: center;
-    padding: 21px;  
-    
-    font-size: 120%;
-    font-family: "Grand Hotel"; /*cursive; Por definirse todavia no se*/
+    margin-top: 0%;  
+    font-size: 150%;
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
     border-radius: 5px;
-    text-decoration: none;
-
     /*color de la letra*/
     color: var(--amarilloColor);
 }
@@ -121,14 +124,15 @@ body {
 
 /* Estilos para la descripción */
 .pestaña_principal_descripcion {
-    max-width: 60%; /* Limita el ancho de la descripción para que no ocupe toda la sección */
+    max-width: 59%; /* Limita el ancho de la descripción para que no ocupe toda la sección */
 }
 
 /* Estilos para el título */
-.pestaña_principal_descripcion h1 {
-    font-family: "Grand Hotel", "cursive"; /* Cambia la tipografía */
+.pestaña_principal_descripcion p {
+    font-family: Penultimate, cursive;
+    font-weight:normal;
     color: var(--verdeOscuroColor); /* Cambia el color del texto */
-    font-size: 45px; /* Ajusta el tamaño del texto */
+    font-size: 37px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
 
@@ -142,11 +146,11 @@ body {
     padding: 10px 25px;
     height: 97vh;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
-    grid-template-rows: auto auto; /* Ajusta las filas automáticamente */
-    gap: 20px; /* Espacio entre los ítems */
-    justify-items: center; /* Centra los ítems horizontalmente */
-    align-items: center; /* Centra los ítems verticalmente */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: auto auto; 
+    gap: 20px; 
+    justify-items: center; 
+    align-items: center; 
 }
 
 .servicios_titilo {
@@ -154,8 +158,10 @@ body {
     margin-top: 0px;
     margin-bottom: -20px;
     font-size: 40px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
     text-align: center;
-    grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
+    grid-column: 1 / span 2; 
 }
 
 .item_servicio {
@@ -168,82 +174,82 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 80%; /* Ajuste del ancho de los ítems */
-    height: 75%; /* Asegura que los ítems ocupen todo el espacio de la celda */
-    transition: transform 0.3s ease; /* Añade una transición suave */
+    width: 80%;
+    height: 75%; 
+    transition: transform 0.3s ease;
 }
 
-/* Efecto de agrandamiento al pasar el mouse */
 .item_servicio:hover {
-    transform: scale(1.05); /* Agranda el ítem un 5% */
+    transform: scale(1.05);
 }
 
 .contenedor_de_imagen {
-    position:absolute;
-    width: 95%;
-    height: 95%; 
-    z-index: 1;/* Asegura que la imagen se encuentre detras */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho del item */
+    height: 100%; /* Ocupa todo el alto del item */
+    z-index: 1;
+    /* Añadir un gradiente blanqueado para mejorar la legibilidad del texto */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 80%);
 }
 
 .contenedor_de_imagen img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-    filter: blur(0) drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    opacity: 0.85;
+    object-fit: cover; /* Se adapta al tamaño del contenedor sin recortarse */
     border-radius: 8px;
-    mask-image: linear-gradient(180deg, black 20%, transparent);
+    filter: brightness(0.75); /* Reduce un poco el brillo de la imagen */
 }
+
+/* Efecto para mejorar la legibilidad del texto */
+.item_servicio h3, 
+.item_servicio ul {
+    z-index: 2;
+    color: var(--rosaClaro); /* Texto casi blanco para mejor contraste */
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); /* Añade sombra al texto para que resalte */
+}
+
 .item_servicio h3 {
-    
-    z-index: 2; /* Asegura que el título esté por encima de la imagen */
-
-    /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif; 
-    color: var(--rosaOscuro); 
-    font-size: 24px; 
-
-    /*cambia el lugar donde se encuentra*/
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
+    font-size: 28px;
     text-align: center; 
     margin-top: 10px;
-    margin-bottom: 0px; 
+    margin-bottom: 5px;
 }
+
 
 .item_servicio ul {
-    z-index: 2; /* Asegura que la lista esté por encima de la imagen */
-
-    /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif;
-    color: var(--rosaOscuro); 
-    font-size: 18px; 
-    list-style: none; /* Elimina los puntos de la lista */
-
-    /*cambia el lugar donde se encuentra*/
-    text-align: center; /* Centra el texto */
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    list-style-type: none;
+    font-style: italic;
+    text-align: center;
+    margin: 5px 0;
 }
 
-
 .item_servicio button {
-    z-index: 2; /* Asegura que el botón esté por encima de la imagen */
-
-     /*cambia como se ve el texto*/
-    font-family: 'Arial', sans-serif; 
+    z-index: 2; 
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
     background-color: var(--amarilloColor); 
     color: var(--rosaOscuro);
+    border: none;
+    cursor: pointer; 
+    transition: background-color 0.5s ease; 
+    border-radius: 8px;
+    padding: 10px 80px;
+    display: none; /* Esconde el botón por defecto */
+}
 
-    /*cambia como se ve el boton */
-    border: none; /* Elimina los bordes */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.5s ease; /* Transición suave */
-    border-radius: 8px; /* Bordes redondeados */
-
-    /*Cambia la ubicacion del boton*/
-    padding: 10px 80px; /* Padding del botón */
+.item_servicio:hover .btn_saber_mas {
+    display: block; /* Muestra el botón solo cuando el mouse esté encima */
 }
 
 .item_servicio button:hover {
-    background-color: transparent; /* Cambia el color de fondo al pasar el mouse */
+    background-color: transparent; 
 }
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -416,7 +422,7 @@ body {
     display: flex;
     gap: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: var(--rosaClaro);
     border-radius: 10px;
 }
 
@@ -496,9 +502,90 @@ h2 {
     margin-bottom: 5px;
 }
 
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/*++++++ Estilo de Footer+++++++++++++++++++++++++++++++++++++++*/
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de la pestaña de contactos++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--rosaOscuro);
+}
+
+.contact-info {
+    flex: 1;
+    margin-right: 20px;
+    color: var(--amarilloColor);
+}
+
+.contact-form {
+    flex: 1;
+    background-color: var(--rosaOscuro);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.contact-form .input-group {
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    color: var(--amarilloColor);
+    margin-bottom: 5px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--rosaClaro);
+    border: 0;
+    /*border: 1px solid var(--amarilloOscuro);*/
+    border-radius: 4px;
+}
+
+.contact-form button {
+    background-color: var(--verdeColor);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: var(--verdeOscuroColor);
+}
+
+.notification {
+    display: none;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+.notification.success {
+    background-color: var(--verdeColor);
+    color: white;
+}
+
+.notification.error {
+    background-color: var(--rosaColor);
+    color: white;
+}
+
+
+/*++++++++++++++++++++++++++++++++*/
+/*++++++ Estilo de Footer++++++++*/
+/*++++++++++++++++++++++++++++++*/
 footer{
 padding: 20px;
 background-color: var(--rosaOscuro);
