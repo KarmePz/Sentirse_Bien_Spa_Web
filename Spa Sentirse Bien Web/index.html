@@ -20,7 +20,7 @@
     
     <!-- Sección de Encabezado -->
     <header class="header"> 
-        <div class="botones_header">
+        <div class="botones_header" id="botones_header">
             <button class="boton_acceder" id="boton_acceder">Acceder</button>
             <!-- <button class="boton_registrarse"id="boton_registrarse">Registrarse</button>  -->
             
@@ -280,24 +280,34 @@
                     <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                     <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
     
             <div class="contact-form">
                 <form id="contactForm">
-                    <div class="input-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+                    <!-- Sección solo visible si el usuario está logueado -->
+                    <div class="input-group" id="loggedInUserSection" style="display: none;">
+                        <p>Hola <span id="usernameDisplay"></span>, la respuesta se enviará a <span id="emailDisplay"></span></p>
                     </div>
-                    <div class="input-group">
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                    <!-- Sección visible solo si el usuario no está logueado -->
+                    <div class="input-group" id="guestUserSection">
+                        <div class="input-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+                        </div>
+                        <div class="input-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
-                    </div>
+
+
+                    <!-- Sección siempre visible -->
                     <div class="input-group">
                         <label for="telefono">Teléfono</label>
                         <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
@@ -324,7 +334,7 @@
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars menu_logo_mobile"></i>
             <p>Logo, número de teléfono, etc.</p>
         </div>
     </footer>
