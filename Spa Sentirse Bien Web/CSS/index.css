@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 /* Variables de colores */
 :root {
     --verdeColor: #5fa510;
@@ -256,65 +256,109 @@ body {
 /*++++++ Estilo de la pestaña del personal +++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
 
+/* Estilos generales */
 #personal {
-    background-color: var(--rosaClaro);
-    padding: 10px 25px;
-    height: 97vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-    grid-template-rows: auto 1fr; /* Dos filas */
-    gap: 20px; /* Espacio entre los ítems */
-    align-items: start; /* Alinea verticalmente los ítems en la parte superior */
+    padding: 40px 20px;
+    background-color: var(--rosaClaro); /* Color de fondo para la sección */
 }
 
 .personal_titulo {
-    color: var(--amarilloColor);
-    margin-top: 0px;
-    margin-bottom: -20px;
-    font-size: 40px;
+    font-size: 50px;
+    color: var(--amarilloColor); /* Color de texto del título */
     text-align: center;
-    grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
-}
-
-.personal_items {
-    display: block; /* Elimina el flexbox para permitir el float */
-    overflow: hidden; /* Asegura que el contenedor envuelva ambos elementos */
-    margin-bottom: 20px; /* Espacio entre cada personal_item */
-}
-
-.imagen_personal img {
-    float: left; /* Hace que la imagen flote a la izquierda */
-    max-width: 45%; /* Controla el tamaño de la imagen */
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 10px 10px 0; /* Margen derecho e inferior */
-}
-
-.descripcion_personal {
-    overflow: hidden; /* Asegura que el contenido no se salga del contenedor */
-}
-
-.descripcion_personal h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    color: var(--amarilloColor);
+    margin-bottom: 10px;
+    font-family: "Dancing Script", sans-serif;
     font-weight: bold;
 }
 
+/* Estilos para los contenedores de los empleados */
+.personal_items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color:var(--rosaClaro);
+    border-radius: 10px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.personal_items:nth-child(even) {
+    flex-direction: row-reverse; /* Alternar imagen y texto */
+}
+
+.personal_items:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para las imágenes (cuadradas) */
+.imagen_personal img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px; /* Hacer las imágenes cuadradas con esquinas ligeramente redondeadas */
+    object-fit: cover;
+    margin: 0 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagen_personal {
+    flex: 1;
+}
+
+/* Estilos para la descripción */
+.descripcion_personal {
+    flex: 2;
+    max-width: 600px;
+}
+
+.descripcion_personal h1 {
+    font-family: Nunito, sans-serif; /* Fuente para el nombre */
+    font-weight: bold;
+    color: var(--amarilloColor); /* Color para el nombre */
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
 .descripcion_personal h3 {
-    font-family: 'Georgia', serif;
-    font-size: 20px;
-    color: var(--verdeOscuroColor);
-    font-style: italic;
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
+    font-style: italic; /* Estilo cursiva */
+    color: var(--verdeOscuroColor); /* Color para el subtítulo */
+    font-size: 1.2rem;
+    margin-bottom: 15px;
 }
 
 .descripcion_personal p {
-    font-family: 'Verdana', sans-serif;
-    font-size: 16px;
-    color: var(--verdeColor);
-    margin: 0; /* Elimina márgenes innecesarios */
+    font-family: Georgia, serif; /* Fuente para el texto */
+    font-weight: normal;
+    color: var(--verdeColor); /* Color para el texto */
+    font-size: 1rem;
+    line-height: 1.6;
 }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .personal_items {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .personal_items:nth-child(even) {
+        flex-direction: column; /* Revertir a diseño vertical en móviles */
+    }
+
+    .imagen_personal img {
+        margin-bottom: 20px;
+    }
+
+    .descripcion_personal {
+        text-align: center;
+    }
+}
+
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo de la pestaña de noticias ++++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
