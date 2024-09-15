@@ -408,7 +408,9 @@ body {
 .noticias_titulo {
     text-align: center;
     color: var(--amarilloOscuro);
-    font-size: 2rem;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
     margin-bottom: 20px;
 }
 
@@ -420,39 +422,43 @@ body {
     overflow: hidden;
     max-width: 1200px; /* Ajusta este valor según el tamaño máximo deseado */
     position: relative;
-    scroll-behavior: smooth;
 }
 
 .boton_noticias {
     flex-shrink: 0;
-    margin: 0 10px; /* Reduce el margen para acercar los botones al carrusel */
+    margin: 0 10px;
 }
 
 .carrusel {
     display: flex;
-    gap: 10px; /* Ajusta el espacio entre cada noticia */
-    flex: 1; /* Permite que el carrusel ocupe el espacio restante */
+    gap: 10px;
+    flex: 1;
     overflow: hidden;
-    
-
 }
 
 .noticia_op {
-    
     box-sizing: border-box;
     padding: 10px;
     background-color: var(--rosaClaro);
     border-radius: 10px;
     text-align: center;
-    flex: 0 0 calc(33.33% - 10px);
-    margin-right: 10px;
+    flex: 0 0 calc(33.33% - 10px); /* Muestra 3 noticias a la vez */
     transition: transform 0.5s ease;
-    z-index: 5; 
+}
 
+.imagen_noticia {
+    width: 100%; /* Asegura que el contenedor de la imagen ocupa todo el espacio disponible */
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .imagen_noticia img {
     width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin distorsión */
     border-radius: 10px;
 }
 
@@ -460,6 +466,8 @@ body {
     background-color: var(--amarilloOscuro);
     color: var(--rosaOscuro);
     display: inline-block;
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
     padding: 3px 5px;
     border-radius: 15px;
     font-size: 10px;
@@ -467,15 +475,26 @@ body {
 
 .descripcion_noticia p {
     color: var(--verdeColor);
-    font-size: 0.9rem;
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.8rem;
 }
 
 .descripcion_noticia h1 {
     color: var(--verdeOscuroColor);
+    font-family: Georgia, serif;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
-.prev, .next {
+.boton_noticias {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido del botón */
+}
+
+.boton_noticias button {
     background-color: transparent;
     color: white;
     border: none;
@@ -483,12 +502,17 @@ body {
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: 5px;
-    z-index: 10; /* Asegura que los botones estén por encima del carrusel */
+    height: 200px; /* Ajusta esta altura para que coincida con la altura de las noticias */
+    display: flex;
+    align-items: center; /* Alinea verticalmente el texto del botón */
+    justify-content: center; /* Centra el texto horizontalmente */
 }
+
 
 .prev:hover, .next:hover {
     background-color: var(--rosaColor);
 }
+
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo de la pestaña de Preguntas y respuestas ++++++++*/
