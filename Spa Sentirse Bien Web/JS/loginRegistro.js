@@ -3,7 +3,7 @@ var botonRegistro = document.getElementById('mostrar_registro');
 var sectionIngreso = document.getElementById('ingreso_section');
 var sectionRegistro = document.getElementById('registro_section');
 var volverBoton = document.getElementById('volver_boton');
-var  windowmain = window.open('/index.html');
+
 activarAcceder();
 sectionRegistro.style.display = 'none';
 
@@ -15,7 +15,9 @@ botonIngreso.addEventListener('click', function(){
 botonRegistro.addEventListener('click', function(){
     activarRegistrarse();
 })
-volverBoton.addEventListener('click', logout)
+volverBoton.addEventListener('click', function(){
+    window.location.href = './index.html';
+})
 
 
 function activarAcceder(){
@@ -32,6 +34,7 @@ function activarRegistrarse(){
     sectionRegistro.style.display = 'block';
     volverBoton.style.display = 'block';
 }
+var mensajeErrorRegistro = document.querySelector('.error_registro');
 
 document.querySelector('.form_container_Registro').addEventListener('submit',async function(event){
     event.preventDefault();
@@ -39,7 +42,7 @@ document.querySelector('.form_container_Registro').addEventListener('submit',asy
     var username = document.querySelector('#nombre').value;
     var email = document.querySelector('#email').value;
     var password = document.querySelector('#nueva_contrasena').value;
-
+    mensajeErrorRegistro.style.visibility = 'hidden'; // Muestra el mensaje de error
     const datosUsuario = {
         username: username,
         email: email,
@@ -61,12 +64,26 @@ document.querySelector('.form_container_Registro').addEventListener('submit',asy
             // Procesar la respuesta si la solicitud fue exitosa
             const result = await response.json();
             console.log('Registro exitoso:', result);
-            alert('Registro exitoso.');
-        } else {
+
+            mensajeErrorRegistro.textContent = 'Registro Exitoso, proceda a ingresar con su cuenta';
+            mensajeErrorRegistro.style.color = '#050';
+            mensajeErrorRegistro.style.visibility = 'visible'; // Muestra el mensaje de error
+        } else if(response.status == 400){
+             // Manejar los errores de la solicitud
+            const errorResult = await response.json();
+            console.error('Error en el registro:', errorResult);
+
+            mensajeErrorRegistro.textContent = 'nombre de usuario ocupado o la contraseña necesita mínimo 6 caracteres';
+            mensajeErrorRegistro.style.color = '#700';
+             mensajeErrorRegistro.style.visibility = 'visible'; // Muestra el mensaje de error
+        }else {
             // Manejar los errores de la solicitud
             const errorResult = await response.json();
             console.error('Error en el registro:', errorResult);
-            alert('Error en el registro: ' + errorResult.message);
+            
+            mensajeErrorRegistro.textContent = 'Ocurrió un error inesperado';
+            mensajeErrorRegistro.style.color = '#700';
+            mensajeErrorRegistro.style.visibility = 'visible'; 
         }
     } catch (error) {
         console.error('Error en la conexión con la API:', error);
@@ -75,7 +92,7 @@ document.querySelector('.form_container_Registro').addEventListener('submit',asy
 })
 
 
-
+var mensajeErrorIngreso = document.querySelector('.error_ingreso');
 //Se evita el envio predeterminado de envio:
 document.querySelector('.form_container_ingreso').addEventListener('submit',async function(event){
     event.preventDefault();
@@ -83,7 +100,7 @@ document.querySelector('.form_container_ingreso').addEventListener('submit',asyn
     
 var nombreEmail = document.querySelector('#nombreEmail').value;
 var contrasenia = document.querySelector('#contrasena').value;
-
+mensajeErrorIngreso.style.visibility = 'hidden'; // Muestra el mensaje de error
 //Datos del formulario
 const datosUsuario = {
     username: nombreEmail,
@@ -125,7 +142,10 @@ const datosUsuario = {
             //TODO
         }else{
             console.error("Error en el login", resultado.message);
-            alert("Error en el login: " + resultado.message);
+            
+            mensajeErrorIngreso.textContent = 'Error en el login, usuario o contraseña incorrecta';
+            mensajeErrorIngreso.style.color = '#700';
+            mensajeErrorIngreso.style.visibility = 'visible'; // Muestra el mensaje de error
         }
 
     }catch(error){

@@ -71,6 +71,24 @@ body {
     
 }
 
+/*Cuando se loguea un usuario se muestra esto: */
+.fa-solid{
+    font-weight: 500;
+    font-size: x-large;
+    position: relative;
+    left: 30px;
+    vertical-align:super;
+    color:var(--amarilloColor)
+}
+.span_saludo{
+    color:var(--amarilloColor);
+    font-size: 17px; 
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    vertical-align:middle;
+}
+
+
 
 .nav {
     display: flex;
@@ -282,7 +300,7 @@ body {
 }
 
 .personal_titulo {
-    color: var(--amarilloColor);
+    color: var(--verdeOscuroColor);
     margin-top: 0px;
     margin-bottom: -20px;
     font-size: 40px;
@@ -312,7 +330,7 @@ body {
 .descripcion_personal h1 {
     font-family: 'Arial', sans-serif;
     font-size: 24px;
-    color: var(--amarilloColor);
+    color: var(--rosaColor);
     font-weight: bold;
 }
 
@@ -326,9 +344,10 @@ body {
 .descripcion_personal p {
     font-family: 'Verdana', sans-serif;
     font-size: 16px;
-    color: var(--verdeColor);
+    color: var(--rosaOscuro);
     margin: 0; /* Elimina márgenes innecesarios */
 }
+.menu_logo_mobile{}
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo de la pestaña de noticias ++++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -633,4 +652,146 @@ color: var(--rosaClaro);
 
 footer a:hover{
 font-size: 38px;
+}
+
+iframe {
+    width: 100%; /* Hace que el iframe ocupe todo el ancho del contenedor */
+    /* height: 100%; Hace que el iframe ocupe toda la altura del contenedor */
+    border: 0; /* Elimina el borde del iframe */
+}
+
+
+
+
+
+/* ============================
+   Media Queries
+============================ */
+/* Para pantallas pequeñas (móviles en modo retrato) */
+@media (max-width: 767px) {
+
+    /* Ajustes generales */
+    body {
+        font-size: 14px; /* Ajustar tamaño de fuente */
+        overflow-x: hidden;
+    }
+
+    /* Encabezado y botones */
+    .botones_header {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .nav_opciones a {
+        font-size: 120%; /* Reducir tamaño de fuente en la navegación */
+    }
+
+    /* Pestaña principal */
+    #pestaña_principal {
+        flex-direction: column; /* Colocar logo y descripción uno debajo del otro */
+        align-items: center;
+        text-align: center;
+    }
+
+    .pestaña_principal_descripcion {
+        max-width: 100%; /* Asegurar que la descripción ocupe todo el ancho disponible */
+    }
+
+    .pestaña_principal_logo img {
+        height: auto; /* Permitir que la imagen escale */
+        max-width: 70%; /* Limitar el ancho de la imagen */
+    }
+
+    /* Servicios */
+    #servicios {
+        grid-template-columns: 1fr; /* Colocar una columna */
+        grid-template-rows: auto; /* Ajuste automático de filas */
+    }
+
+    .item_servicio {
+        width: 90%; /* Aumentar el ancho del item de servicio */
+    }
+
+    /* Personal */
+    #personal {
+        grid-template-columns: 1fr; /* Colocar una sola columna */
+    }
+
+    .imagen_personal img {
+        max-width: 100%; /* Imagen a 100% del contenedor */
+    }
+
+    /* Noticias */
+    .carrusel-container {
+        flex-direction: column; /* Colocar el carrusel en columna */
+    }
+
+    .noticia_op {
+        flex: 0 0 100%; /* Asegurar que las noticias ocupen todo el ancho disponible */
+    }
+
+    /* Contacto */
+    .contact-section {
+        flex-direction: column;
+    }
+
+    .contact-info, .contact-form {
+        margin-right: 0;
+        width: 100%; /* Asegurar que ambos contenedores ocupen todo el ancho disponible */
+    }
+}
+
+/* Para pantallas medianas (tablets y pantallas pequeñas) */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    /* Navegación */
+    .nav_opciones a {
+        font-size: 130%;
+    }
+
+    /* Servicios */
+    #servicios {
+        grid-template-columns: 1fr 1fr; /* Mantener dos columnas, pero más anchas */
+        grid-template-rows: auto; /* Ajuste automático */
+    }
+
+    .item_servicio {
+        width: 90%; /* Aumentar el ancho de los ítems */
+    }
+
+    /* Personal */
+    #personal {
+        grid-template-columns: 1fr 1fr; /* Dos columnas */
+    }
+
+    /* Noticias */
+    .carrusel-container {
+        max-width: 1000px; /* Ajustar el tamaño máximo del carrusel */
+    }
+
+    .noticia_op {
+        flex: 0 0 calc(50% - 10px); /* Dos noticias por fila */
+    }
+
+    /* Contacto */
+    .contact-info, .contact-form {
+        width: 48%; /* Ocupan la mitad del ancho disponible */
+    }
+}
+
+/* Para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
+    /* Servicios */
+    #servicios {
+        grid-template-columns: repeat(2, 1fr); /* Mantener dos columnas */
+    }
+
+    .item_servicio {
+        width: 80%;
+    }
+
+    /* Noticias */
+    .noticia_op {
+        flex: 0 0 calc(33.33% - 10px); /* Tres noticias por fila */
+    }
 }

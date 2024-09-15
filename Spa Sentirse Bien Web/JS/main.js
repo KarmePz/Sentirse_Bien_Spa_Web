@@ -24,7 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Crear un elemento de saludo
         const saludoUsuario = document.createElement('span');
+        const logoUsuario = document.createElement('i');
+        logoUsuario.className ="fa-solid fa-circle-user";
         saludoUsuario.textContent = `Hola, ${userName}`;
+        saludoUsuario.classList.add('span_saludo');
+        logoUsuario.classList.add('logo_usuario');
 
                 // Crear un botón de 'Cerrar sesión'
         const botonLogout = document.createElement('button');
@@ -52,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
  
             // Añadir el saludo y el botón de logout al header
+        botonesHeader.appendChild(logoUsuario);
         botonesHeader.appendChild(saludoUsuario);
         botonesHeader.appendChild(botonLogout);
 
