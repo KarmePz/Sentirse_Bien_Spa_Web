@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Si el usuario está logueado, mostrar su nombre o redirigir a la página de inicio
     if (userName && email) {
         botonAcceder.style.display = 'none';//se oculta boton acceder
-
+        
             // Crear un elemento de saludo
         const saludoUsuario = document.createElement('span');
         const logoUsuario = document.createElement('i');

@@ -624,13 +624,36 @@ padding: 20px;
 background-color: var(--rosaOscuro);
 color: var(--rosaClaro);
 text-align: center;
+justify-content: space-between;
 margin-top: auto;
+position: relative;
+display: flex;
+;
 }
 
 .footer_content {
 height: 10vh;
-padding: 20px;
+padding: 0px;
+display: flex;
 text-align: center;
+align-items: center;
+position: relative;
+}
+#footer_cv{
+    display: flex;
+    align-items: center; /* Cambia a center si deseas centrar verticalmente */
+    justify-content: flex-end; /* Cambia a flex-end si deseas alinear a la derecha */
+    flex-direction: row;
+}
+
+#footer_cv label{
+    position: relative;
+    color: #f39c12;
+    bottom: 5px;
+}
+#footer_cv a{
+    position: relative;
+    bottom: 5px;
 }
 
 i{
@@ -643,6 +666,7 @@ text-decoration: none;
 color:var(--rosaClaro);
 transition: font-size 0.2s ease-in-out;
 margin: 0px 10px;
+vertical-align: bottom;
 }
 
 a :visited{
@@ -660,7 +684,42 @@ iframe {
     border: 0; /* Elimina el borde del iframe */
 }
 
-
+#redes_sociales_anchor{
+    font-size: 15px;
+    color: var(--amarilloColor);
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}
+#redes_sociales_anchor:hover{
+    color: var(--verdeColor);
+}
+.email_redirection{
+    cursor: pointer; 
+    background-color: var(--verdeColor); 
+    color: #ccc;
+    padding: 10px 20px; 
+    font-size: 15px;
+}
+.email_redirection:hover{
+    background-color: #315012;
+    font-size: 15px;
+}
+/*BOTON FILE*/
+/* input[type="file"]::file-selector-button {
+    background-color: var(--amarilloOscuro); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    content: "Enviar CV";
+  }
+  
+  input[type="file"]::file-selector-button:hover {
+    background-color: var(--amarilloColor); 
+  } */
 
 
 

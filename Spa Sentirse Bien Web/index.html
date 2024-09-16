@@ -240,7 +240,7 @@
                         <option value="2">★★☆☆☆</option>
                         <option value="1">★☆☆☆☆</option>
                     </select>
-                    <button onclick="agregarReseña()">Enviar Reseña</button>
+                    <button class="enviar_reseña_button"onclick="agregarReseña()">Enviar Reseña</button>
                 </div>
                 <div class="reseñas-lista" id="reseñas-lista">
                     <!-- Reseñas iniciales -->
@@ -275,13 +275,12 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
                     width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <p>También puedes comunicarte en:</p>
-                <div class="social-media">
-                    <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <p>También puedes comunicarte en nuestras<a href="#redes_sociales" id="redes_sociales_anchor"> REDES SOCIALES</a></p>
+                    <!-- <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
+                    <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a> -->
+                
             </div>
     
             <div class="contact-form">
@@ -328,14 +327,21 @@
         </section>
     </main>
     <!-- Pie de Página -->
+    
     <footer class="footer">
-        <div class="footer_content">
+        
+        <div class="footer_content" id="redes_sociales">
             <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-            <i class="fa-solid fa-bars menu_logo_mobile"></i>
-            <p>Logo, número de teléfono, etc.</p>
+            <!-- <i class="fa-solid fa-bars menu_logo_mobile"></i> -->
+        </div>
+        <div class="footer_content" id="footer_cv">
+          
+                <label class="footer_cv_text">¿Te interesa Trabajar con nosotros? Envíanos Tu CV</label>  
+                <a href="mailto:SentirseBien_SpaWeb@gmail.com" class="email_redirection">Haciendo click aquí</a>
+            
         </div>
     </footer>
     <script src="./JS/contactos.js"></script>

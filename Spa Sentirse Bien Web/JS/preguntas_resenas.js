@@ -15,7 +15,25 @@ function agregarReseña() {
     const reseñaInput = document.getElementById('nueva-reseña');
     const calificacionSelect = document.getElementById('nueva-calificacion');
     const reseñaTexto = reseñaInput.value;
-    const calificacionTexto = calificacionSelect.value;
+    var calificacionTexto;
+    switch (calificacionSelect.value){
+        case '1':
+            calificacionTexto = "★☆☆☆☆";
+            break
+        case '2':
+            calificacionTexto = "★★☆☆☆";
+            break
+        case '3':
+            calificacionTexto = "★★★☆☆";
+            break
+        case '4':
+            calificacionTexto = "★★★★☆";
+            break
+        case '5':
+            calificacionTexto = "★★★★★";
+            break
+    }
+    // const calificacionTexto = calificacionSelect.value;
     if (reseñaTexto) {
         const listaReseñas = document.getElementById('reseñas-lista');
         const nuevaReseña = document.createElement('div');
