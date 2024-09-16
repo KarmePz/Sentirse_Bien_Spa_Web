@@ -25,6 +25,7 @@
 
 body {
     margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -36,6 +37,9 @@ body {
     background-color: var(--rosaOscuro); /* Fondo rosa oscuro para encabezado */
     padding: 5px;
     overflow: hidden; 
+    height: auto;
+    width: 100%;
+    z-index: 10001;
     
 }
 
@@ -90,49 +94,150 @@ body {
 
 
 
+/* Estilos generales */
 .nav {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 40px;
-    /*
-                SE DEBEN ACTUALIZAR LOS ESTILOS DE FORMA QUE NO SE CORTEN IMAGENES O FONDOS
-     position: fixed;
-    background-color: var(--rosaOscuro);  
-    */ 
+    height: auto;
+    position: relative;
 }
 
 .logo_nav {
-    float: left, top;
-    object-fit: scale-down;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
     height: 85px;
 }
 
+.logo_nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 .nav_opciones {
     display: flex;
-    width: 100%; 
-    height: 100%;
-    overflow: hidden;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    transition: all 0.5s ease;
 }
 
 .nav_opciones a {
     flex: 1;
-    
-    /*el lugar deonde se encuentra la letra*/
     text-align: center;
-    margin-top: 0%;  
+    margin-top: 0;
     font-size: 150%;
     font-family: Caveat, sans-serif;
     font-weight: bold;
     border-radius: 5px;
-    /*color de la letra*/
     color: var(--amarilloColor);
+    text-decoration: none; /* Asegura que los enlaces no tengan subrayado */
 }
 
 .nav_opciones a:hover {
-    background-color: var(--rosaColor); 
+    background-color: var(--rosaColor);
 }
+
+/* Estilos del ícono hamburguesa */
+.burger {
+    display: none; /* Oculto por defecto, visible solo en pantallas pequeñas */
+    position: absolute;
+    right: 20px; /* Colocar a la derecha */
+    top: 20px; /* Ajustar según sea necesario */
+    width: 25px; /* Más pequeño */
+    height: 25px; /* Más pequeño */
+    background: transparent;
+    cursor: pointer;
+}
+
+.burger input {
+    display: none;
+}
+
+.burger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--amarilloColor); /* Color amarillo */
+    border-radius: 9px;
+    left: 0;
+    transition: .25s ease-in-out;
+}
+
+.burger span:nth-of-type(1) {
+    top: 0px;
+}
+
+.burger span:nth-of-type(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.burger span:nth-of-type(3) {
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+.burger input:checked ~ span:nth-of-type(1) {
+    transform: rotate(45deg);
+    top: 0;
+    left: 5px;
+}
+
+.burger input:checked ~ span:nth-of-type(2) {
+    width: 0%;
+    opacity: 0;
+}
+
+.burger input:checked ~ span:nth-of-type(3) {
+    transform: rotate(-45deg);
+    top: 20px; /* Ajustado para que la animación sea fluida */
+    left: 5px;
+}
+
+/* Responsive: Pantallas pequeñas (móviles) */
+@media screen and (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .burger {
+        display: block; /* Mostrar ícono hamburguesa */
+    }
+
+    .nav_opciones {
+        display: none; /* Ocultar menú por defecto */
+        flex-direction: column;
+        width: 100%;
+        position: absolute; /* Asegura que el menú se muestre sobre otros elementos */
+        top: 60px; /* Ajustar según sea necesario */
+        left: 0;
+        background-color: white; /* Color de fondo para el menú desplegado */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el menú desplegado */
+    }
+
+    .burger input:checked ~ .nav_opciones {
+        display: flex; /* Mostrar menú cuando se haga clic en el ícono hamburguesa */
+    }
+
+    .nav_opciones a {
+        text-align: left;
+        padding: 10px 20px;
+        font-size: 120%;
+        width: 100%;
+        color: var(--amarilloColor); /* Color de texto */
+    }
+
+    .nav_opciones a:hover {
+        background-color: var(--rosaColor);
+    }
+}
+
 
 /*++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo del la pestaña de inicio ++++++*/
@@ -167,7 +272,48 @@ body {
     font-size: 37px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
+/* Media Queries para ajustar en diferentes tamaños de pantalla */
+@media (max-width: 1024px) {
+    .pestaña_principal_descripcion p {
+        font-size: 3vw; /* Ajusta el tamaño de la fuente para pantallas medianas */
+    }
+}
 
+@media (max-width: 768px) {
+    .pestaña_principal_descripcion p {
+        font-size: 3.5vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .pestaña_principal_logo img {
+        width: 30%; /* Ajusta el tamaño del logo para pantallas muy pequeñas */
+    }
+    .pestaña_principal_descripcion p {
+        font-size: 4vw; /* Ajusta el tamaño del texto para pantallas muy pequeñas */
+    }
+}
+
+/* Media Query para pantallas menores a 550px */
+@media (max-width: 550px) {
+    #pestaña_principal {
+        justify-content: flex-start; /* Alinea el contenido al inicio para evitar espacio */
+        padding: 15px; /* Reduce el padding para que los elementos queden más juntos */
+        height: auto;
+    }
+
+    .pestaña_principal_logo img {
+        width: 30%; /* Reduce un poco más el tamaño del logo */
+    }
+
+    .pestaña_principal_descripcion {
+        max-width: 70%; /* Asegura que el texto tenga más espacio */
+    }
+
+    .pestaña_principal_descripcion p {
+        font-size: 3.8vw; /* Reduce un poco el tamaño de la fuente */
+    }
+}
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo del la pestaña de Servicios ++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -744,74 +890,124 @@ h2 {
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-.contact-section {
+/* Contenedor principal */
+.contact-container {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    align-items: flex-start;
+    gap: 20px;
     background-color: var(--rosaOscuro);
 }
 
+/* Estilos para la sección de información */
 .contact-info {
-    flex: 1;
-    margin-right: 20px;
+    width: 45%; /* Ajuste para que ocupe el 45% del ancho */
+}
+
+.contact-info h2 {
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
     color: var(--amarilloColor);
 }
 
+.contact-info p {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    color: var(--rosaClaro);
+}
+
+.contact-info a {
+    color: var(--rosaClaro);
+    font-family: 'Courier New', monospace;
+    text-decoration: underline;
+}
+
+.map iframe {
+    width: 100%;
+    height: 350px;
+}
+
+/* Estilos para el formulario de contacto */
 .contact-form {
-    flex: 1;
+    width: 55%; /* Ajuste para que ocupe el 45% del ancho */
     background-color: var(--rosaOscuro);
     padding: 20px;
     border-radius: 8px;
-}
-
-.contact-form .input-group {
-    margin-bottom: 15px;
+    font-family: Caveat, sans-serif;
 }
 
 .contact-form label {
-    display: block;
-    font-weight: bold;
     color: var(--amarilloColor);
-    margin-bottom: 5px;
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
 }
 
 .contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 10px;
     background-color: var(--rosaClaro);
-    border: 0;
-    /*border: 1px solid var(--amarilloOscuro);*/
+    color: var(--rosaOscuro);
+    border: none;
+    padding: 10px;
+    font-family: "Comic Sans MS", cursive; 
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Estilos para el textarea (input del mensaje) */
+.contact-form textarea {
+    background-color: var(--rosaClaro);
+    color: var(--rosaOscuro);
+    border: none;
+    padding: 10px;
+    font-family: "Comic Sans MS", cursive;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 140px; /* Aumentamos la altura del textarea */
+    resize: vertical; /* Solo permitir que el usuario cambie el tamaño verticalmente */
+}
+
+
+.contact-form .name-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.contact-form .name-group .input-group {
+    width: 48%;
 }
 
 .contact-form button {
-    background-color: var(--verdeColor);
-    color: white;
+    background-color:var(--verdeOscuroColor);
+    color: var(--verdeColor);
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.contact-form button:hover {
-    background-color: var(--verdeOscuroColor);
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    width: 80%;
+    margin-top: 20px;
+    width: 200px; /* Establecemos un ancho fijo para centrarlo mejor */
+    margin: 20px auto 0; /* Centramos el botón */
 }
 
 .notification {
-    display: none;
     padding: 10px;
-    margin-top: 15px;
-    border-radius: 4px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
 }
 
 .notification.success {
-    background-color: var(--verdeColor);
-    color: white;
+    background-color: green;
+    color: var(--amarilloColor);
 }
 
 .notification.error {
-    background-color: var(--rosaColor);
-    color: white;
+    background-color:var(--rosaColor);
+    color: var(--amarilloColor);
 }
 
 
@@ -823,13 +1019,36 @@ padding: 20px;
 background-color: var(--rosaOscuro);
 color: var(--rosaClaro);
 text-align: center;
+justify-content: space-between;
 margin-top: auto;
+position: relative;
+display: flex;
+;
 }
 
 .footer_content {
 height: 10vh;
-padding: 20px;
+padding: 0px;
+display: flex;
 text-align: center;
+align-items: center;
+position: relative;
+}
+#footer_cv{
+    display: flex;
+    align-items: center; /* Cambia a center si deseas centrar verticalmente */
+    justify-content: flex-end; /* Cambia a flex-end si deseas alinear a la derecha */
+    flex-direction: row;
+}
+
+#footer_cv label{
+    position: relative;
+    color: #f39c12;
+    bottom: 5px;
+}
+#footer_cv a{
+    position: relative;
+    bottom: 5px;
 }
 
 i{
@@ -842,6 +1061,7 @@ text-decoration: none;
 color:var(--rosaClaro);
 transition: font-size 0.2s ease-in-out;
 margin: 0px 10px;
+vertical-align: bottom;
 }
 
 a :visited{
@@ -859,7 +1079,42 @@ iframe {
     border: 0; /* Elimina el borde del iframe */
 }
 
-
+#redes_sociales_anchor{
+    font-size: 15px;
+    color: var(--amarilloColor);
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}
+#redes_sociales_anchor:hover{
+    color: var(--verdeColor);
+}
+.email_redirection{
+    cursor: pointer; 
+    background-color: var(--verdeColor); 
+    color: #ccc;
+    padding: 10px 20px; 
+    font-size: 15px;
+}
+.email_redirection:hover{
+    background-color: #315012;
+    font-size: 15px;
+}
+/*BOTON FILE*/
+/* input[type="file"]::file-selector-button {
+    background-color: var(--amarilloOscuro); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    content: "Enviar CV";
+  }
+  
+  input[type="file"]::file-selector-button:hover {
+    background-color: var(--amarilloColor); 
+  } */
 
 
 

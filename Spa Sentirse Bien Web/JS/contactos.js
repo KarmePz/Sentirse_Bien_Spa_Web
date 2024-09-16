@@ -13,12 +13,12 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         
         setTimeout(function(){
             document.getElementById('successNotification').style.display = 'none';
-        }, 10000);
+        }, 1000);
     } else {
         document.getElementById('errorNotification').style.display = 'block';
         setTimeout(function(){
             document.getElementById('errorNotification').style.display = 'none';
-        }, 10000);
+        }, 1000);
     }
 });
 

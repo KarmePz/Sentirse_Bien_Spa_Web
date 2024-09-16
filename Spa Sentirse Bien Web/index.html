@@ -26,16 +26,25 @@
             
         </div>
         <nav class="nav">
-            <div class="logo_nav"></div><a href="#pestaña_principal"><img src="/sources/logo_spa2.png" alt="logo_spa"></a></div>
+            <div class="logo_nav">
+                <a href="#pestaña_principal"><img src="/sources/logo_spa2.png" alt="logo_spa"></a>
+            </div>
+            <label class="burger" for="burger">
+                <input type="checkbox" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
             <div class="nav_opciones">
-            <a href="#pestaña_principal">¿Quienes somos?</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#personal">Personal</a>
-            <a href="#noticias">Noticias</a>
-            <a href="#pregunta_y_resenas">Preguntas y Reseñas</a>
-            <a href="#contactos">Contactos</a>
+                <a href="#pestaña_principal">¿Quienes somos?</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#personal">Personal</a>
+                <a href="#noticias">Noticias</a>
+                <a href="#pregunta_y_resenas">Preguntas y Reseñas</a>
+                <a href="#contactos">Contactos</a>
             </div>
         </nav>
+               
     </header>
 
 
@@ -206,74 +215,80 @@
        
         <!-- Pestaña Contactos -->
         <section id="contactos" class="contact-section">
-            <div class="contact-info">
-                <h2>Puedes encontrarnos en: French 414</h2>
-                <p>Horarios lunes a viernes: de 8 a 12 o de 16 a 20</p>
-                <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
-                    width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Puedes encontrarnos en: French 414</h2>
+                    <p>Horarios lunes a viernes: de 8 a 12 o de 16 a 20</p>
+                    <div class="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <p>También puedes comunicarte en nuestras <a href="#redes_sociales" id="redes_sociales_anchor">REDES SOCIALES</a></p>
                 </div>
-                <p>También puedes comunicarte en:</p>
-                <div class="social-media">
-                    <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="input-group" id="guestUserSection">
+                            <div class="name-group">
+                                <div class="input-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+                                </div>
+                                <div class="input-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
+                            </div>
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="asunto">Asunto</label>
+                            <input type="text" id="asunto" name="asunto" placeholder="ej.: Consulta sobre servicios">
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="ej.: Tu mensaje"></textarea>
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="verification">Verificación</label>
+                            <input type="text" id="verification" name="verification" placeholder="Escribe la palabra clave: SPASB">
+                        </div>                    
+                        <button type="submit">Enviar</button>
+                        <div class="notification success" id="successNotification" style="display: none;">Mensaje enviado correctamente</div>
+                        <div class="notification error" id="errorNotification"style="display: none;">Error al enviar el mensaje</div>
+                    </form>
                 </div>
-            </div>
-    
-            <div class="contact-form">
-                <form id="contactForm">
-                    <!-- Sección solo visible si el usuario está logueado -->
-                    <div class="input-group" id="loggedInUserSection" style="display: none;">
-                        <p>Hola <span id="usernameDisplay"></span>, la respuesta se enviará a <span id="emailDisplay"></span></p>
-                    </div>
-                    <!-- Sección visible solo si el usuario no está logueado -->
-                    <div class="input-group" id="guestUserSection">
-                        <div class="input-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
-                        </div>
-                        <div class="input-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
-                        </div>
-                        <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
-                        </div>
-                    </div>
-
-
-                    <!-- Sección siempre visible -->
-                    <div class="input-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
-                    </div>
-                    <div class="input-group">
-                        <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" placeholder="ej.: Tu mensaje"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="verification">Verificación</label>
-                        <input type="text" id="verification" name="verification" placeholder="Escribe la palabra clave: SPASB">
-                    </div>                    
-                    <button type="submit">Enviar</button>
-                    <div class="notification success" id="successNotification">Mensaje enviado correctamente</div>
-                    <div class="notification error" id="errorNotification">Error al enviar el mensaje</div>
-                </form>
             </div>
         </section>
+        
     </main>
     <!-- Pie de Página -->
+    
     <footer class="footer">
-        <div class="footer_content">
+        
+        <div class="footer_content" id="redes_sociales">
             <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-            <i class="fa-solid fa-bars menu_logo_mobile"></i>
-            <p>Logo, número de teléfono, etc.</p>
+            <!-- <i class="fa-solid fa-bars menu_logo_mobile"></i> -->
+        </div>
+        <div class="footer_content" id="footer_cv">
+          
+                <label class="footer_cv_text">¿Te interesa Trabajar con nosotros? Envíanos Tu CV</label>  
+                <a href="mailto:SentirseBien_SpaWeb@gmail.com" class="email_redirection">Haciendo click aquí</a>
+            
         </div>
     </footer>
     <script src="./JS/contactos.js"></script>
