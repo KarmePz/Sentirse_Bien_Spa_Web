@@ -25,6 +25,7 @@
 
 body {
     margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -36,6 +37,10 @@ body {
     background-color: var(--rosaOscuro); /* Fondo rosa oscuro para encabezado */
     padding: 5px;
     overflow: hidden; 
+    height: auto;
+    width: 100%;
+    position: fixed;
+    z-index: 10001;
     
 }
 
@@ -94,12 +99,13 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 40px;
+    height: auto;
     /*
                 SE DEBEN ACTUALIZAR LOS ESTILOS DE FORMA QUE NO SE CORTEN IMAGENES O FONDOS
      position: fixed;
     background-color: var(--rosaOscuro);  
     */ 
+   
 }
 
 .logo_nav {
