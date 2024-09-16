@@ -114,3 +114,6 @@ button:hover {
 .ficha:hover button {
     opacity: 1; 
 }
+full-whdth{
+    grid-column:span2;
+}

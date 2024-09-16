@@ -962,7 +962,7 @@ h2 {
     border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
-    height: 140px; /* Aumentamos la altura del textarea */
+    height: 1px; /* Aumentamos la altura del textarea */
     resize: vertical; /* Solo permitir que el usuario cambie el tamaño verticalmente */
 }
 
@@ -1100,6 +1100,7 @@ iframe {
     background-color: #315012;
     font-size: 15px;
 }
+
 /*BOTON FILE*/
 /* input[type="file"]::file-selector-button {
     background-color: var(--amarilloOscuro); 
