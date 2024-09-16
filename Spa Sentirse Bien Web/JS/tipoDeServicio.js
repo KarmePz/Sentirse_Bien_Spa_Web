@@ -87,13 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const indice = localStorage.getItem('indiceServicio'); // Recuperar el índice almacenado
     console.log("Índice recuperado:", indice);
     if (indice !== null) {
-        // cargarPagina(indice); // Llamar a la función cargarPagina con el índice recuperado
+        cargarPagina(indice); // Llamar a la función cargarPagina con el índice recuperado
     }
 });
 
 function cargarPagina(indice) {
-    
-   
+    const ficha1 = document.getElementById("ficha1");
+    const ficha2 = document.getElementById("ficha2");
+    const ficha3 = document.getElementById("ficha3");
+    const ficha4 = document.getElementById("ficha4");
     const tituloServicio = document.getElementById("tituloServicio");
 
     console.log(document.getElementById("tituloServicio"));
@@ -138,8 +140,25 @@ function cargarPagina(indice) {
     titulo_Ficha3.textContent = servicio.titulo_Ficha3;
     descripcion_Ficha3.textContent = servicio.descripcion_Ficha3;
 
-    imagen_Ficha4.src = servicio.imagen_Ficha4;
-    titulo_Ficha4.textContent = servicio.titulo_Ficha4;
-    descripcion_Ficha4.textContent = servicio.descripcion_Ficha4;
+
+    if (servicio.imagen_Ficha4 === "" && servicio.titulo_Ficha4 === "" && servicio.descripcion_Ficha4 === "") {
+        // Eliminar ficha 4 del DOM si está vacía
+        ficha4.remove();
+        // Centrar ficha 3
+        ficha3.style.margin = "auto"; // Centramos horizontalmente
+    } else {
+        // Mostrar ficha 4 si tiene contenido
+        ficha4.style.display = "block";
+        imagen_Ficha4.src = servicio.imagen_Ficha4;
+        titulo_Ficha4.textContent = servicio.titulo_Ficha4;
+        descripcion_Ficha4.textContent = servicio.descripcion_Ficha4;
+        // Asegurar que la ficha 3 no esté centrada si hay 4 fichas
+        ficha3.style.margin = "0";
+    }
+
+
+    // imagen_Ficha4.src = servicio.imagen_Ficha4;
+    // titulo_Ficha4.textContent = servicio.titulo_Ficha4;
+    // descripcion_Ficha4.textContent = servicio.descripcion_Ficha4;
    
 }
