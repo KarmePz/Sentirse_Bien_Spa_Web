@@ -266,10 +266,10 @@ body {
 
 /* Estilos para el título */
 .pestaña_principal_descripcion p {
-    font-family: Penultimate, cursive;
-    font-weight:normal;
-    color: var(--verdeOscuroColor); /* Cambia el color del texto */
-    font-size: 37px; /* Ajusta el tamaño del texto */
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    color: black; /* Cambia el color del texto */
+    font-size: 50px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
 /* Media Queries para ajustar en diferentes tamaños de pantalla */
