@@ -26,16 +26,25 @@
             
         </div>
         <nav class="nav">
-            <div class="logo_nav"></div><a href="#pestaña_principal"><img src="/sources/logo_spa2.png" alt="logo_spa"></a></div>
+            <div class="logo_nav">
+                <a href="#pestaña_principal"><img src="/sources/logo_spa2.png" alt="logo_spa"></a>
+            </div>
+            <label class="burger" for="burger">
+                <input type="checkbox" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
             <div class="nav_opciones">
-            <a href="#pestaña_principal">¿Quienes somos?</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#personal">Personal</a>
-            <a href="#noticias">Noticias</a>
-            <a href="#pregunta_y_resenas">Preguntas y Reseñas</a>
-            <a href="#contactos">Contactos</a>
+                <a href="#pestaña_principal">¿Quienes somos?</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#personal">Personal</a>
+                <a href="#noticias">Noticias</a>
+                <a href="#pregunta_y_resenas">Preguntas y Reseñas</a>
+                <a href="#contactos">Contactos</a>
             </div>
         </nav>
+               
     </header>
 
 
@@ -114,7 +123,7 @@
 
         <!-- Pestaña del Personal-->
         <section name="personal" id="personal">
-            <h2 class="personal_titulo">Conócenos mejor:</h2>
+            <h2 class="personal_titulo">Conócenos Mejor:</h2>
             <div class="personal_items">
                 <div class="imagen_personal">
                     <img src="/sources/Empleados/emcargadad de Belleza y Tratamiento Faciales.jpg">
@@ -142,198 +151,136 @@
         <section id="noticias" class="noticias">
             <h2 class="noticias_titulo">Noticias</h2>
             <div class="carrusel-container">
-                <div class="boton_noticias">
-                    <button class="prev">⟨</button>
-                </div>
-                <div class="carrusel">
-                    <div class="noticia_op">
-                        <div class="imagen_noticia">
-                            <img src="/sources/logoSinTexto.png" alt="noticia 1">
-                        </div>
-                        <div class="descripcion_noticia">
-                            <h4>Tipo de noticia 1</h4>
-                            <p>Fecha: 2024-08-24</p>
-                            <h1>Título de la noticia 1</h1>
-                        </div>
-                    </div>
-                    <div class="noticia_op">
-                        <div class="imagen_noticia">
-                            <img src="/sources/logoSinTexto.png" alt="noticia 2">
-                        </div>
-                        <div class="descripcion_noticia">
-                            <h4>Tipo de noticia 2</h4>
-                            <p>Fecha: 2024-08-23</p>
-                            <h1>Título de la noticia 2</h1>
-                        </div>
-                    </div>
-                    <div class="noticia_op">
-                        <div class="imagen_noticia">
-                            <img src="/sources/logoSinTexto.png" alt="noticia 3">
-                        </div>
-                        <div class="descripcion_noticia">
-                            <h4>Tipo de noticia 3</h4>
-                            <p>Fecha: 2024-08-22</p>
-                            <h1>Título de la noticia 3</h1>
-                        </div>
-                    </div>
-                    <div class="noticia_op">
-                        <div class="imagen_noticia">
-                            <img src="/sources/logoSinTexto.png" alt="noticia 4">
-                        </div>
-                        <div class="descripcion_noticia">
-                            <h4>Tipo de noticia 4</h4>
-                            <p>Fecha: 2024-08-21</p>
-                            <h1>Título de la noticia 4</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="boton_noticias">
-                    <button class="next">⟩</button>
-                </div>
+              <div class="boton_noticias">
+                <button class="prev">⟨</button>
+              </div>
+              <div class="carrusel">
+                <!-- Las noticias se insertarán aquí dinámicamente -->
+              </div>
+              <div class="boton_noticias">
+                <button class="next">⟩</button>
+              </div>
             </div>
-        </section>
+        </section>          
 
 
         <!-- Pestaña Preguntas y Reseñas -->
-    
         <section id="pregunta_y_resenas" class="pregunta_y_resenas">
-            <div class="preguntas">
-                <h2>Preguntas y Respuestas</h2>
-                <div class="pregunta-formulario">
-                    <input type="text" id="nueva-pregunta" placeholder="Escribí tu pregunta aquí...">
-                    <button onclick="agregarPregunta()">Realizar Pregunta</button>
-                </div>
-                <div class="preguntas-lista" id="preguntas-lista">
-                    <!-- Preguntas iniciales -->
-                    <div class="pregunta">
-                        <p>¿El masaje relajante incluye aceites esenciales?</p>
-                        <p class="respuesta">Hola! Sí, utilizamos aceites esenciales de alta calidad. <span class="fecha">22/08/2024</span></p>
-                    </div>
-                    <div class="pregunta">
-                        <p>¿Tienen promociones para el Día de la Madre?</p>
-                        <p class="respuesta">Hola! Sí, tenemos un paquete especial con un descuento del 20%. <span class="fecha">21/08/2024</span></p>
-                    </div>
-                    <div class="pregunta">
-                        <p>¿Cuánto dura el tratamiento facial?</p>
-                        <p class="respuesta">Hola! Aproximadamente 60 minutos. <span class="fecha">20/08/2024</span></p>
-                    </div>
-                    <div class="pregunta">
-                        <p>¿Se pueden hacer reservas online?</p>
-                        <p class="respuesta">Hola! Sí, puedes reservar directamente desde nuestra página web. <span class="fecha">19/08/2024</span></p>
-                    </div>
-                    <div class="pregunta">
-                        <p>¿El spa ofrece servicios para parejas?</p>
-                        <p class="respuesta">Hola! Claro, tenemos paquetes para parejas con descuentos especiales. <span class="fecha">18/08/2024</span></p>
-                    </div>
-                </div>
-                <a href="#" class="ver-mas">Ver todas las preguntas</a>
+            <!-- Preguntas -->
+            <div class="preguntas" id="preguntas">
+              <h2>Preguntas y Respuestas</h2>
+              <div class="pregunta-formulario">
+                <input type="text" id="nueva-pregunta" placeholder="Escribí tu pregunta aquí...">
+                <button onclick="agregarPregunta()">Realizar Pregunta</button>
+              </div>
+              <div class="preguntas-lista" id="preguntas-lista">
+                <!-- Preguntas agregadas aparecerán aquí -->
+              </div>
+              <a href="#" class="ver-mas" id="ver-mas-preguntas" onclick="abrirModal('preguntas')">Ver más preguntas</a>
             </div>
-            
-            <div class="reseñas">
-                <h2>Reseñas</h2>
-                <div class="reseña-formulario">
-                    <input type="text" id="nueva-reseña" placeholder="Escribí tu reseña aquí...">
-                    <select id="nueva-calificacion">
-                        <option value="5">★★★★★</option>
-                        <option value="4">★★★★☆</option>
-                        <option value="3">★★★☆☆</option>
-                        <option value="2">★★☆☆☆</option>
-                        <option value="1">★☆☆☆☆</option>
-                    </select>
-                    <button class="enviar_reseña_button"onclick="agregarReseña()">Enviar Reseña</button>
+          
+            <!-- Reseñas -->
+            <div class="reseñas" id="reseñas">
+              <h2>Reseñas</h2>
+              <div class="reseña-formulario">
+                <input type="text" id="nueva-reseña" placeholder="Escribí tu reseña aquí...">
+                <div class="calificacion-estrellas" id="calificacion-estrellas">
+                  <!-- Estrellas para calificación -->
+                  <span class="estrella" data-value="1">★</span>
+                  <span class="estrella" data-value="2">★</span>
+                  <span class="estrella" data-value="3">★</span>
+                  <span class="estrella" data-value="4">★</span>
+                  <span class="estrella" data-value="5">★</span>
                 </div>
-                <div class="reseñas-lista" id="reseñas-lista">
-                    <!-- Reseñas iniciales -->
-                    <div class="reseña">
-                        <div class="calificacion">★★★★★</div>
-                        <p>El masaje de piedras calientes fue increíble, me dejó completamente relajado. <span class="fecha">14/08/2023</span></p>
-                    </div>
-                    <div class="reseña">
-                        <div class="calificacion">★★★★☆</div>
-                        <p>El ambiente del spa es muy acogedor, pero me gustaría que la sala de espera fuera más grande. <span class="fecha">10/08/2023</span></p>
-                    </div>
-                    <div class="reseña">
-                        <div class="calificacion">★★★★★</div>
-                        <p>El tratamiento facial me dejó la piel súper suave y luminosa. <span class="fecha">05/08/2023</span></p>
-                    </div>
-                    <div class="reseña">
-                        <div class="calificacion">★★★★☆</div>
-                        <p>La atención fue excelente, aunque el precio es un poco elevado. <span class="fecha">01/08/2023</span></p>
-                    </div>
-                </div>
-                <a href="#" class="ver-mas">Ver todas las reseñas</a>
+                <button onclick="agregarReseña()">Enviar Reseña</button>
+              </div>
+              <div class="reseñas-lista" id="reseñas-lista">
+                <!-- Reseñas agregadas aparecerán aquí -->
+              </div>
+              <a href="#" class="ver-mas" id="ver-mas-resenas" onclick="abrirModal('reseñas')">Ver más reseñas</a>
             </div>
-        </section>
+          </section>
+          
+          <!-- Modal -->
+          <div id="modal" class="modal">
+            <div class="modal-content">
+              <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+              <div class="modal-body" id="modal-body"></div>
+            </div>
+          </div>
+          
+
+    
 
        
         <!-- Pestaña Contactos -->
         <section id="contactos" class="contact-section">
-            <div class="contact-info">
-                <h2>Puedes encontrarnos en: French 414</h2>
-                <p>Horarios lunes a viernes: de 8 a 12 o de 16 a 20</p>
-                <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
-                    width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Puedes encontrarnos en: French 414</h2>
+                    <p>Horarios lunes a viernes: de 8 a 12 o de 16 a 20</p>
+                    <div class="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4260.485902254387!2d-58.98027862297848!3d-27.453035954095174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1725305827965!5m2!1ses!2sar"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <p>También puedes comunicarte en nuestras <a href="#redes_sociales" id="redes_sociales_anchor">REDES SOCIALES</a></p>
                 </div>
-                <p>También puedes comunicarte en nuestras<a href="#redes_sociales" id="redes_sociales_anchor"> REDES SOCIALES</a></p>
-                    <!-- <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a> -->
-                
-            </div>
-    
-            <div class="contact-form">
-                <form id="contactForm">
-                    <!-- Sección solo visible si el usuario está logueado -->
-                    <div class="input-group" id="loggedInUserSection" style="display: none;">
-                        <p>Hola <span id="usernameDisplay"></span>, la respuesta se enviará a <span id="emailDisplay"></span></p>
-                    </div>
-                    <!-- Sección visible solo si el usuario no está logueado -->
-                    <div class="input-group" id="guestUserSection">
-                        <div class="input-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+        
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="input-group" id="guestUserSection">
+                            <div class="name-group">
+                                <div class="input-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="ej.: María">
+                                </div>
+                                <div class="input-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
+                            </div>
                         </div>
+        
                         <div class="input-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" name="apellido" placeholder="ej.: Pérez">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
                         </div>
+        
                         <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="ej.: tuemail@email.com">
+                            <label for="asunto">Asunto</label>
+                            <input type="text" id="asunto" name="asunto" placeholder="ej.: Consulta sobre servicios">
                         </div>
-                    </div>
-
-
-                    <!-- Sección siempre visible -->
-                    <div class="input-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="ej.: 1123445567">
-                    </div>
-                    <div class="input-group">
-                        <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" placeholder="ej.: Tu mensaje"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="verification">Verificación</label>
-                        <input type="text" id="verification" name="verification" placeholder="Escribe la palabra clave: SPASB">
-                    </div>                    
-                    <button type="submit">Enviar</button>
-                    <div class="notification success" id="successNotification">Mensaje enviado correctamente</div>
-                    <div class="notification error" id="errorNotification">Error al enviar el mensaje</div>
-                </form>
+        
+                        <div class="input-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="ej.: Tu mensaje"></textarea>
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="verification">Verificación</label>
+                            <input type="text" id="verification" name="verification" placeholder="Escribe la palabra clave: SPASB">
+                        </div>                    
+                        <button type="submit">Enviar</button>
+                        <div class="notification success" id="successNotification" style="display: none;">Mensaje enviado correctamente</div>
+                        <div class="notification error" id="errorNotification"style="display: none;">Error al enviar el mensaje</div>
+                    </form>
+                </div>
             </div>
         </section>
+        
     </main>
     <!-- Pie de Página -->
     
     <footer class="footer">
         
         <div class="footer_content" id="redes_sociales">
-            <a href="https://www.tiktok.com/?lang=es"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.tiktok.com/@spa_sentirsebien"target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-            <a href="https://www.instagram.com"target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.instagram.com/spasentirsebienoficial/"target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.whatsapp.com"target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
             <!-- <i class="fa-solid fa-bars menu_logo_mobile"></i> -->
         </div>

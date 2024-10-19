@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 /* Variables de colores */
 :root {
     --verdeColor: #5fa510;
@@ -39,7 +39,6 @@ body {
     overflow: hidden; 
     height: auto;
     width: 100%;
-    position: fixed;
     z-index: 10001;
     
 }
@@ -49,6 +48,7 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 10px;  
+    height: 25px;
 }
 
 .boton_acceder {
@@ -91,54 +91,155 @@ body {
     font-family: "Dancing Script", sans-serif;
     font-weight: bold;
     vertical-align:middle;
+    z-index: 11000;
 }
 
 
 
+/* Estilos generales */
 .nav {
     display: flex;
     align-items: center;
     width: 100%;
     height: auto;
-    /*
-                SE DEBEN ACTUALIZAR LOS ESTILOS DE FORMA QUE NO SE CORTEN IMAGENES O FONDOS
-     position: fixed;
-    background-color: var(--rosaOscuro);  
-    */ 
-   
+    position: relative;
 }
 
 .logo_nav {
-    float: left, top;
-    object-fit: scale-down;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
     height: 85px;
 }
 
+.logo_nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 .nav_opciones {
     display: flex;
-    width: 100%; 
-    height: 100%;
-    overflow: hidden;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    transition: all 0.5s ease;
 }
 
 .nav_opciones a {
     flex: 1;
-    
-    /*el lugar deonde se encuentra la letra*/
     text-align: center;
-    margin-top: 0%;  
+    margin-top: 0;
     font-size: 150%;
     font-family: Caveat, sans-serif;
     font-weight: bold;
     border-radius: 5px;
-    /*color de la letra*/
     color: var(--amarilloColor);
+    text-decoration: none; /* Asegura que los enlaces no tengan subrayado */
 }
 
 .nav_opciones a:hover {
-    background-color: var(--rosaColor); 
+    background-color: var(--rosaColor);
 }
+
+/* Estilos del ícono hamburguesa */
+.burger {
+    display: none; /* Oculto por defecto, visible solo en pantallas pequeñas */
+    position: absolute;
+    right: 20px; /* Colocar a la derecha */
+    top: 20px; /* Ajustar según sea necesario */
+    width: 25px; /* Más pequeño */
+    height: 25px; /* Más pequeño */
+    background: transparent;
+    cursor: pointer;
+}
+
+.burger input {
+    display: none;
+}
+
+.burger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--amarilloColor); /* Color amarillo */
+    border-radius: 9px;
+    left: 0;
+    transition: .25s ease-in-out;
+}
+
+.burger span:nth-of-type(1) {
+    top: 0px;
+}
+
+.burger span:nth-of-type(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.burger span:nth-of-type(3) {
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+.burger input:checked ~ span:nth-of-type(1) {
+    transform: rotate(45deg);
+    top: 0;
+    left: 5px;
+}
+
+.burger input:checked ~ span:nth-of-type(2) {
+    width: 0%;
+    opacity: 0;
+}
+
+.burger input:checked ~ span:nth-of-type(3) {
+    transform: rotate(-45deg);
+    top: 20px; /* Ajustado para que la animación sea fluida */
+    left: 5px;
+}
+
+/* Responsive: Pantallas pequeñas (móviles) */
+@media screen and (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .burger {
+        display: block; /* Mostrar ícono hamburguesa */
+    }
+
+    .nav_opciones {
+        display: none; /* Ocultar menú por defecto */
+        flex-direction: column;
+        width: 100%;
+        position: absolute; /* Asegura que el menú se muestre sobre otros elementos */
+        top: 60px; /* Ajustar según sea necesario */
+        left: 0;
+        background-color: white; /* Color de fondo para el menú desplegado */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el menú desplegado */
+    }
+
+    .burger input:checked ~ .nav_opciones {
+        display: flex; /* Mostrar menú cuando se haga clic en el ícono hamburguesa */
+    }
+
+    .nav_opciones a {
+        text-align: left;
+        padding: 10px 20px;
+        font-size: 120%;
+        width: 100%;
+        color: var(--amarilloColor); /* Color de texto */
+    }
+
+    .nav_opciones a:hover {
+        background-color: var(--rosaColor);
+    }
+}
+
 
 /*++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo del la pestaña de inicio ++++++*/
@@ -173,7 +274,48 @@ body {
     font-size: 37px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
+/* Media Queries para ajustar en diferentes tamaños de pantalla */
+@media (max-width: 1024px) {
+    .pestaña_principal_descripcion p {
+        font-size: 3vw; /* Ajusta el tamaño de la fuente para pantallas medianas */
+    }
+}
 
+@media (max-width: 768px) {
+    .pestaña_principal_descripcion p {
+        font-size: 3.5vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .pestaña_principal_logo img {
+        width: 30%; /* Ajusta el tamaño del logo para pantallas muy pequeñas */
+    }
+    .pestaña_principal_descripcion p {
+        font-size: 4vw; /* Ajusta el tamaño del texto para pantallas muy pequeñas */
+    }
+}
+
+/* Media Query para pantallas menores a 550px */
+@media (max-width: 550px) {
+    #pestaña_principal {
+        justify-content: flex-start; /* Alinea el contenido al inicio para evitar espacio */
+        padding: 15px; /* Reduce el padding para que los elementos queden más juntos */
+        height: auto;
+    }
+
+    .pestaña_principal_logo img {
+        width: 30%; /* Reduce un poco más el tamaño del logo */
+    }
+
+    .pestaña_principal_descripcion {
+        max-width: 70%; /* Asegura que el texto tenga más espacio */
+    }
+
+    .pestaña_principal_descripcion p {
+        font-size: 3.8vw; /* Reduce un poco el tamaño de la fuente */
+    }
+}
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo del la pestaña de Servicios ++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -294,66 +436,109 @@ body {
 /*++++++ Estilo de la pestaña del personal +++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
 
+/* Estilos generales */
 #personal {
-    background-color: var(--rosaClaro);
-    padding: 10px 25px;
-    height: 97vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-    grid-template-rows: auto 1fr; /* Dos filas */
-    gap: 20px; /* Espacio entre los ítems */
-    align-items: start; /* Alinea verticalmente los ítems en la parte superior */
+    padding: 40px 20px;
+    background-color: var(--rosaClaro); /* Color de fondo para la sección */
 }
 
 .personal_titulo {
-    color: var(--verdeOscuroColor);
-    margin-top: 0px;
-    margin-bottom: -20px;
-    font-size: 40px;
+    font-size: 50px;
+    color: var(--amarilloColor); /* Color de texto del título */
     text-align: center;
-    grid-column: 1 / span 2; /* Hace que el título ocupe ambas columnas */
-}
-
-.personal_items {
-    display: block; /* Elimina el flexbox para permitir el float */
-    overflow: hidden; /* Asegura que el contenedor envuelva ambos elementos */
-    margin-bottom: 20px; /* Espacio entre cada personal_item */
-}
-
-.imagen_personal img {
-    float: left; /* Hace que la imagen flote a la izquierda */
-    max-width: 45%; /* Controla el tamaño de la imagen */
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 10px 10px 0; /* Margen derecho e inferior */
-}
-
-.descripcion_personal {
-    overflow: hidden; /* Asegura que el contenido no se salga del contenedor */
-}
-
-.descripcion_personal h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    color: var(--rosaColor);
+    margin-bottom: 10px;
+    font-family: "Dancing Script", sans-serif;
     font-weight: bold;
 }
 
+/* Estilos para los contenedores de los empleados */
+.personal_items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color:var(--rosaClaro);
+    border-radius: 10px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.personal_items:nth-child(even) {
+    flex-direction: row-reverse; /* Alternar imagen y texto */
+}
+
+.personal_items:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para las imágenes (cuadradas) */
+.imagen_personal img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px; /* Hacer las imágenes cuadradas con esquinas ligeramente redondeadas */
+    object-fit: cover;
+    margin: 0 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagen_personal {
+    flex: 1;
+}
+
+/* Estilos para la descripción */
+.descripcion_personal {
+    flex: 2;
+    max-width: 600px;
+}
+
+.descripcion_personal h1 {
+    font-family: Nunito, sans-serif; /* Fuente para el nombre */
+    font-weight: bold;
+    color: var(--amarilloColor); /* Color para el nombre */
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
 .descripcion_personal h3 {
-    font-family: 'Georgia', serif;
-    font-size: 20px;
-    color: var(--verdeOscuroColor);
-    font-style: italic;
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
+    font-style: italic; /* Estilo cursiva */
+    color: var(--verdeOscuroColor); /* Color para el subtítulo */
+    font-size: 1.2rem;
+    margin-bottom: 15px;
 }
 
 .descripcion_personal p {
-    font-family: 'Verdana', sans-serif;
-    font-size: 16px;
-    color: var(--rosaOscuro);
-    margin: 0; /* Elimina márgenes innecesarios */
+    font-family: Georgia, serif; /* Fuente para el texto */
+    font-weight: normal;
+    color: var(--verdeColor); /* Color para el texto */
+    font-size: 1rem;
+    line-height: 1.6;
 }
-.menu_logo_mobile{}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .personal_items {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .personal_items:nth-child(even) {
+        flex-direction: column; /* Revertir a diseño vertical en móviles */
+    }
+
+    .imagen_personal img {
+        margin-bottom: 20px;
+    }
+
+    .descripcion_personal {
+        text-align: center;
+    }
+}
+
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo de la pestaña de noticias ++++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -371,7 +556,9 @@ body {
 .noticias_titulo {
     text-align: center;
     color: var(--amarilloOscuro);
-    font-size: 2rem;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
     margin-bottom: 20px;
 }
 
@@ -383,39 +570,47 @@ body {
     overflow: hidden;
     max-width: 1200px; /* Ajusta este valor según el tamaño máximo deseado */
     position: relative;
-    scroll-behavior: smooth;
 }
 
 .boton_noticias {
     flex-shrink: 0;
-    margin: 0 10px; /* Reduce el margen para acercar los botones al carrusel */
+    margin: 0 10px;
 }
 
 .carrusel {
     display: flex;
-    gap: 10px; /* Ajusta el espacio entre cada noticia */
-    flex: 1; /* Permite que el carrusel ocupe el espacio restante */
+    gap: 10px;
+    flex: 1;
     overflow: hidden;
-    
-
 }
 
 .noticia_op {
-    
     box-sizing: border-box;
     padding: 10px;
     background-color: var(--rosaClaro);
     border-radius: 10px;
     text-align: center;
-    flex: 0 0 calc(33.33% - 10px);
-    margin-right: 10px;
+    flex: 0 0 calc(33.33% - 10px); /* Muestra 3 noticias a la vez */
     transition: transform 0.5s ease;
-    z-index: 5; 
+}
+.noticia_op:hover{
+    cursor: pointer;
+    background-color: #888;
+}
 
+.imagen_noticia {
+    width: 100%; /* Asegura que el contenedor de la imagen ocupa todo el espacio disponible */
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .imagen_noticia img {
     width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin distorsión */
     border-radius: 10px;
 }
 
@@ -423,6 +618,8 @@ body {
     background-color: var(--amarilloOscuro);
     color: var(--rosaOscuro);
     display: inline-block;
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
     padding: 3px 5px;
     border-radius: 15px;
     font-size: 10px;
@@ -430,15 +627,26 @@ body {
 
 .descripcion_noticia p {
     color: var(--verdeColor);
-    font-size: 0.9rem;
+    font-family: Quicksand, sans-serif;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.8rem;
 }
 
 .descripcion_noticia h1 {
     color: var(--verdeOscuroColor);
+    font-family: Georgia, serif;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
-.prev, .next {
+.boton_noticias {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido del botón */
+}
+
+.boton_noticias button {
     background-color: transparent;
     color: white;
     border: none;
@@ -446,12 +654,17 @@ body {
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: 5px;
-    z-index: 10; /* Asegura que los botones estén por encima del carrusel */
+    height: 200px; /* Ajusta esta altura para que coincida con la altura de las noticias */
+    display: flex;
+    align-items: center; /* Alinea verticalmente el texto del botón */
+    justify-content: center; /* Centra el texto horizontalmente */
 }
+
 
 .prev:hover, .next:hover {
     background-color: var(--rosaColor);
 }
+
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++ Estilo de la pestaña de Preguntas y respuestas ++++++++*/
@@ -467,14 +680,16 @@ body {
 
 .preguntas, .reseñas {
     flex: 1;
-    background-color: #fff;
+    background-color: var(--rosaClaro);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    font-size: 24px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    color: var(--amarilloColor);
+    font-size: 35px;
     margin-bottom: 20px;
 }
 
@@ -487,15 +702,26 @@ h2 {
 .pregunta-formulario input, .reseña-formulario input {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    background-color: var(--rosaClaro); 
+    border: 1px solid var(--rosaOscuro);
     border-radius: 5px;
+    color: var(--verdeOscuroColor); 
+    font-family: "Comic Sans MS", cursive; 
+    font-size: 16px; 
+}
+
+.pregunta-formulario input:focus, .reseña-formulario input:focus {
+    border-color: var(--verdeOscuroColor); /* Cambia el color del borde al hacer foco */
+    outline: none; /* Quita el borde azul por defecto */
 }
 
 .pregunta-formulario button, .reseña-formulario button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--verdeOscuroColor);
+    color: var(--verdeColor);
     border: none;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -504,6 +730,10 @@ h2 {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: var(--verdeOscuroColor);
+    color: var(--verdeOscuroColor); /* Cambia el color del texto */
+    font-family: "Comic Sans MS", cursive; 
+    font-size: 16px; /* Cambia el tamaño de la letra */
 }
 
 .preguntas-lista .pregunta, .reseñas-lista .reseña {
@@ -514,25 +744,56 @@ h2 {
     margin: 5px 0;
 }
 
+.preguntas-lista .pregunta {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    color: var(--verdeOscuroColor); 
+}
+
+/* Cambiar color de las reseñas */
+.reseñas-lista .reseña p {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    color: var(--verdeOscuroColor); 
+}
+
 .respuesta {
-    color: #555;
+    color: var(--verdeColor);
+    font-family: Lora, sans-serif;
+    font-weight: normal;
+    font-style: italic;
 }
 
 .fecha {
     font-size: 12px;
-    color: #888;
+    color: var(--verdeColor);
 }
 
 .ver-mas {
     display: block;
     text-align: center;
     margin-top: 10px;
-    color: #007bff;
+    color: var(--amarilloColor);
     text-decoration: none;
+    font-size: 29px;
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
 }
 
 .ver-mas:hover {
     text-decoration: underline;
+}
+
+.calificacion-estrellas {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+}
+
+.calificacion-estrellas .estrella.seleccionada {
+    color: #f39c12;
 }
 
 .reseñas .calificacion {
@@ -541,9 +802,93 @@ h2 {
     margin-bottom: 5px;
 }
 
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Para asegurarnos de que no haya scroll fuera del modal */
+  }
+  
+.modal-content {
+    background-color: var(--rosaClaro);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-height: 70vh;
+    overflow-y: auto; /* Scroll en el contenido del modal */
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: var(--rosaOscuro);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .cerrar-modal:hover, .cerrar-modal:focus {
+    color: var(--verdeOscuroColor);
+  }
+  
+.modal-body {
+    background-color: var(--rosaClaro);
+    margin: 15% auto;
+    padding: 20px;
+    color: var(--verdeOscuroColor);
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+ 
+}
+  
+  /* Clase para deshabilitar el scroll en la página principal */
+  .no-scroll {
+    overflow: hidden;
+  }
+  /* Media Query para pantalla con un ancho máximo de 969px y una altura máxima de 546px */
+@media screen and (max-width: 969px) and (max-height: 633px) {
+    .pregunta_y_resenas {
+        flex-direction: column;
+    }
+
+    .preguntas, .reseñas {
+        width: 100%;
+    }
+}
+/* Media Query para pantalla con un ancho máximo de 600px y una altura máxima de 600px */
+@media screen and (max-width: 600px) and (max-height: 600px) {
+    /* Cambiar disposición a columna en el formulario de reseñas */
+    .reseña-formulario {
+        flex-direction: column;
+    }
+
+    .calificacion-estrellas {
+        margin-top: 10px; /* Espacio entre el input y las estrellas */
+    }
+
+    /* Cambiar disposición a columna en el formulario de preguntas */
+    .pregunta-formulario {
+        flex-direction: column;
+    }
+
+    .pregunta-formulario button {
+        margin-top: 10px; /* Añadir margen superior al botón para separarlo del input */
+    }
+}
 
 
-
+  
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -551,74 +896,124 @@ h2 {
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-.contact-section {
+/* Contenedor principal */
+.contact-container {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    align-items: flex-start;
+    gap: 20px;
     background-color: var(--rosaOscuro);
 }
 
+/* Estilos para la sección de información */
 .contact-info {
-    flex: 1;
-    margin-right: 20px;
+    width: 45%; /* Ajuste para que ocupe el 45% del ancho */
+}
+
+.contact-info h2 {
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
     color: var(--amarilloColor);
 }
 
+.contact-info p {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    color: var(--rosaClaro);
+}
+
+.contact-info a {
+    color: var(--rosaClaro);
+    font-family: 'Courier New', monospace;
+    text-decoration: underline;
+}
+
+.map iframe {
+    width: 100%;
+    height: 350px;
+}
+
+/* Estilos para el formulario de contacto */
 .contact-form {
-    flex: 1;
+    width: 55%; /* Ajuste para que ocupe el 45% del ancho */
     background-color: var(--rosaOscuro);
     padding: 20px;
     border-radius: 8px;
-}
-
-.contact-form .input-group {
-    margin-bottom: 15px;
+    font-family: Caveat, sans-serif;
 }
 
 .contact-form label {
-    display: block;
-    font-weight: bold;
     color: var(--amarilloColor);
-    margin-bottom: 5px;
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
 }
 
 .contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 10px;
     background-color: var(--rosaClaro);
-    border: 0;
-    /*border: 1px solid var(--amarilloOscuro);*/
+    color: var(--rosaOscuro);
+    border: none;
+    padding: 10px;
+    font-family: "Comic Sans MS", cursive; 
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Estilos para el textarea (input del mensaje) */
+.contact-form textarea {
+    background-color: var(--rosaClaro);
+    color: var(--rosaOscuro);
+    border: none;
+    padding: 10px;
+    font-family: "Comic Sans MS", cursive;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 140px; /* Aumentamos la altura del textarea */
+    resize: vertical; /* Solo permitir que el usuario cambie el tamaño verticalmente */
+}
+
+
+.contact-form .name-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.contact-form .name-group .input-group {
+    width: 48%;
 }
 
 .contact-form button {
-    background-color: var(--verdeColor);
-    color: white;
+    background-color:var(--verdeOscuroColor);
+    color: var(--verdeColor);
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.contact-form button:hover {
-    background-color: var(--verdeOscuroColor);
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    width: 80%;
+    margin-top: 20px;
+    width: 200px; /* Establecemos un ancho fijo para centrarlo mejor */
+    margin: 20px auto 0; /* Centramos el botón */
 }
 
 .notification {
-    display: none;
     padding: 10px;
-    margin-top: 15px;
-    border-radius: 4px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
 }
 
 .notification.success {
-    background-color: var(--verdeColor);
-    color: white;
+    background-color: green;
+    color: var(--amarilloColor);
 }
 
 .notification.error {
-    background-color: var(--rosaColor);
-    color: white;
+    background-color:var(--rosaColor);
+    color: var(--amarilloColor);
 }
 
 
