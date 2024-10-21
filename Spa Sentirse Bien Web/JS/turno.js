@@ -4,6 +4,7 @@ const horariosOcupados = [
 ];
 
 
+
 function inicializarCalendario() {
   flatpickr("#datepicker", {
     locale: "es",
@@ -73,31 +74,41 @@ function actualizarSelectorDeHoras(fechaSeleccionada) {
 }
 
 
-document.getElementById("confirm-button").addEventListener("click", function() {
+document.getElementById("reservarAhora").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
-
   if (!fechaSeleccionada) {
     alert("Por favor, selecciona una fecha");
     return;
-  }
-
-  if (!horaSeleccionada) {
+  }else if (!horaSeleccionada) {
     alert("Por favor, selecciona una hora disponible");
     return;
+  }else{
+    const opcionesDiv = document.getElementById("opciones");
+    opcionesDiv.style.display = "block"; // Mostrar el div de opciones
   }
+});
 
-  const fechaHora = `${fechaSeleccionada} ${horaSeleccionada}`;
+document.getElementById("confirmar").addEventListener("click", function() {
+  const seleccion = document.querySelector('input[name="status"]:checked');
+  const fechaSeleccionada = document.getElementById("datepicker").value;
+  const horaSeleccionada = document.getElementById("timepicker").value;
+  if (seleccion) {
+      //alert("Has seleccionado: " + seleccion.id);
+      const fechaHora = `${fechaSeleccionada} ${horaSeleccionada}`;
 
   
-  if (!horariosOcupados.includes(fechaHora)) {
-    horariosOcupados.push(fechaHora);
-    console.log("Horario confirmado:", fechaHora);
-
-    inicializarCalendario();
-    actualizarSelectorDeHoras(fechaSeleccionada);
+      if (!horariosOcupados.includes(fechaHora)) {
+        horariosOcupados.push(fechaHora);
+        console.log("Horario confirmado:", fechaHora);
+    
+        inicializarCalendario();
+        actualizarSelectorDeHoras(fechaSeleccionada);
+      } else {
+        alert("Este horario ya está ocupado. Elige otro.");
+      }
   } else {
-    alert("Este horario ya está ocupado. Elige otro.");
+      alert("Por favor, selecciona una opción.");
   }
 });
 
