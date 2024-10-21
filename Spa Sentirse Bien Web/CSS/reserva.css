@@ -1,0 +1,144 @@
+:root {
+    --verdeColor: #5fa510;
+    --verdeOscuroColor: #315012;
+    --rosaColor: #dc1659;
+    --rosaOscuro: #a11245;
+    --amarilloColor: #e1bc00;
+    --amarilloOscuro: #d29500;
+    --rosaClaro: rgb(248, 213, 219); 
+    --grisOscuro: #3c3c3c; 
+}
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--rosaClaro);
+    color: var(--amarilloColor);
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal de reservas */
+.carrito-reservas {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: var(--rosaClaro);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Título de la sección */
+h2 {
+    text-align: center;
+    color: var(--amarilloColor);
+    margin-bottom: 20px;
+}
+
+/* Contenido de reservas */
+.contenido-reservas {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Lista de turnos */
+#lista-turnos {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 65%;
+}
+
+#lista-turnos li {
+    background-color: var(--rosaColor);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Estilo del total */
+.total {
+    width: 30%;
+    text-align: center;
+    background-color: var(--rosaColor);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Precio total */
+#total-precio {
+    font-weight: bold;
+    color: var(--verdeColor);
+}
+
+/* Botón de pagar */
+#boton-pagar {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--verdeOscuroColor);
+    color: var(--rosaClaro);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+#boton-pagar:hover {
+    background-color: var(--verdeColor);
+}
+
+/* Contenedor de opciones de pago */
+#opciones {
+    background-color: var(--rosaColor); 
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    margin-top: 20px;
+    color: var(--amarilloOscuro);
+}
+
+/* Estilo de las opciones de pago */
+.opcion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: var(--rosaClaro);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--amarilloOscuro);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.opcion:hover {
+    background-color: var(--amarilloColor);
+    color: var(--grisOscuro);
+}
+
+/* Estilo para los inputs de las opciones */
+input[type="radio"] {
+    margin-left: 10px;
+    accent-color: var(--verdeOscuroColor);
+}
+
+/* Botón de confirmar */
+#confirmar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--verdeOscuroColor);
+    color: var(--rosaClaro);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#confirmar:hover {
+    background-color: var(--verdeColor);
+}
