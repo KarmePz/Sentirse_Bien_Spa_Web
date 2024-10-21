@@ -3,6 +3,16 @@ const horariosOcupados = [
   "2024-09-25 10:00", "2024-09-27 09:00", "2024-09-25 11:00"
 ];
 
+document.addEventListener('DOMContentLoaded', function() {
+  const tituloFicha = localStorage.getItem('tituloFicha'); // Recupera el título de la ficha del localStorage
+  if (tituloFicha) {
+      const servicioSeleccionado = document.getElementById("servicioSeleccionado");
+      servicioSeleccionado.textContent = `Turno para: ${tituloFicha}`;
+  }
+
+  inicializarCalendario(); // Inicia el calendario
+});
+
 
 
 function inicializarCalendario() {
@@ -77,6 +87,7 @@ function actualizarSelectorDeHoras(fechaSeleccionada) {
 document.getElementById("reservarAhora").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
+
   if (!fechaSeleccionada) {
     alert("Por favor, selecciona una fecha");
     return;
@@ -86,6 +97,38 @@ document.getElementById("reservarAhora").addEventListener("click", function() {
   }else{
     const opcionesDiv = document.getElementById("opciones");
     opcionesDiv.style.display = "block"; // Mostrar el div de opciones
+  }
+});
+
+document.getElementById("agregarCarrito").addEventListener("click", function() {
+  const fechaSeleccionada = document.getElementById("datepicker").value;
+  const horaSeleccionada = document.getElementById("timepicker").value;
+  const tituloServicio = localStorage.getItem('tituloFicha');
+
+  if (!fechaSeleccionada) {
+    alert("Por favor, selecciona una fecha");
+    return;
+  }else if (!horaSeleccionada) {
+    alert("Por favor, selecciona una hora disponible");
+    return;
+  }else{
+    const idUsuario = sessionStorage.getItem('id');
+    const reservaUsuario = sessionStorage.setItem('reserva');
+    if(idUsuario){
+      if(reserva){
+        //cargar a reserva
+        
+
+      }else{
+        //crear reserva
+
+      }
+
+    }else{
+      alert("Por favor, registrate");
+    }
+
+
   }
 });
 
@@ -104,6 +147,10 @@ document.getElementById("confirmar").addEventListener("click", function() {
     
         inicializarCalendario();
         actualizarSelectorDeHoras(fechaSeleccionada);
+        //aca estaria el de pagar ahora
+        //generar reserva 
+        //completar datos del pago
+
       } else {
         alert("Este horario ya está ocupado. Elige otro.");
       }
