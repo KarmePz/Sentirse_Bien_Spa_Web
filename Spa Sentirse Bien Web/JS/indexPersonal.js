@@ -1123,9 +1123,30 @@ const secciones = {
     `
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Inicialmente no cargarás los usuarios porque la tabla de clientes solo se muestra cuando se selecciona la sección.
     // cargarUsuariosDesdeAPI();  // No se necesita aquí, se llamará cuando se haga clic en la sección 'Clientes'.
+
+    //SE DEBEN CARGAR LAS OPCIONES SEGUN EL ROL DEL USUARIO 
+    console.log(sessionStorage.getItem('id'));
+    var rolUsuario = await getUserData(sessionStorage.getItem('id'));
+    var nombreUsuario = sessionStorage.getItem('username');
+
+    console.log(rolUsuario);
+    console.log(nombreUsuario);
+
+    var textoNombreUsuario = document.getElementById("nombre_usuario");
+
+    textoNombreUsuario.innerText = nombreUsuario;
+
+    gestionarAccesoPorRol(rolUsuario);
+
+
+
+
+
+
+
 });
 
 // Variables globales
@@ -1858,7 +1879,7 @@ function buscarTurnos() {
 
 //GESTIONAR ROL 
 // Ejemplo de función que gestiona qué enlaces mostrar según el rol
-function gestionarAccesoPorRol(rolesUsuario) {
+function gestionarAccesoPorRol(rolUsuario) {
     // Obtener los elementos del DOM
     const clientes = document.getElementById('clientes_page');
     const servicios = document.getElementById('servicios_page');
@@ -1869,15 +1890,7 @@ function gestionarAccesoPorRol(rolesUsuario) {
     const noticias = document.getElementById('noticias_page');
 
     // Si el rol es 'empleado' y no es 'admin', mostrar las opciones correspondientes
-    if (rolesUsuario.includes('Empleado') && !rolesUsuario.includes('Admin')) {
-        reservas.style.display = 'block';
-        informes.style.display = 'block';
-        turnos.style.display = 'block';
-        clientes.style.display = 'block';
-        noticias.style.display = 'block';
-        servicios.style.display= 'none';
-        empleados.style.display = 'none';  // Los empleados no ven el administrador de empleados
-    } else if (rolUsuario === 'Admin') {
+    if (rolUsuario === 'Admin') {
         // Si el rol es 'admin', puede ver todas las opciones
         reservas.style.display = 'block';
         informes.style.display = 'block';
@@ -1886,10 +1899,23 @@ function gestionarAccesoPorRol(rolesUsuario) {
         noticias.style.display = 'block';
         servicios.style.display= 'block';
         empleados.style.display = 'block';
-    } else if (rolesUsuario.includes('Secretario') && !rolesUsuario.includes('Admin')){
-        // Si no es ni 'empleado' ni 'admin', ocultar opciones específicas
+
+
+    } else if (rolUsuario === 'Empleado') {
         reservas.style.display = 'block';
         informes.style.display = 'none';
+        turnos.style.display = 'block';
+        clientes.style.display = 'block';
+        noticias.style.display = 'block';
+        servicios.style.display= 'none';
+        empleados.style.display = 'none';  // Los empleados no ven el administrador de empleados
+
+
+
+    } else if (rolUsuario ==='Secretario' && !rolUsuario === 'Admin'){
+        // Si no es ni 'empleado' ni 'admin', ocultar opciones específicas
+        reservas.style.display = 'block';
+        informes.style.display = 'block';
         turnos.style.display = 'block';
         clientes.style.display = 'block';
         noticias.style.display = 'none';
@@ -1897,3 +1923,60 @@ function gestionarAccesoPorRol(rolesUsuario) {
         empleados.style.display = 'none';
     }
 }
+
+
+
+
+async function getUserData(id) {
+    try {
+        
+        const response = await fetch(`https://www.apispademo.somee.com/api/Usuario/${id}`, {
+            method: 'GET',
+            credentials: 'include', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text(); // Leer la respuesta en caso de error
+            console.error("Error en la solicitud:", response.status, errorMessage);
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const resultado = await response.json();
+        console.log("Login con roles Exitoso: ", resultado);
+        sessionStorage.setItem('roles', JSON.stringify(resultado.roles));
+
+        if (resultado.roles.includes("Admin")){
+            return "Admin";
+        } else if (resultado.roles.includes("Empleado")) {
+            return "Empleado"
+        }else if (resultado.roles.includes("Secretario")){
+            return "Secretario"
+        }else{
+
+        }
+    } catch (error) {
+        console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);
+        alert("Error en la conexión con la API");
+    }
+}
+
+
+//--------------------------------------
+///LOGOUT
+//-------------------------------------
+
+const botonLogout = document.getElementById("logout_btn");
+botonLogout.addEventListener('click', async function() {
+    // Eliminar el nombre del usuario de localStorage y session storage
+    localStorage.clear();
+    sessionStorage.clear();
+
+
+    // Redireccionar a la página de inicio
+    window.location.href = "/index.html"; 
+});

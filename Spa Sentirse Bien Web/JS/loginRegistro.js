@@ -134,6 +134,7 @@ const datosUsuario = {
             sessionStorage.setItem('username', resultado.userName);
             sessionStorage.setItem('email', resultado.email);
             sessionStorage.setItem('id', resultado.idUser);
+            localStorage.setItem('idUsuario', resultado.idUser);
             var nombreUsuario =  sessionStorage.getItem('username');
 
             console.log(nombreUsuario);
@@ -220,6 +221,8 @@ async function getUserData(id) {
         const resultado = await response.json();
         console.log("Login con roles Exitoso: ", resultado);
         sessionStorage.setItem('roles', JSON.stringify(resultado.roles));
+        localStorage.setItem('roles', JSON.stringify(resultado.roles));
+        localStorage.setItem('idUsuario', resultado.idUser);
 
         if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
             window.location.href = "/indexPersonal.html";
