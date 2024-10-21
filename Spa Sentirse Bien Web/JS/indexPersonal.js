@@ -627,7 +627,13 @@ const secciones = {
                 </table>
             </div>
 
+
             <div class="lineaSeparacion"></div>
+             <div class="botonesAccion">
+                <button id="btnAgregarServ">Agregar</button>
+                <button>Modificar</button>
+                <button id="btnEliminarServ">Eliminar</button>
+            </div>
         </section>
     `,
     'Administrador de Empleados': `
@@ -781,7 +787,7 @@ const secciones = {
             <div class="lineaSeparacion"></div>
 
             <div class="botonesAccion">
-                <button>Agregar</button>
+                <button id="btnAgregarEmp">Agregar</button>
                 <button>Modificar</button>
                 <button>Eliminar</button>
             </div>
@@ -947,10 +953,10 @@ const secciones = {
 
             <div class="lineaSeparacion"></div>
 
-            <div class="botonesAccion">
-                <button>Agregar</button>
+             <div class="botonesAccion">
+                <button id="btnAgregar">Agregar</button>
                 <button>Modificar</button>
-                <button>Eliminar</button>
+                <button id="btnEliminar">Eliminar</button>
             </div>
         </section>
     `,
@@ -1242,12 +1248,53 @@ links.forEach(link => {
             } else if (opcionSeleccionada === 'Servicios') {
                 cargarFiltrosServicios(); // Función para inicializar los filtros de servicios
                 cargarServiciosDesdeAPI();  // Cargar los servicios desde la API cada vez que se entre en la sección de servicios
+                // Añadir los event listeners para el botón de Agregar
+                const btnAgregar = document.getElementById('btnAgregarServ');
+                const btnEliminar = document.getElementById('btnEliminarServ');
+
+                if (btnAgregar) {
+                    btnAgregar.addEventListener('click', function() {
+                        window.location.href = 'agregarServicio.html'; // Redirigir al formulario de agregar servicio
+                    });
+                }
+
+                if (btnEliminar) {
+                    btnEliminar.addEventListener('click', eliminarServicio); // Vincular el botón Eliminar
+                }
+
             } else if (opcionSeleccionada === 'Administrador de Empleados') {
                 cargarFiltrosEmpleados(); // Función para inicializar los filtros de empleados
                 cargarEmpleadosDesdeAPI();  // Cargar los empleados desde la API cada vez que se entre en la sección de empleados
+
+                // Añadir los event listeners para el botón de Agregar
+                const btnAgregar = document.getElementById('btnAgregarEmp');
+
+                if (btnAgregar) {
+                    btnAgregar.addEventListener('click', function() {
+                        window.location.href = 'agregarEmpleado.html'; // Redirigir al formulario de agregar empleado/secretario
+                    });
+                }
+
+
             } else if (opcionSeleccionada === 'Noticias') {
                 cargarFiltrosNoticias(); // Función para inicializar los filtros de noticias
                 cargarNoticiasDesdeAPI();  // Cargar las noticias desde la API cada vez que se entre en la sección de noticias
+
+
+                 // Añadir los event listeners para Agregar y Eliminar
+                 const btnAgregar = document.getElementById('btnAgregar');
+                 const btnEliminar = document.getElementById('btnEliminar');
+ 
+                 if (btnAgregar) {
+                     btnAgregar.addEventListener('click', function() {
+                         window.location.href = 'agregarNoticia.html'; // Redirigir al formulario de agregar noticia
+                     });
+                 }
+ 
+                 if (btnEliminar) {
+                     btnEliminar.addEventListener('click', eliminarNoticia); // Vincular el botón Eliminar
+                 }
+                 
             }else if (opcionSeleccionada === 'Turnos'){
                 cargarTurnosDesdeAPI();
             }
@@ -1581,6 +1628,37 @@ function cargarFiltrosServicios() {
     }
 }
 
+// Función para eliminar un servicio
+async function eliminarServicio() {
+    const id = prompt("Ingrese el ID del servicio que desea eliminar:");
+    if (!id) {
+        alert("Por favor, ingrese una ID válida.");
+        return;
+    }
+
+    const confirmacion = confirm(`¿Está seguro que desea eliminar el servicio con ID ${id}?`);
+    if (!confirmacion) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://apispademo.somee.com/api/Servicio/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar el servicio');
+        }
+
+        alert(`El servicio con ID ${id} ha sido eliminado exitosamente.`);
+        cargarServiciosDesdeAPI(); // Refresca la lista de servicios después de eliminar
+    } catch (error) {
+        console.error('Error al eliminar el servicio:', error);
+        alert('Ocurrió un error al intentar eliminar el servicio.');
+    }
+}
+
+
 // Función para ordenar y filtrar servicios
 function ordenarYFiltrarServicios() {
     const criterio = document.getElementById('opcionesOrdenarServicio').value;
@@ -1778,6 +1856,36 @@ function cargarFiltrosNoticias() {
     });
 }
 
+
+// Función para eliminar una noticia
+async function eliminarNoticia() {
+    const id = prompt("Ingrese el ID de la noticia que desea eliminar:");
+    if (!id) {
+        alert("Por favor, ingrese una ID válida.");
+        return;
+    }
+
+    const confirmacion = confirm(`¿Está seguro que desea eliminar la noticia con ID ${id}?`);
+    if (!confirmacion) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://apispademo.somee.com/api/Noticia/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar la noticia');
+        }
+
+        alert(`La noticia con ID ${id} ha sido eliminada exitosamente.`);
+        cargarNoticiasDesdeAPI(); // Refresca la lista de noticias después de eliminar
+    } catch (error) {
+        console.error('Error al eliminar la noticia:', error);
+        alert('Ocurrió un error al intentar eliminar la noticia.');
+    }
+}
 
 
 //TURNOS----------------
