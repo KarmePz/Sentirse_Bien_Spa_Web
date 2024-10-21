@@ -134,11 +134,13 @@ const datosUsuario = {
             sessionStorage.setItem('username', resultado.userName);
             sessionStorage.setItem('email', resultado.email);
             sessionStorage.setItem('id', resultado.idUser);
+            localStorage.setItem('idUsuario', resultado.idUser);
             var nombreUsuario =  sessionStorage.getItem('username');
 
             console.log(nombreUsuario);
             //Redirigir
-            window.location.href= "./index.html";
+            getUserData(sessionStorage.getItem('id'))
+            // window.location.href= "./index.html";
             //TODO
         }else{
             console.error("Error en el login", resultado.message);
@@ -192,5 +194,43 @@ async function logout() {
     } catch (error) {
         console.error('Error en la conexión con la API:', error);
         alert('Error en la conexión con la API');
+    }
+}
+
+
+
+async function getUserData(id) {
+    try {
+        
+        const response = await fetch(`https://www.apispademo.somee.com/api/Usuario/${id}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text(); // Leer la respuesta en caso de error
+            console.error("Error en la solicitud:", response.status, errorMessage);
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const resultado = await response.json();
+        console.log("Login con roles Exitoso: ", resultado);
+        sessionStorage.setItem('roles', JSON.stringify(resultado.roles));
+        localStorage.setItem('roles', JSON.stringify(resultado.roles));
+        localStorage.setItem('idUsuario', resultado.idUser);
+
+        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
+            window.location.href = "/indexPersonal.html";
+        } else {
+            window.location.href = "/index.html";
+        }
+    } catch (error) {
+        console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);
+        alert("Error en la conexión con la API");
     }
 }

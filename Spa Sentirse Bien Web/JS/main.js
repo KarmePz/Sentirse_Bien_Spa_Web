@@ -126,3 +126,46 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+<<<<<<< HEAD
+=======
+
+async function getUserData() {
+    try {
+        
+        const response = await fetch(`https://localhost:7034/api/Usuario/current`, {
+            method: 'GET',
+            credentials: 'include', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text(); // Leer la respuesta en caso de error
+            console.error("Error en la solicitud:", response.status, errorMessage);
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const resultado = await response2.json();
+        console.log("Login con roles Exitoso: ", resultado);
+        sessionStorage.setItem('roles', JSON.stringify(resultado.roles));
+
+        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
+            window.location.href = "/indexPersonal.html";
+        } else {
+            window.location.href = "/index.html";
+        }
+    } catch (error) {
+        console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);
+        alert("Error en la conexión con la API");
+    }
+}
+
+
+
+
+
+
+>>>>>>> origin
