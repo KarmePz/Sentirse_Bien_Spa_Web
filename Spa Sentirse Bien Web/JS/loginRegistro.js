@@ -201,7 +201,7 @@ async function logout() {
 async function getUserData(id) {
     try {
         
-        const response = await fetch(`https://localhost:7034/api/Usuario/${id}`, {
+        const response = await fetch(`https://www.apispademo.somee.com/api/Usuario/${id}`, {
             method: 'GET',
             credentials: 'include',
             headers: {
