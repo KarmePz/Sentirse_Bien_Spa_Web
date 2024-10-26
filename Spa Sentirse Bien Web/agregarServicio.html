@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Servicio</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,11 +24,12 @@
 
         button {
             padding: 10px;
-            background-color: #5fa510;
-            color: white;
+            background-color: #315012; /* Verde Oscuro */
+            color: #5fa510; /* Verde Claro */
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin-bottom: 15px;
         }
 
         button:hover {
@@ -63,6 +65,7 @@
         <input type="number" id="tiempoLimiteHoras" name="tiempoLimiteHoras" required>
 
         <button type="submit">Agregar Servicio</button>
+        <button id="btnVolver">Volver</button>
     </form>
 
     <script src="./JS/agregarServicio.js"></script>

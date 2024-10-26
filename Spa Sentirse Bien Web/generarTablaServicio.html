@@ -17,7 +17,7 @@
                     <th>Título</th>
                     <th>Tipo de Servicio</th>
                     <th>Descripción</th>
-                    <th>Ruta Imagen</th>
+                    <th>Horarios</th> 
                     <th>Duración (min)</th>
                     <th>Precio</th>
                     <th>Empleado ID</th>
@@ -60,13 +60,23 @@
             for (const servicio of servicios) {
                 const nombreUsuario = await obtenerNombreUsuarioPorId(servicio.usuarioId);
 
+                // Crear la cadena de horarios
+                let horariosHTML = '';
+                if (servicio.horarios && servicio.horarios.length > 0) {
+                    servicio.horarios.forEach(horario => {
+                        horariosHTML += `${horario.horaInicio} - ${horario.horaFinal}<br>`;
+                    });
+                } else {
+                    horariosHTML = 'No tiene horarios asignados';
+                }
+
                 const fila = document.createElement('tr');
                 fila.innerHTML = `
                     <td>${servicio.servicioId}</td>
                     <td>${servicio.titulo}</td>
                     <td>${servicio.tipoServicio}</td>
                     <td>${servicio.descripcion}</td>
-                    <td>${servicio.rutaImagen}</td>
+                    <td>${horariosHTML}</td> 
                     <td>${servicio.duracionMinut}</td>
                     <td>${servicio.precio}</td>
                     <td>${servicio.usuarioId}</td>

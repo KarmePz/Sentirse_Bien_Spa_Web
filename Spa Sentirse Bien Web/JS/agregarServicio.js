@@ -45,3 +45,7 @@ document.getElementById('formAgregarServicio').addEventListener('submit', async 
         alert('Ocurrió un error al intentar agregar el servicio.');
     }
 });
+
+document.getElementById('btnVolver').addEventListener('click', function() {
+    window.location.href = 'indexpersonal.html';
+});

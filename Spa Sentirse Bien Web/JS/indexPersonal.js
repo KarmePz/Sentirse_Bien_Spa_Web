@@ -628,7 +628,7 @@ const secciones = {
                             <th onclick="cambiarCriterioBusquedaServicios('titulo')">Título</th>
                             <th onclick="cambiarCriterioBusquedaServicios('tipoServicio')">Tipo de Servicio</th>
                             <th onclick="cambiarCriterioBusquedaServicios('descripcion')">Descripcion</th>
-                            <th onclick="cambiarCriterioBusquedaServicios('rutaImagen')">Ruta Imagen</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('horarios')">Horarios</th> <!-- Nueva columna para horarios -->
                             <th onclick="cambiarCriterioBusquedaServicios('duracionMinut')">Duracion (min)</th>
                             <th onclick="cambiarCriterioBusquedaServicios('precio')">Precio</th>
                             <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado</th>
@@ -647,6 +647,7 @@ const secciones = {
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
                 <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
+                <button id="btnAgregarHorario" type="button">Agregar Horario a Servicio</button>
             </div>
         </section>
     `,
@@ -1160,86 +1161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     textoNombreUsuario.innerText = nombreUsuario;
 
     gestionarAccesoPorRol(rolUsuario);
-
-
-
-
-
-
-
 });
-
-// Variables globales
-let criterioBusqueda = 'Nombre';
-let usuarios = []; // Se almacenarán aquí los usuarios cargados desde la API.
-
-// Función para cargar usuarios desde la API
-async function cargarUsuariosDesdeAPI() {
-    try {
-        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Cliente');
-        if (!response.ok) {
-            throw new Error('Error al obtener los usuarios');
-        }
-
-        usuarios = await response.json();
-        // Filtrar solo usuarios con el rol exacto "Cliente"
-        const usuariosFiltrados = usuarios.filter(usuario => usuario.roles.includes('Cliente') && usuario.roles.length === 1);
-        cargarUsuarios(usuariosFiltrados);
-    } catch (error) {
-        console.error('Error al cargar los usuarios:', error);
-    }
-}
-
-// Función para cargar los usuarios en la tabla
-function cargarUsuarios(usuarios) {
-    const tablaClientes = document.getElementById('tablaClientes');
-    if (!tablaClientes) {
-        console.error('Elemento tablaClientes no encontrado');
-        return;
-    }
-    
-    tablaClientes.innerHTML = ''; // Limpiar la tabla antes de llenarla
-
-    usuarios.forEach(usuario => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${usuario.id}</td>
-            <td>${usuario.userName}</td>
-            <td>${usuario.email}</td>
-        `;
-        tablaClientes.appendChild(fila);
-    });
-}
-
-// Función para buscar clientes
-function buscarClientes() {
-    const inputBuscar = document.getElementById('inputBuscar');
-    if (!inputBuscar) {
-        console.error('Elemento inputBuscar no encontrado');
-        return;
-    }
-
-    const texto = inputBuscar.value.toLowerCase();
-
-    // Filtramos primero por usuarios que tienen solo el rol de "Cliente"
-    const usuariosFiltrados = usuarios
-        .filter(usuario => usuario.roles.includes('Cliente') && usuario.roles.length === 1)
-        .filter(usuario => { // Aplica el filtro de búsqueda
-            switch (criterioBusqueda) {
-                case 'ID':
-                    return usuario.id.toString().startsWith(texto);
-                case 'Nombre':
-                    return usuario.userName.toLowerCase().includes(texto);
-                case 'Email':
-                    return usuario.email.toLowerCase().includes(texto);
-                default:
-                    return false;
-            }
-        });
-
-    cargarUsuarios(usuariosFiltrados);
-}
-
 
 // Añadir el evento 'click' a cada enlace de la barra lateral
 links.forEach(link => {
@@ -1328,6 +1250,24 @@ links.forEach(link => {
                     btnEliminar.addEventListener('click', eliminarServicio); // Vincular el botón Eliminar
                 }
 
+                document.getElementById('btnAgregarHorario').addEventListener('click', function () {
+                    const servicioId = prompt("Ingrese el ID del Servicio al que desea agregar un horario:");
+                    if (!servicioId) {
+                        alert("Debe ingresar un ID de servicio válido.");
+                        return;
+                    }
+                
+                    // Validar si el servicioId ingresado existe en el arreglo de servicios
+                    const servicioExiste = servicios.some(servicio => servicio.servicioId === parseInt(servicioId));
+                    if (!servicioExiste) {
+                        alert("El ID del Servicio no existe. Por favor, ingrese un ID válido.");
+                        return;
+                    }
+                
+                    // Si el servicio existe, redirigir al formulario de agregar horario, pasando el servicioId
+                    window.location.href = `agregarHorario.html?servicioId=${servicioId}`;
+                });
+
             } else if (opcionSeleccionada === 'Administrador de Empleados') {
                 cargarFiltrosEmpleados(); // Función para inicializar los filtros de empleados
                 cargarEmpleadosDesdeAPI();  // Cargar los empleados desde la API cada vez que se entre en la sección de empleados
@@ -1373,6 +1313,7 @@ links.forEach(link => {
                 });
                  
             }else if (opcionSeleccionada === 'Turnos'){
+                cargarFiltrosTurnos(); 
                 cargarTurnosDesdeAPI();
                 document.getElementById('btnGenerarPDFTurnos').addEventListener('click', function() {
                     // Guardar los turnos en localStorage para poder usarlos en el nuevo HTML
@@ -1383,6 +1324,81 @@ links.forEach(link => {
         }
     });
 });
+
+
+// Variables globales
+let criterioBusqueda = 'Nombre';
+let usuarios = []; // Se almacenarán aquí los usuarios cargados desde la API.
+
+// Función para cargar usuarios desde la API
+async function cargarUsuariosDesdeAPI() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Cliente');
+        if (!response.ok) {
+            throw new Error('Error al obtener los usuarios');
+        }
+
+        usuarios = await response.json();
+        // Filtrar solo usuarios con el rol exacto "Cliente"
+        const usuariosFiltrados = usuarios.filter(usuario => usuario.roles.includes('Cliente') && usuario.roles.length === 1);
+        cargarUsuarios(usuariosFiltrados);
+    } catch (error) {
+        console.error('Error al cargar los usuarios:', error);
+    }
+}
+
+// Función para cargar los usuarios en la tabla
+function cargarUsuarios(usuarios) {
+    const tablaClientes = document.getElementById('tablaClientes');
+    if (!tablaClientes) {
+        console.error('Elemento tablaClientes no encontrado');
+        return;
+    }
+    
+    tablaClientes.innerHTML = ''; // Limpiar la tabla antes de llenarla
+
+    usuarios.forEach(usuario => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${usuario.id}</td>
+            <td>${usuario.userName}</td>
+            <td>${usuario.email}</td>
+        `;
+        tablaClientes.appendChild(fila);
+    });
+}
+
+// Función para buscar clientes
+function buscarClientes() {
+    const inputBuscar = document.getElementById('inputBuscar');
+    if (!inputBuscar) {
+        console.error('Elemento inputBuscar no encontrado');
+        return;
+    }
+
+    const texto = inputBuscar.value.toLowerCase();
+
+    // Filtramos primero por usuarios que tienen solo el rol de "Cliente"
+    const usuariosFiltrados = usuarios
+        .filter(usuario => usuario.roles.includes('Cliente') && usuario.roles.length === 1)
+        .filter(usuario => { // Aplica el filtro de búsqueda
+            switch (criterioBusqueda) {
+                case 'ID':
+                    return usuario.id.toString().startsWith(texto);
+                case 'Nombre':
+                    return usuario.userName.toLowerCase().includes(texto);
+                case 'Email':
+                    return usuario.email.toLowerCase().includes(texto);
+                default:
+                    return false;
+            }
+        });
+
+    cargarUsuarios(usuariosFiltrados);
+}
+
+
+
 
 // Función para inicializar el comportamiento de los filtros
 function cargarFiltros() {
@@ -1729,7 +1745,7 @@ let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
     try {
-        const response = await fetch('https://apispademo.somee.com/api/Servicio');
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
         }
@@ -1753,13 +1769,21 @@ function cargarServicios(servicios) {
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
+        let horariosHTML = '';
+        if (servicio.horarios && servicio.horarios.length > 0) {
+            servicio.horarios.forEach(horario => {
+                horariosHTML += `${horario.horaInicio} - ${horario.horaFinal}<br>`;
+            });
+        } else {
+            horariosHTML = 'No tiene horarios asignados';
+        }
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${servicio.servicioId}</td>
             <td>${servicio.titulo}</td>
             <td>${servicio.tipoServicio}</td>
             <td>${servicio.descripcion}</td>
-            <td>${servicio.rutaImagen}</td>
+            <td>${horariosHTML}</td> <!-- Mostrar horarios en una sola columna -->
             <td>${servicio.duracionMinut}</td>
             <td>${servicio.precio}</td>
             <td>${servicio.usuarioId}</td> <!-- empleadoId -->
@@ -1786,7 +1810,28 @@ function buscarServicios() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const serviciosFiltrados = servicios.filter(servicio => servicio.tipoServicio.toLowerCase().includes(texto));
+    const serviciosFiltrados = servicios.filter(servicio => {
+            switch (criterioBusquedaServicios) {
+                case 'ID':
+                    return servicio.servicioId.toString().startsWith(texto);
+                case 'titulo':
+                    return servicio.titulo.toLowerCase().includes(texto);
+                case 'tipoServicio':
+                    return servicio.tipoServicio.toLowerCase().includes(texto);
+                case 'descripcion':
+                    return servicio.descripcion.toLowerCase().includes(texto);
+                case 'horariosHTML':
+                    return false;
+                case 'duracionMinut':
+                    return servicio.duracionMinut.toString().includes(texto);
+                case 'precio':
+                    return servicio.precio.toString().startsWith(texto);
+                case 'empleado':
+                    return servicio.usuarioId.toString().startsWith(texto);
+                default:
+                    return false;
+            }
+        });
     cargarServicios(serviciosFiltrados);
 }
 
@@ -1935,7 +1980,19 @@ function buscarEmpleados() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const empleadosFiltrados = empleados.filter(empleado => empleado.userName.toLowerCase().includes(texto));
+    const empleadosFiltrados = empleados.filter(empleado =>  {
+        switch (criterioBusquedaEmpleado) {
+        case 'ID':
+            return empleado.id.toString().startsWith(texto);
+        case 'userName':
+            return empleado.userName.toLowerCase().includes(texto);
+        case 'email':
+            return empleado.email.toLowerCase().includes(texto);
+        case 'roles':
+            return empleado.roles.some(rol => rol.toLowerCase().includes(texto));
+        default:
+            return false;
+    }});
     cargarEmpleados(empleadosFiltrados);
 }
 
@@ -2090,6 +2147,7 @@ async function eliminarNoticia() {
 
 //TURNOS----------------
 let turnosFiltrados = [];
+let criterioBusquedaTurno = "ID";
 
 // Función para cargar noticias desde la API
 async function cargarTurnosDesdeAPI() {
@@ -2155,7 +2213,7 @@ function cambiarCriterioBusquedaTurno(nuevoCriterio) {
     }
 }
 
-// Función para buscar noticias según el criterio actual
+// Función para buscar turnos según el criterio actual
 function buscarTurnos() {
     const inputBuscar = document.getElementById('inputBuscarTurno');
     if (!inputBuscar) {
@@ -2165,9 +2223,9 @@ function buscarTurnos() {
 
     const texto = inputBuscar.value.toLowerCase();
     const turnosFiltrados = turnos.filter(turno => {
-        switch (criterioBusquedaNoticia) {
+        switch (criterioBusquedaTurno) {
             case 'ID':
-                return noticia.noticiaId.toString().startsWith(texto);
+                return turno.turnoId.toString().startsWith(texto);
             case 'Servicio ID':
                 return turno.servicioId.toLowerCase().includes(texto);
             case 'Reserva ID':
@@ -2175,12 +2233,13 @@ function buscarTurnos() {
             case 'descripcion':
                 return turno.descripcion.toLowerCase().includes(texto);
             case 'fecha':
-                return turno.fechaInicio.includes(texto);
+                const fechaConFormato = formatearFecha(turno.fechaInicio);
+                return fechaConFormato.includes(texto);
             default:
                 return false;
         }
     });
-    cargarNoticias(turnosFiltrados);
+    cargarTurnos(turnosFiltrados);
 }
 
 // Función para formatear la fecha en el formato dd/mm/yyyy hh:mm

@@ -45,3 +45,7 @@ document.getElementById('formAgregarNoticia').addEventListener('submit', async f
         alert('Ocurrió un error al intentar agregar la noticia.');
     }
 });
+
+document.getElementById('btnVolver').addEventListener('click', function() {
+    window.location.href = 'indexpersonal.html';
+});
