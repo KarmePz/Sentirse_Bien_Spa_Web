@@ -1272,7 +1272,7 @@ links.forEach(link => {
 
                 document.getElementById('btnGenerarPDFReserva').addEventListener('click', function() {
                     // Guardar las reservas en localStorage para usarlas en la página de generación de PDF
-                    localStorage.setItem('reservas', JSON.stringify(reservas));
+                    localStorage.setItem('reservasFiltradas', JSON.stringify(reservasFiltradas));
                     window.location.href = 'generarTablaReservas.html'; // Redirige a la nueva página
                 });
             } else if (opcionSeleccionada === 'Informes de Pagos') {
@@ -1283,7 +1283,7 @@ links.forEach(link => {
                 const btnGenerarFactura = document.getElementById('btnGenerarFactura');
                 document.getElementById('btnGenerarPDFPagos').addEventListener('click', function() {
                     // Guardar los pagos en localStorage para usarlos en la página de generación de PDF
-                    localStorage.setItem('pagos', JSON.stringify(pagos));
+                    localStorage.setItem('pagosFiltrados', JSON.stringify(pagosFiltrados));
                     window.location.href = 'generarTablaPagos.html'; // Redirige a la nueva página
                 });
                 
@@ -1314,7 +1314,7 @@ links.forEach(link => {
                 const btnAgregar = document.getElementById('btnAgregarServ');
                 const btnEliminar = document.getElementById('btnEliminarServ');
                 document.getElementById('btnGenerarPDFServicios').addEventListener('click', function() {
-                    localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    localStorage.setItem('serviciosFiltrados', JSON.stringify(serviciosFiltrados)); // Almacenar en localStorage
                     window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
                 });
 
@@ -1336,7 +1336,7 @@ links.forEach(link => {
                 const btnAgregar = document.getElementById('btnAgregarEmp');
                 document.getElementById('btnGenerarPDFEmp').addEventListener('click', function() {
                     // Guardar los empleados en localStorage para poder usarlos en el nuevo HTML
-                    localStorage.setItem('empleados', JSON.stringify(empleados));
+                    localStorage.setItem('empleadosFiltrados', JSON.stringify(empleadosFiltrados));
                     window.location.href = 'generarTablaEmpleados.html'; // Redirigir al HTML de generación de PDF
                 });
                 
@@ -1368,7 +1368,7 @@ links.forEach(link => {
                 }
                 document.getElementById('btnGenerarPDFNoticias').addEventListener('click', function() {
                     // Guardar las noticias en localStorage para poder usarlas en el nuevo HTML
-                    localStorage.setItem('noticias', JSON.stringify(noticias));
+                    localStorage.setItem('noticiasFiltrados', JSON.stringify(noticiasFiltrados));
                     window.location.href = 'generarTablaNoticias.html'; // Redirigir al HTML de generación de PDF
                 });
                  
@@ -1376,7 +1376,7 @@ links.forEach(link => {
                 cargarTurnosDesdeAPI();
                 document.getElementById('btnGenerarPDFTurnos').addEventListener('click', function() {
                     // Guardar los turnos en localStorage para poder usarlos en el nuevo HTML
-                    localStorage.setItem('turnos', JSON.stringify(turnos));
+                    localStorage.setItem('turnosFiltrados', JSON.stringify(turnosFiltrados));
                     window.location.href = 'generarTablaTurnos.html'; // Redirigir al HTML de generación de PDF
                 });
             }
@@ -1452,6 +1452,7 @@ function ordenarYFiltrarClientes() {
 
 // Variables globales para la sección de Reservas
 let reservas = [];
+let reservasFiltradas = [];
 let criterioBusquedaReserva = 'usuarioCliente'; // Criterio predeterminado para buscar en Reservas
 
 // Función para cargar reservas desde la API
@@ -1477,7 +1478,7 @@ function cargarReservas(reservas) {
         return;
     }
 
-    
+    reservasFiltradas = reservas;
     tablaReservas.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     reservas.forEach(reserva => {
@@ -1500,7 +1501,7 @@ function cambiarCriterioBusquedaReserva(nuevoCriterio) {
     }
 }
 
-// Función para buscar reservas por clienteId
+// Función para buscar reservas
 function buscarReservas() {
     const inputBuscar = document.getElementById('inputBuscarReserva');
     if (!inputBuscar) {
@@ -1509,7 +1510,7 @@ function buscarReservas() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const reservasFiltradas = reservas.filter(reserva => {
+    reservasFiltradas = reservas.filter(reserva => {
         switch (criterioBusquedaReserva) {
             case 'ID':
                 return reserva.reservaId.toString().startsWith(texto);
@@ -1571,6 +1572,7 @@ function cargarFiltrosReservas() {
 
 // Variables globales para la sección de Pagos
 let pagos = [];
+let pagosFiltrados = [];
 let criterioBusquedaPagos = 'usuarioId'; // Criterio predeterminado para buscar en Pagos
 
 // Función para cargar pagos desde la API
@@ -1599,7 +1601,7 @@ function cargarPagos(pagos) {
         return;
     }
 
-    
+    pagosFiltrados = pagos;
     tablaPagos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     pagos.forEach(pago => {
@@ -1721,6 +1723,7 @@ function ordenarYFiltrarPagos() {
 
 // Variables globales para la sección de Servicios
 let servicios = [];
+let serviciosFiltrados = [];
 let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para buscar en Servicios
 
 // Función para cargar servicios desde la API
@@ -1746,7 +1749,7 @@ function cargarServicios(servicios) {
         return;
     }
 
-    
+    serviciosFiltrados = servicios;
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
@@ -1859,6 +1862,7 @@ function ordenarYFiltrarServicios() {
 
 // Variables globales para la sección de Empleados
 let empleados = [];
+let empleadosFiltrados = [];
 let criterioBusquedaEmpleado = 'ID'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar empleados desde la API
@@ -1895,6 +1899,7 @@ function cargarEmpleados(empleados) {
         return;
     }
 
+    empleadosFiltrados = empleados;
     tablaEmpleados.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     empleados.forEach(empleado => {
@@ -1953,6 +1958,7 @@ function cargarFiltrosEmpleados() {
 
 // Variables globales para la sección de Noticias
 let noticias = [];
+let noticiasFiltrados = [];
 let criterioBusquedaNoticia = 'titulo'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar noticias desde la API
@@ -1978,6 +1984,7 @@ function cargarNoticias(noticias) {
         return;
     }
 
+    noticiasFiltrados = noticias;
     tablaNoticias.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     noticias.forEach(noticia => {
@@ -2082,7 +2089,7 @@ async function eliminarNoticia() {
 
 
 //TURNOS----------------
-
+let turnosFiltrados = [];
 
 // Función para cargar noticias desde la API
 async function cargarTurnosDesdeAPI() {
@@ -2107,6 +2114,7 @@ function cargarTurnos(turnos) {
         return;
     }
 
+    turnosFiltrados = turnos;
     tablaTurnos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     turnos.forEach(turno => {

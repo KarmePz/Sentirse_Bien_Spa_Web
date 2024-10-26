@@ -6,7 +6,7 @@ body {
 }
 
 main {
-    max-width: 100%;
+    max-width: 1000px; /* Ajustar el ancho máximo */
     margin: auto;
     padding: 20px;
     background-color: #d2124b; /* Fondo rosa oscuro */
@@ -20,10 +20,10 @@ h1 {
     text-align: center;
 }
 
-/* Solución al overflow, expandiendo el fondo y ajustando el layout */
+/* Asegurarse de que las tablas ocupen mejor el espacio disponible */
 table {
     width: 100%;
-    table-layout: auto; /* Mantener tabla flexible */
+    table-layout: fixed; /* Cambiado a "fixed" para un mejor ajuste automático */
     border-collapse: collapse;
     background-color: #fff;
     color: #333;
@@ -45,17 +45,21 @@ tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/* Ajuste de las columnas */
+/* Ajustar anchos de columnas para ocupar mejor el espacio */
 table th:nth-child(4), table td:nth-child(4) {
-    width: 30%; /* Descripción más ancha */
+    width: 20%; /* Descripción más ancha */
 }
 
 table th:nth-child(5), table td:nth-child(5) {
-    width: 15%; /* Ruta Imagen */
+    width: 18%; /* Ruta Imagen más ancha */
 }
 
 table th:nth-child(6), table td:nth-child(6) {
-    width: 8%; /* Duracion */
+    width: 10%; /* Duración */
+}
+
+table th:nth-child(7), table td:nth-child(7) {
+    width: 10%; /* Precio */
 }
 
 table th:nth-child(1), table td:nth-child(1) {
@@ -63,22 +67,19 @@ table th:nth-child(1), table td:nth-child(1) {
 }
 
 table th:nth-child(2), table td:nth-child(2) {
-    width: 8%; /* Titulo */
+    width: 12%; /* Título */
 }
+
 table th:nth-child(3), table td:nth-child(3) {
-    width: 8%; /* Tipo */
+    width: 12%; /* Tipo */
 }
 
-table th:nth-child(7), table td:nth-child(7) {
-    width: 5%; /* Precio */
-}
-
-table th:nth-child(8), table td:nth-child(8){
-    width: 10%; /* Empleado ID y Usuario */
+table th:nth-child(8), table td:nth-child(8) {
+    width: 10%; /* Empleado ID */
 }
 
 table th:nth-child(9), table td:nth-child(9) {
-    width: 8%; /* Precio */
+    width: 10%; /* Nombre de Usuario */
 }
 
 .botonesAccion {
@@ -121,3 +122,4 @@ button:hover {
         background-color: #5fa510 !important;
     }
 }
+

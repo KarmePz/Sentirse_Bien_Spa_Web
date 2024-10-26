@@ -35,7 +35,7 @@
 
     <script>
         // Obtener las noticias del localStorage
-        const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+        const noticias = JSON.parse(localStorage.getItem('noticiasFiltrados')) || [];
 
         function cargarNoticiasEnTabla() {
             const tablaCuerpo = document.querySelector('#tablaNoticiasPDF tbody');
@@ -59,11 +59,27 @@
 
         document.getElementById('btnDescargarPDF').addEventListener('click', function() {
             const element = document.querySelector('main');
-            html2pdf().from(element).save('Noticias.pdf');
+            const botones = document.querySelector('.botonesAccion');
+        botones.style.display = 'none';
+        
+        const opt = {
+            margin:       0.5,         // Margen alrededor del contenido
+            filename:     'TablaNoticias.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },  // Calidad de las imágenes
+            html2canvas:  { scale: 2 },  // Ajustar la escala para mejor calidad
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' } // Configuración de PDF
+        };
+
+        html2pdf().from(element).set(opt).save().then(function() {
+            botones.style.display = 'block';
+        });
         });
 
         document.getElementById('btnImprimir').addEventListener('click', function() {
+            const botones = document.querySelector('.botonesAccion');
+            botones.style.display = 'none';
             window.print();
+            botones.style.display = 'block';
         });
 
         document.getElementById('btnVolver').addEventListener('click', function() {
