@@ -224,10 +224,10 @@ async function getUserData(id) {
         localStorage.setItem('roles', JSON.stringify(resultado.roles));
         localStorage.setItem('idUsuario', resultado.idUser);
 
-        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
+        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")||resultado.roles.includes["Secretario"]) {
             window.location.href = "/indexPersonal.html";
         } else {
-            window.location.href = "/index.html";
+            window.location.href = "/indexPersonal.html";
         }
     } catch (error) {
         console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);

@@ -35,7 +35,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -143,6 +143,12 @@ const secciones = {
                     </tbody>
                 </table>
             </div>
+            <div class="lineaSeparacion"></div>
+
+            <div class="botonesAccion">
+                <button id="btnListaClientesDia">Lista de Clientes a Atender por Día</button>
+                <button id="btnListaClientesEmpleado">Lista de Clientes por Empleado</button>
+            </div>
         </section>
     `,
     'Reservas': `
@@ -165,7 +171,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -287,9 +293,9 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th onclick="cambiarCriterioBusqueda('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusqueda('usuarioCliente')">usuarioCliente</th>
-                            <th onclick="cambiarCriterioBusqueda('nombreIdentificador')">nombreIdentificador</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Cliente ID</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('nombreIdentificador')">Nombre Identificador</th>
                         </tr>
                     </thead>
                     <tbody id="tablaReservas">
@@ -299,6 +305,9 @@ const secciones = {
             </div>
 
             <div class="lineaSeparacion"></div>
+            <div class="botonesAccion">
+                <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
+            </div>
         </section>
     `,
     'Informes de Pagos': `
@@ -321,7 +330,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -451,12 +460,12 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>usuarioId</th>
-                            <th>reservaId</th>
-                            <th>formatoPago</th>
-                            <th>montoTotal</th>
-                            <th>Pagado</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('usuarioId')">Cliente ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('reservaId')">Reserva ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('formatoPago')">Formato Pago</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('montoTotal')">Monto Total</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('pagado')">Pagado</th>
                         </tr>
                     </thead>
                     <tbody id="tablaPagos">
@@ -466,6 +475,10 @@ const secciones = {
             </div>
 
             <div class="lineaSeparacion"></div>
+            <div class="botonesAccion">
+                <button id="btnGenerarFactura">Generar Factura/Informe</button>
+                <button id="btnGenerarPDFPagos" type="button">Generar PDF de Tabla</button>
+            </div>
         </section>
     `,
     'Servicios': `
@@ -488,7 +501,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -611,14 +624,14 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>titulo</th>
-                            <th>tipoServicio</th>
-                            <th>descripcion</th>
-                            <th>rutaImagen</th>
-                            <th>duracionMinut</th>
-                            <th>precio</th>
-                            <th>empleadoId</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('titulo')">Título</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('tipoServicio')">Tipo de Servicio</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('descripcion')">Descripcion</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('rutaImagen')">Ruta Imagen</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('duracionMinut')">Duracion (min)</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('precio')">Precio</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado</th>
                         </tr>
                     </thead>
                     <tbody id="tablaServicios">
@@ -633,6 +646,7 @@ const secciones = {
                 <button id="btnAgregarServ">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
+                <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
             </div>
         </section>
     `,
@@ -656,7 +670,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -772,10 +786,10 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Roles</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('userName')">Nombre</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('email')">Email</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('roles')">Roles</th>
                         </tr>
                     </thead>
                     <tbody id="tablaEmpleados">
@@ -790,6 +804,7 @@ const secciones = {
                 <button id="btnAgregarEmp">Agregar</button>
                 <button>Modificar</button>
                 <button>Eliminar</button>
+                <button id="btnGenerarPDFEmp">Generar PDF de Tabla</button>
             </div>
         </section>
     `,
@@ -813,7 +828,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -938,7 +953,7 @@ const secciones = {
                     <thead>
                         <tr>
                             <th onclick="cambiarCriterioBusquedaNoticia('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusquedaNoticia('Titulo')">Titulo</th>
+                            <th onclick="cambiarCriterioBusquedaNoticia('titulo')">Titulo</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('tipo')">Tipo</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('rutaImagen')">Ruta Imagen</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('rutaPDF')">Ruta PDF</th>
@@ -957,11 +972,12 @@ const secciones = {
                 <button id="btnAgregar">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminar">Eliminar</button>
+                <button id="btnGenerarPDFNoticias">Generar PDF de Tabla</button>
             </div>
         </section>
     `,
     'Turnos': `
-            <style>
+        <style>
         :root {
             --verdeColor: #5fa510;
             --verdeOscuroColor: #315012;
@@ -980,7 +996,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -1121,9 +1137,7 @@ const secciones = {
             <div class="lineaSeparacion"></div>
 
             <div class="botonesAccion">
-                <button id="agregar_turno_btn">Agregar</button>
-                <button id="modificar_turno_btn">Modificar</button>
-                <button id="eliminar_turno_btn">Eliminar</button>
+                <button id="btnGenerarPDFTurnos">Generar PDF de Tabla</button>
             </div>
         </section>
     `
@@ -1239,18 +1253,70 @@ links.forEach(link => {
             if (opcionSeleccionada === 'Clientes') {
                 cargarFiltros();  // Función para inicializar los filtros de clientes
                 cargarUsuariosDesdeAPI();  // Cargar los usuarios desde la API cada vez que se entre en la sección de clientes
+
+                const btnListaClientesDia = document.getElementById('btnListaClientesDia');
+                const btnListaClientesEmpleado = document.getElementById('btnListaClientesEmpleado');
+                if (btnListaClientesDia) {
+                    btnListaClientesDia.addEventListener('click', function() {
+                        window.location.href = 'clientesPorDia.html'; // Redirigir al nuevo HTML
+                    });
+                }
+                if (btnListaClientesEmpleado) {
+                    btnListaClientesEmpleado.addEventListener('click', function() {
+                        window.location.href = 'clientesPorDiaEmpleado.html'; // Redirigir al nuevo HTML
+                    });
+                }
             } else if (opcionSeleccionada === 'Reservas') {
                 cargarFiltrosReservas(); // Función para inicializar los filtros de reservas
                 cargarReservasDesdeAPI();  // Cargar las reservas desde la API cada vez que se entre en la sección de reservas
+
+                document.getElementById('btnGenerarPDFReserva').addEventListener('click', function() {
+                    // Guardar las reservas en localStorage para usarlas en la página de generación de PDF
+                    localStorage.setItem('reservas', JSON.stringify(reservas));
+                    window.location.href = 'generarTablaReservas.html'; // Redirige a la nueva página
+                });
             } else if (opcionSeleccionada === 'Informes de Pagos') {
                 cargarFiltrosPagos(); // Función para inicializar los filtros de pagos
                 cargarPagosDesdeAPI();  // Cargar los pagos desde la API cada vez que se entre en la sección de pagos
+
+                // Añadir el event listener para el botón de Generar Factura
+                const btnGenerarFactura = document.getElementById('btnGenerarFactura');
+                document.getElementById('btnGenerarPDFPagos').addEventListener('click', function() {
+                    // Guardar los pagos en localStorage para usarlos en la página de generación de PDF
+                    localStorage.setItem('pagos', JSON.stringify(pagos));
+                    window.location.href = 'generarTablaPagos.html'; // Redirige a la nueva página
+                });
+                
+                if (btnGenerarFactura) {
+                    btnGenerarFactura.addEventListener('click', function () {
+                        const pagoId = prompt('Ingrese el ID del pago para generar la factura:');
+                        if (pagoId) {
+                            const pagoSeleccionado = pagos.find(pago => pago.pagoId === parseInt(pagoId));
+                            if (!pagoSeleccionado) {
+                                alert('El pago con ese ID no existe. Intente de nuevo.');
+                                return;
+                            }
+
+                            // Obtener el reservaId del pago seleccionado
+                            const reservaId = pagoSeleccionado.reservaId;
+
+                            // Redirigir a una nueva página con el ID del pago como query parameter
+                            window.location.href = `factura.html?reservaId=${reservaId}&pagoId=${pagoId}`;
+                        } else {
+                            alert('Por favor, ingrese un ID de pago válido.');
+                        }
+                    });
+                }
             } else if (opcionSeleccionada === 'Servicios') {
                 cargarFiltrosServicios(); // Función para inicializar los filtros de servicios
                 cargarServiciosDesdeAPI();  // Cargar los servicios desde la API cada vez que se entre en la sección de servicios
                 // Añadir los event listeners para el botón de Agregar
                 const btnAgregar = document.getElementById('btnAgregarServ');
                 const btnEliminar = document.getElementById('btnEliminarServ');
+                document.getElementById('btnGenerarPDFServicios').addEventListener('click', function() {
+                    localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
+                });
 
                 if (btnAgregar) {
                     btnAgregar.addEventListener('click', function() {
@@ -1268,6 +1334,12 @@ links.forEach(link => {
 
                 // Añadir los event listeners para el botón de Agregar
                 const btnAgregar = document.getElementById('btnAgregarEmp');
+                document.getElementById('btnGenerarPDFEmp').addEventListener('click', function() {
+                    // Guardar los empleados en localStorage para poder usarlos en el nuevo HTML
+                    localStorage.setItem('empleados', JSON.stringify(empleados));
+                    window.location.href = 'generarTablaEmpleados.html'; // Redirigir al HTML de generación de PDF
+                });
+                
 
                 if (btnAgregar) {
                     btnAgregar.addEventListener('click', function() {
@@ -1281,22 +1353,32 @@ links.forEach(link => {
                 cargarNoticiasDesdeAPI();  // Cargar las noticias desde la API cada vez que se entre en la sección de noticias
 
 
-                 // Añadir los event listeners para Agregar y Eliminar
-                 const btnAgregar = document.getElementById('btnAgregar');
-                 const btnEliminar = document.getElementById('btnEliminar');
+                // Añadir los event listeners para Agregar y Eliminar
+                const btnAgregar = document.getElementById('btnAgregar');
+                const btnEliminar = document.getElementById('btnEliminar');
  
-                 if (btnAgregar) {
-                     btnAgregar.addEventListener('click', function() {
-                         window.location.href = 'agregarNoticia.html'; // Redirigir al formulario de agregar noticia
-                     });
-                 }
+                if (btnAgregar) {
+                    btnAgregar.addEventListener('click', function() {
+                        window.location.href = 'agregarNoticia.html'; // Redirigir al formulario de agregar noticia
+                    });
+                }
  
-                 if (btnEliminar) {
-                     btnEliminar.addEventListener('click', eliminarNoticia); // Vincular el botón Eliminar
-                 }
+                if (btnEliminar) {
+                    btnEliminar.addEventListener('click', eliminarNoticia); // Vincular el botón Eliminar
+                }
+                document.getElementById('btnGenerarPDFNoticias').addEventListener('click', function() {
+                    // Guardar las noticias en localStorage para poder usarlas en el nuevo HTML
+                    localStorage.setItem('noticias', JSON.stringify(noticias));
+                    window.location.href = 'generarTablaNoticias.html'; // Redirigir al HTML de generación de PDF
+                });
                  
             }else if (opcionSeleccionada === 'Turnos'){
                 cargarTurnosDesdeAPI();
+                document.getElementById('btnGenerarPDFTurnos').addEventListener('click', function() {
+                    // Guardar los turnos en localStorage para poder usarlos en el nuevo HTML
+                    localStorage.setItem('turnos', JSON.stringify(turnos));
+                    window.location.href = 'generarTablaTurnos.html'; // Redirigir al HTML de generación de PDF
+                });
             }
         }
     });
@@ -1370,6 +1452,7 @@ function ordenarYFiltrarClientes() {
 
 // Variables globales para la sección de Reservas
 let reservas = [];
+let criterioBusquedaReserva = 'usuarioCliente'; // Criterio predeterminado para buscar en Reservas
 
 // Función para cargar reservas desde la API
 async function cargarReservasDesdeAPI() {
@@ -1394,6 +1477,7 @@ function cargarReservas(reservas) {
         return;
     }
 
+    
     tablaReservas.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     reservas.forEach(reserva => {
@@ -1407,6 +1491,15 @@ function cargarReservas(reservas) {
     });
 }
 
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaReserva(nuevoCriterio) {
+    criterioBusquedaReserva = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarReserva');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
 // Función para buscar reservas por clienteId
 function buscarReservas() {
     const inputBuscar = document.getElementById('inputBuscarReserva');
@@ -1416,7 +1509,18 @@ function buscarReservas() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const reservasFiltradas = reservas.filter(reserva => reserva.clienteId.toLowerCase().includes(texto));
+    const reservasFiltradas = reservas.filter(reserva => {
+        switch (criterioBusquedaReserva) {
+            case 'ID':
+                return reserva.reservaId.toString().startsWith(texto);
+            case 'usuarioCliente':
+                return reserva.clienteId.toLowerCase().includes(texto);
+            case 'nombreIdentificador':
+                return reserva.nombreIdentificador.toLowerCase().includes(texto);
+            default:
+                return false;
+        }
+    });
     cargarReservas(reservasFiltradas);
 }
 
@@ -1446,11 +1550,28 @@ function ordenarYFiltrarReservas() {
     cargarReservas(reservasOrdenadas);
 }
 
+// Función para inicializar el comportamiento de los filtros
+function cargarFiltrosReservas() {
+    const inputBuscar = document.getElementById('inputBuscarReserva');
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', buscarReservas); // Añadir evento para buscar según el criterio
+    }
+
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaReservas th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaReserva(th.getAttribute('data-criterio'));
+        });
+    });
+}
+
 
 // ============================================= PAGOS ===============================================
 
 // Variables globales para la sección de Pagos
 let pagos = [];
+let criterioBusquedaPagos = 'usuarioId'; // Criterio predeterminado para buscar en Pagos
 
 // Función para cargar pagos desde la API
 async function cargarPagosDesdeAPI() {
@@ -1478,6 +1599,7 @@ function cargarPagos(pagos) {
         return;
     }
 
+    
     tablaPagos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     pagos.forEach(pago => {
@@ -1496,6 +1618,15 @@ function cargarPagos(pagos) {
     });
 }
 
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaPagos(nuevoCriterio) {
+    criterioBusquedaPagos = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarPago');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
 // Función para buscar pagos por usuarioId
 function buscarPagos() {
     const inputBuscar = document.getElementById('inputBuscarPago');
@@ -1505,7 +1636,24 @@ function buscarPagos() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const pagosFiltrados = pagos.filter(pago => pago.usuarioId.toLowerCase().includes(texto));
+    const pagosFiltrados = pagos.filter(pago => {
+        switch (criterioBusquedaPagos) {
+            case 'ID':
+                return pago.pagoId.toString().startsWith(texto);
+            case 'usuarioId':
+                return pago.usuarioId.toLowerCase().includes(texto);
+            case 'reservaId':
+                return pago.reservaId.toLowerCase().includes(texto);
+            case 'formatoPago':
+                return pago.formatoPago.toLowerCase().includes(texto);
+            case 'montoTotal':
+                return pago.montoTotal.toString().startsWith(texto);
+            case 'pagado':
+                return (pago.pagado ? 'sí' : 'no').includes(texto);
+            default:
+                return false;
+        }
+    });
     cargarPagos(pagosFiltrados);
 }
 
@@ -1515,6 +1663,14 @@ function cargarFiltrosPagos() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarPagos); // Añadir evento para buscar pagos por usuarioId
     }
+
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaPagos th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
+        });
+    });
 
     const selectPagado = document.getElementById('filtroPagado');
     if (selectPagado) {
@@ -1565,6 +1721,7 @@ function ordenarYFiltrarPagos() {
 
 // Variables globales para la sección de Servicios
 let servicios = [];
+let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para buscar en Servicios
 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
@@ -1589,6 +1746,7 @@ function cargarServicios(servicios) {
         return;
     }
 
+    
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
@@ -1605,6 +1763,15 @@ function cargarServicios(servicios) {
         `;
         tablaServicios.appendChild(fila);
     });
+}
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaServicios(nuevoCriterio) {
+    criterioBusquedaServicios = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarServicio');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
 }
 
 // Función para buscar servicios por tipoServicio
@@ -1626,6 +1793,13 @@ function cargarFiltrosServicios() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarServicios); // Añadir evento para buscar servicios por tipoServicio
     }
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaServicios th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaServicios(th.getAttribute('data-criterio'));
+        });
+    });
 }
 
 // Función para eliminar un servicio
@@ -1685,6 +1859,7 @@ function ordenarYFiltrarServicios() {
 
 // Variables globales para la sección de Empleados
 let empleados = [];
+let criterioBusquedaEmpleado = 'ID'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar empleados desde la API
 async function cargarEmpleadosDesdeAPI() {
@@ -1735,6 +1910,17 @@ function cargarEmpleados(empleados) {
     });
 }
 
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaEmpleado(nuevoCriterio) {
+    criterioBusquedaEmpleado = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarEmpleado');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
+
 // Función para buscar empleados por nombre
 function buscarEmpleados() {
     const inputBuscar = document.getElementById('inputBuscarEmpleado');
@@ -1754,6 +1940,13 @@ function cargarFiltrosEmpleados() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarEmpleados); // Añadir evento para buscar empleados por nombre
     }
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaEmpleados th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
+        });
+    });
 }
 
 // ========================================== NOTICIAS ===================================================
@@ -1917,12 +2110,13 @@ function cargarTurnos(turnos) {
     tablaTurnos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     turnos.forEach(turno => {
+        const fechaFormateada = formatearFecha(turno.fechaInicio);
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${turno.turnoId}</td>
             <td>${turno.servicioId}</td>
             <td>${turno.reservaId || 'N/A'}</td> <!-- Asume que el tipo puede no estar disponible -->
-            <td>${turno.fechaInicio}</td>
+            <td>${fechaFormateada}</td>
             <td>${turno.descripcion}</td>
         `;
         tablaTurnos.appendChild(fila);
@@ -1942,8 +2136,6 @@ function cargarFiltrosTurnos() {
         });
     });
 }
-
-
 
 
 // Función para cambiar el criterio de búsqueda
@@ -1980,8 +2172,19 @@ function buscarTurnos() {
                 return false;
         }
     });
-    cargarNoticias(turnosFiltrados);}
+    cargarNoticias(turnosFiltrados);
+}
 
+// Función para formatear la fecha en el formato dd/mm/yyyy hh:mm
+function formatearFecha(fecha) {
+    const date = new Date(fecha);
+    const dia = date.getDate().toString().padStart(2, '0');
+    const mes = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+    const anio = date.getFullYear();
+    const horas = date.getHours().toString().padStart(2, '0');
+    const minutos = date.getMinutes().toString().padStart(2, '0');
+    return `${dia}/${mes}/${anio} ${horas}:${minutos}`;
+}
 
 
 
@@ -2088,3 +2291,14 @@ botonLogout.addEventListener('click', async function() {
     // Redireccionar a la página de inicio
     window.location.href = "/index.html"; 
 });
+
+
+//--------------------------------------------------------------------------
+///LISTADOS Y PDFS
+//--------------------------------------------------------------------------
+
+
+
+
+
+
