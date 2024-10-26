@@ -76,6 +76,18 @@ const paginas =[
         descripcion_Ficha4: "Logra una figura esculpida con nuestra técnica de ultracavitación. Utilizamos ultrasonido para desintegrar las células de grasa y reducir medidas, ofreciendo una solución efectiva para la reducción corporal y la celulitis.",
     },
 ];
+function pedirTurno(indiceFicha) {
+    const servicioSeleccionado = paginas[localStorage.getItem('indiceServicio')]; // Obtener la página seleccionada
+    const tituloFicha = servicioSeleccionado[`titulo_Ficha${indiceFicha + 1}`]; // Obtener el título de la ficha correspondiente
+
+    // Verifica qué valor estás almacenando
+    console.log("Guardando en localStorage el título:", tituloFicha);
+
+    localStorage.setItem('tituloFicha', tituloFicha); // Guardar el título de la ficha en localStorage
+    window.location.href = "/turno.html"; // Redirigir a la página de turnos
+}
+
+
 
 function irAPagina(indice) {
     localStorage.setItem('indiceServicio', indice); // Guardar el índice seleccionado

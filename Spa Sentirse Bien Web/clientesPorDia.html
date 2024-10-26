@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes a Atender por Día</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css"> <!-- Reutilizando el estilo de la página -->
+</head>
+<body>
+    <main>
+        <h1>Generar Listado de Clientes a Atender</h1>
+        <form id="formClientesPorDia">
+            <label for="dia">Seleccionar Día:</label>
+            <input type="date" id="dia" required><br><br>
+
+            <label for="ordenarDesc">Ordenar de forma descendente:</label>
+            <input type="checkbox" id="ordenarDesc"><br><br>
+
+            <button type="submit">Generar</button>
+            <button type="button" onclick="window.location.href='indexpersonal.html';">Volver</button>
+        </form>
+    </main>
+    <script src="./JS/clientesPorDia.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF de Turnos</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Lista de Turnos</h1>
+        <table id="tablaTurnosPDF">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Servicio ID</th>
+                    <th>Reserva ID</th>
+                    <th>Fecha Inicio</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán las filas de la tabla dinámicamente desde JS -->
+            </tbody>
+        </table>
+
+        <div class="botonesAccion">
+            <button id="btnDescargarPDF">Descargar PDF</button>
+            <button id="btnImprimir">Imprimir</button>
+            <button id="btnVolver">Volver</button>
+        </div>
+    </main>
+
+    <script>
+        const turnos = JSON.parse(localStorage.getItem('turnos')) || [];
+
+        // Función para formatear la fecha en el formato dd/mm/yyyy hh:mm
+        function formatearFecha(fecha) {
+            const date = new Date(fecha);
+            const dia = date.getDate().toString().padStart(2, '0');
+            const mes = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+            const anio = date.getFullYear();
+            const horas = date.getHours().toString().padStart(2, '0');
+            const minutos = date.getMinutes().toString().padStart(2, '0');
+            return `${dia}/${mes}/${anio} ${horas}:${minutos}`;
+        }
+
+        function cargarTurnosEnTabla() {
+            const tablaCuerpo = document.querySelector('#tablaTurnosPDF tbody');
+            tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de llenarla
+
+            turnos.forEach(turno => {
+                const fechaFormateada = formatearFecha(turno.fechaInicio); // Formatear la fecha
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${turno.turnoId}</td>
+                    <td>${turno.servicioId}</td>
+                    <td>${turno.reservaId || 'N/A'}</td>
+                    <td>${fechaFormateada}</td> <!-- Fecha formateada -->
+                    <td>${turno.descripcion}</td>
+                `;
+                tablaCuerpo.appendChild(fila);
+            });
+        }
+
+        cargarTurnosEnTabla();
+
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            const element = document.querySelector('main');
+            html2pdf().from(element).save('Turnos.pdf');
+        });
+
+        document.getElementById('btnImprimir').addEventListener('click', function() {
+            window.print();
+        });
+
+        document.getElementById('btnVolver').addEventListener('click', function() {
+            window.location.href = 'indexpersonal.html';
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF de Tabla de Noticias</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css"> <!-- Reutilizando el estilo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Lista de Noticias</h1>
+        <table id="tablaNoticiasPDF">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Ruta Imagen</th>
+                    <th>Ruta PDF</th>
+                    <th>Fecha Publicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán las filas dinámicamente desde JS -->
+            </tbody>
+        </table>
+
+        <div class="botonesAccion">
+            <button id="btnDescargarPDF">Descargar PDF</button>
+            <button id="btnImprimir">Imprimir</button>
+            <button id="btnVolver">Volver</button>
+        </div>
+    </main>
+
+    <script>
+        // Obtener las noticias del localStorage
+        const noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+
+        function cargarNoticiasEnTabla() {
+            const tablaCuerpo = document.querySelector('#tablaNoticiasPDF tbody');
+            tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de llenarla
+
+            noticias.forEach(noticia => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${noticia.noticiaId}</td>
+                    <td>${noticia.titulo}</td>
+                    <td>${noticia.tipo || 'N/A'}</td>
+                    <td>${noticia.rutaImagen}</td>
+                    <td>${noticia.rutaPDF}</td>
+                    <td>${noticia.fechaPublicacion}</td>
+                `;
+                tablaCuerpo.appendChild(fila);
+            });
+        }
+
+        cargarNoticiasEnTabla();
+
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            const element = document.querySelector('main');
+            html2pdf().from(element).save('Noticias.pdf');
+        });
+
+        document.getElementById('btnImprimir').addEventListener('click', function() {
+            window.print();
+        });
+
+        document.getElementById('btnVolver').addEventListener('click', function() {
+            window.location.href = 'indexpersonal.html';
+        });
+    </script>
+</body>
+</html>

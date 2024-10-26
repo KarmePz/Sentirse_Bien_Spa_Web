@@ -1,4 +1,3 @@
-
 :root {
     --verdeColor: #5fa510;
     --verdeOscuroColor: #315012;
@@ -9,87 +8,137 @@
     --rosaClaro: rgb(248, 213, 219); 
     --grisOscuro: #3c3c3c; 
 }
-
-
+/* Estilo general del cuerpo */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: var(--rosaClaro);
+    color: var(--amarilloColor);
     margin: 0;
-    background-color: var(--rosaClaro); 
-    font-family: 'Arial', sans-serif; 
+    padding: 0;
 }
 
-/* Estilos del contenedor */
-.contenedor {
-    background-color: var(--rosaColor); 
-    padding: 30px; 
-    border-radius: 12px; 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
-    text-align: center; 
-    width: 350px; 
-    font-size: 16px; 
-    color: var(--amarilloColor); 
-    font-family: 'Arial', sans-serif;
+/* Contenedor principal de reservas */
+.carrito-reservas {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: var(--rosaClaro);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-
+/* Título de la sección */
 h2 {
+    text-align: center;
+    color: var(--amarilloColor);
     margin-bottom: 20px;
-    font-size: 24px; 
-    color: var(--amarilloColor); 
-    font-family: 'Verdana', sans-serif; 
 }
 
-/* Estilos para el input de fecha */
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border-radius: 8px;
-    border: 1px solid #cccccc;
-    background-color: var(--rosaClaro); 
-    font-size: 16px; 
-    font-family: 'Courier New', monospace; 
+/* Contenido de reservas */
+.contenido-reservas {
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Estilos para el select de la hora */
-select {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border-radius: 8px;
-    border: 1px solid #cccccc;
-    background-color: var(--rosaClaro); 
-    color: black; 
-    font-size: 16px; 
-    font-family: 'Courier New', monospace; 
+/* Lista de turnos */
+#lista-turnos {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 65%;
 }
 
+#lista-turnos li {
+    background-color: var(--rosaColor);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
 
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: var(--verdeOscuroColor); 
-    color: white; 
+/* Estilo del total */
+.total {
+    width: 30%;
+    text-align: center;
+    background-color: var(--rosaColor);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Precio total */
+#total-precio {
+    font-weight: bold;
+    color: var(--verdeColor);
+}
+
+/* Botón de pagar */
+#boton-pagar {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--verdeOscuroColor);
+    color: var(--rosaClaro);
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px; 
-    font-family: 'Arial', sans-serif; 
-    transition: background-color 0.3s ease;
+    width: 100%;
+    font-size: 16px;
 }
 
-
-button:hover {
+#boton-pagar:hover {
     background-color: var(--verdeColor);
 }
 
+/* Contenedor de opciones de pago */
+#opciones {
+    background-color: var(--rosaColor); 
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    margin-top: 20px;
+    color: var(--amarilloOscuro);
+}
 
-label {
-    color: var(--amarilloColor); 
-    font-size: 14px; 
-    font-family: 'Verdana', sans-serif; 
+/* Estilo de las opciones de pago */
+.opcion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: var(--rosaClaro);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--amarilloOscuro);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.opcion:hover {
+    background-color: var(--amarilloColor);
+    color: var(--grisOscuro);
+}
+
+/* Estilo para los inputs de las opciones */
+input[type="radio"] {
+    margin-left: 10px;
+    accent-color: var(--verdeOscuroColor);
+}
+
+/* Botón de confirmar */
+#confirmar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--verdeOscuroColor);
+    color: var(--rosaClaro);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#confirmar:hover {
+    background-color: var(--verdeColor);
 }

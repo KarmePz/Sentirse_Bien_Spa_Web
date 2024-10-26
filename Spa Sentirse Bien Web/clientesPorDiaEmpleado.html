@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Listado de Clientes por Profesional</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css"> <!-- Reutilizando el estilo de la página -->
+</head>
+<body>
+    <main>
+        <h1>Generar Listado de Clientes por Profesional</h1>
+        <form id="formClientesPorProfesional">
+            <label for="ordenarDesc">Ordenar por Horario Descendiente:</label>
+            <select id="ordenarDesc">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+            <br><br>
+
+            <button type="button" id="btnGenerarLista">Generar</button>
+            <button type="button" id="btnVolver">Volver</button>
+        </form>
+    </main>
+
+    <script>
+        // Evento para redirigir al generar la lista
+        document.getElementById('btnGenerarLista').addEventListener('click', function() {
+            const ordenarDesc = document.getElementById('ordenarDesc').value;
+            window.location.href = `listaClientesPorProfesionalGenerada.html?ordenarDescendiente=${ordenarDesc}`;
+        });
+
+        // Botón para volver a la página anterior
+        document.getElementById('btnVolver').addEventListener('click', function() {
+            window.location.href = 'indexpersonal.html';
+        });
+    </script>
+</body>
+</html>
+
+

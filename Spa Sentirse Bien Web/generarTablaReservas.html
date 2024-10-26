@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF de Tabla de Reservas</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Lista de Reservas</h1>
+        <table id="tablaReservasPDF">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente ID</th>
+                    <th>Nombre Identificador</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán las filas de la tabla dinámicamente desde JS -->
+            </tbody>
+        </table>
+
+        <div class="botonesAccion">
+            <button id="btnDescargarPDF">Descargar PDF</button>
+            <button id="btnImprimir">Imprimir</button>
+            <button id="btnVolver">Volver</button>
+        </div>
+    </main>
+
+    <script>
+        // Obtener las reservas almacenadas y mostrarlas en la tabla
+        const reservas = JSON.parse(localStorage.getItem('reservas')) || [];
+
+        function cargarReservasEnTabla() {
+            const tablaCuerpo = document.querySelector('#tablaReservasPDF tbody');
+            tablaCuerpo.innerHTML = '';
+
+            reservas.forEach(reserva => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${reserva.reservaId}</td>
+                    <td>${reserva.clienteId}</td>
+                    <td>${reserva.nombreIdentificador}</td>
+                `;
+                tablaCuerpo.appendChild(fila);
+            });
+        }
+
+        cargarReservasEnTabla();
+
+        // Descargar la tabla como PDF
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            const element = document.querySelector('main');
+            html2pdf().from(element).save('Reservas.pdf');
+        });
+
+        // Imprimir la tabla
+        document.getElementById('btnImprimir').addEventListener('click', function() {
+            window.print();
+        });
+
+        // Volver a la página anterior
+        document.getElementById('btnVolver').addEventListener('click', function() {
+            window.location.href = 'indexpersonal.html'; // Cambia esto por la página anterior
+        });
+    </script>
+</body>
+</html>
