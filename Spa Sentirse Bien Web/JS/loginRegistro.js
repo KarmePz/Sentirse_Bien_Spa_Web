@@ -7,7 +7,10 @@ var volverBoton = document.getElementById('volver_boton');
 activarAcceder();
 sectionRegistro.style.display = 'none';
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    sessionStorage.clear()
+    localStorage.clear()
+})
 //EVENTOS DE CLICK
 botonIngreso.addEventListener('click', function(){
     activarAcceder();
@@ -227,7 +230,7 @@ async function getUserData(id) {
         if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
             window.location.href = "/indexPersonal.html";
         } else {
-            window.location.href = "/index.html";
+            window.location.href = "/indexCliente.html";
         }
     } catch (error) {
         console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);

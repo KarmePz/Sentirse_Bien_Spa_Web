@@ -1,0 +1,199 @@
+/* CSS para indexCliente.css */
+
+/* Personalización de colores y tipografía */
+body {
+    font-family: Arial, sans-serif; /* Cambia la tipografía aquí */
+    background-color: #f5f5f5; /* Color de fondo general */
+    color: #333; /* Color de texto general */
+    margin: 0;
+    padding: 0;
+}
+/*parte del heder*/
+
+.botones-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px 0px; /* Añadir algo de padding arriba y abajo */
+}
+.container {
+    --color: var(--amarilloColor);
+    --size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: var(--size);
+    user-select: none;
+    fill: var(--color);
+    
+}
+.boton_logout{
+    background-color: pink;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.container .bell-regular {
+    position: absolute;
+    animation: keyframes-fill .5s;
+}
+
+.container .bell-solid {
+    position: absolute;
+    display: none;
+    animation: keyframes-fill .5s;
+}
+
+.container input:checked ~ .bell-regular {
+    display: none;
+}
+
+.container input:checked ~ .bell-solid {
+    display: block;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+@keyframes keyframes-fill {
+    0% { opacity: 0; }
+    25% { transform: rotate(25deg); }
+    50% { transform: rotate(-20deg) scale(1.2); }
+    75% { transform: rotate(15deg); }
+}
+/*Cuando se loguea un usuario se muestra esto: */
+.fa-solid{
+    font-weight: 500;
+    font-size: x-large;
+    position: relative;
+    left: 30px;
+    vertical-align:super;
+    color:var(--amarilloColor)
+}
+.span_saludo{
+    color:var(--amarilloColor);
+    font-size: 17px; 
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    vertical-align:middle;
+    z-index: 11000;
+}
+
+
+
+/*parte del main*/
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Estilos para los filtros */
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#services {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Estilo para las tarjetas de servicio */
+.service-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+}
+
+/* Ajuste de tamaño para las imágenes de las tarjetas */
+.service-card img {
+    width: 100%;
+    height: 200px; /* Altura fija para asegurar consistencia */
+    object-fit: cover; /* Mantiene la proporción de la imagen */
+    border-bottom: 1px solid #ddd;
+}
+
+
+.service-info {
+    padding: 15px;
+}
+
+.service-info h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+.service-info p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.service-info span {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .services-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .services-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.reserva_button {
+    background-color: #ff6f61; /* Un color atractivo para el botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.reserva_button:hover {
+    background-color: #e65c54; /* Oscurecer el color al pasar el mouse */
+}

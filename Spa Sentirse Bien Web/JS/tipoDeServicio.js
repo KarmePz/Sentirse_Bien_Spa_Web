@@ -76,16 +76,40 @@ const paginas =[
         descripcion_Ficha4: "Logra una figura esculpida con nuestra técnica de ultracavitación. Utilizamos ultrasonido para desintegrar las células de grasa y reducir medidas, ofreciendo una solución efectiva para la reducción corporal y la celulitis.",
     },
 ];
-function pedirTurno(indiceFicha) {
-    const servicioSeleccionado = paginas[localStorage.getItem('indiceServicio')]; // Obtener la página seleccionada
-    const tituloFicha = servicioSeleccionado[`titulo_Ficha${indiceFicha + 1}`]; // Obtener el título de la ficha correspondiente
 
-    // Verifica qué valor estás almacenando
-    console.log("Guardando en localStorage el título:", tituloFicha);
-
-    localStorage.setItem('tituloFicha', tituloFicha); // Guardar el título de la ficha en localStorage
-    window.location.href = "/turno.html"; // Redirigir a la página de turnos
+function pedirTurno() {
+    // Mostrar el modal en lugar de redirigir directamente
+    const modal = document.getElementById("modalRegistro");
+    modal.style.display = "block";
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById("modalRegistro");
+    const spanClose = document.querySelector(".close");
+
+    if (modal && spanClose) {
+        // Asignar la función de cierre al botón de cerrar (span)
+        spanClose.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // Cerrar el modal al hacer clic fuera del mismo
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    } else {
+        console.error("El modal o el botón de cierre no se encontraron en el DOM.");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const registroButton = document.getElementById("registroButton");
+    registroButton.addEventListener("click", function() {
+        window.location.href = "/signIn.html";
+    });
+});
 
 
 

@@ -35,11 +35,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -165,11 +161,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -321,11 +313,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -488,11 +476,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -656,11 +640,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -813,11 +793,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
@@ -980,11 +956,7 @@ const secciones = {
         }
 
         section {
-            background-color: var(--rosaOscuro);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+            background-color: var(--rosaClaro);
 
         .barraSuperior {
             display: flex;
