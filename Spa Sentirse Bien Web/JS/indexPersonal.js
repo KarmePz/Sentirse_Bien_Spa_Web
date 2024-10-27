@@ -278,7 +278,7 @@ const secciones = {
         <section class="opcionMenuSelecionada">
             <div class="barraSuperior">
                 <h1>Reservas</h1>
-                <input type="text" id="inputBuscarReserva" placeholder="Buscar por clienteId" oninput="buscarReservas()">
+                <input type="text" id="inputBuscarReserva" placeholder="Buscar por nombre de usuario" oninput="buscarReservas()">
                 
                 <select id="opcionesOrdenarReserva" class="ordenarSelect" onchange="ordenarYFiltrarReservas()">
                     <option value="" disabled selected>Ordenar</option>
@@ -294,7 +294,7 @@ const secciones = {
                     <thead>
                         <tr>
                             <th onclick="cambiarCriterioBusquedaReserva('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Cliente ID</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Nombre de Usuario</th> <!-- Cambiado para mostrar el nombre de usuario -->
                             <th onclick="cambiarCriterioBusquedaReserva('nombreIdentificador')">Nombre Identificador</th>
                         </tr>
                     </thead>
@@ -631,7 +631,7 @@ const secciones = {
                             <th onclick="cambiarCriterioBusquedaServicios('horarios')">Horarios</th> <!-- Nueva columna para horarios -->
                             <th onclick="cambiarCriterioBusquedaServicios('duracionMinut')">Duracion (min)</th>
                             <th onclick="cambiarCriterioBusquedaServicios('precio')">Precio</th>
-                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado (Nombre de Usuario)</th> <!-- Cambiar a nombre de usuario -->
                         </tr>
                     </thead>
                     <tbody id="tablaServicios">
@@ -640,14 +640,14 @@ const secciones = {
                 </table>
             </div>
 
-
             <div class="lineaSeparacion"></div>
-             <div class="botonesAccion">
+            <div class="botonesAccion">
                 <button id="btnAgregarServ">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
                 <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
                 <button id="btnAgregarHorario" type="button">Agregar Horario a Servicio</button>
+                <button id="btnEliminarHorario" type="button">Eliminar Horario de Servicio</button>
             </div>
         </section>
     `,
@@ -1268,6 +1268,21 @@ links.forEach(link => {
                     window.location.href = `agregarHorario.html?servicioId=${servicioId}`;
                 });
 
+                document.getElementById('btnEliminarHorario').addEventListener('click', function () {
+                    const servicioId = prompt("Ingrese el ID del servicio al que desea eliminar un horario:");
+                
+                    // Verificar si el ID del servicio existe en el array de servicios cargados
+                    const servicio = servicios.find(serv => serv.servicioId === parseInt(servicioId));
+                
+                    if (servicio) {
+                        // Redirigir al nuevo HTML con el servicioId en la URL
+                        window.location.href = `eliminarHorario.html?servicioId=${servicioId}`;
+                    } else {
+                        alert('El servicio con ese ID no existe. Por favor, ingrese un ID válido.');
+                    }
+                });
+                
+
             } else if (opcionSeleccionada === 'Administrador de Empleados') {
                 cargarFiltrosEmpleados(); // Función para inicializar los filtros de empleados
                 cargarEmpleadosDesdeAPI();  // Cargar los empleados desde la API cada vez que se entre en la sección de empleados
@@ -1469,11 +1484,30 @@ function ordenarYFiltrarClientes() {
 // Variables globales para la sección de Reservas
 let reservas = [];
 let reservasFiltradas = [];
+let clientesReserv = []; 
 let criterioBusquedaReserva = 'usuarioCliente'; // Criterio predeterminado para buscar en Reservas
+
+// Función para cargar los clientes desde la API
+async function cargarClientesReserv() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Cliente');
+        if (!response.ok) {
+            throw new Error('Error al obtener los clientes');
+        }
+
+        clientesReserv = await response.json(); // Guardar la lista de clientes
+    } catch (error) {
+        console.error('Error al cargar los clientes:', error);
+    }
+}
 
 // Función para cargar reservas desde la API
 async function cargarReservasDesdeAPI() {
     try {
+        // Primero cargamos los clientes
+        await cargarClientesReserv();
+
+        // Luego cargamos las reservas
         const response = await fetch('https://apispademo.somee.com/api/Reserva?conTurnos=false&conPago=false');
         if (!response.ok) {
             throw new Error('Error al obtener las reservas');
@@ -1498,10 +1532,15 @@ function cargarReservas(reservas) {
     tablaReservas.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     reservas.forEach(reserva => {
+        // Buscar el nombre de usuario del cliente asociado a la reserva
+        const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+        const nombreUsuario = cliente ? cliente.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${reserva.reservaId}</td>
-            <td>${reserva.clienteId}</td>
+            <td>${nombreUsuario}</td> <!-- Mostrar el nombre de usuario del cliente -->
             <td>${reserva.nombreIdentificador}</td>
         `;
         tablaReservas.appendChild(fila);
@@ -1531,7 +1570,9 @@ function buscarReservas() {
             case 'ID':
                 return reserva.reservaId.toString().startsWith(texto);
             case 'usuarioCliente':
-                return reserva.clienteId.toLowerCase().includes(texto);
+                // Buscar en el nombre de usuario en lugar del clienteId
+                const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+                return cliente && cliente.userName.toLowerCase().includes(texto);
             case 'nombreIdentificador':
                 return reserva.nombreIdentificador.toLowerCase().includes(texto);
             default:
@@ -1556,10 +1597,18 @@ function ordenarYFiltrarReservas() {
     let reservasOrdenadas = [...reservas];
     switch (criterio) {
         case 'nombreAZ':
-            reservasOrdenadas.sort((a, b) => a.clienteId.localeCompare(b.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteA.userName.localeCompare(clienteB.userName);
+            });
             break;
         case 'nombreZA':
-            reservasOrdenadas.sort((a, b) => b.clienteId.localeCompare(a.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteB.userName.localeCompare(clienteA.userName);
+            });
             break;
         default:
             break;
@@ -1740,11 +1789,13 @@ function ordenarYFiltrarPagos() {
 // Variables globales para la sección de Servicios
 let servicios = [];
 let serviciosFiltrados = [];
+let empleadosServ = []; // Lista de todos los empleados
 let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para buscar en Servicios
 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
     try {
+        await cargarEmpleadosServ();
         const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
@@ -1777,16 +1828,22 @@ function cargarServicios(servicios) {
         } else {
             horariosHTML = 'No tiene horarios asignados';
         }
+
+        // Buscar el nombre de usuario del empleado asociado al servicio
+        const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+        const nombreUsuario = empleado ? empleado.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${servicio.servicioId}</td>
             <td>${servicio.titulo}</td>
             <td>${servicio.tipoServicio}</td>
             <td>${servicio.descripcion}</td>
-            <td>${horariosHTML}</td> <!-- Mostrar horarios en una sola columna -->
+            <td>${horariosHTML}</td> 
             <td>${servicio.duracionMinut}</td>
             <td>${servicio.precio}</td>
-            <td>${servicio.usuarioId}</td> <!-- empleadoId -->
+            <td>${empleado.userName}</td> 
         `;
         tablaServicios.appendChild(fila);
     });
@@ -1827,7 +1884,8 @@ function buscarServicios() {
                 case 'precio':
                     return servicio.precio.toString().startsWith(texto);
                 case 'empleado':
-                    return servicio.usuarioId.toString().startsWith(texto);
+                    const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+                    return empleado && empleado.userName.toLowerCase().includes(texto);
                 default:
                     return false;
             }
@@ -1900,6 +1958,20 @@ function ordenarYFiltrarServicios() {
             break;
     }
     cargarServicios(serviciosOrdenados);
+}
+
+// Función para cargar empleados desde la API
+async function cargarEmpleadosServ() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Empleado');
+        if (!response.ok) {
+            throw new Error('Error al obtener los empleados');
+        }
+
+        empleadosServ = await response.json(); // Guardar los empleados
+    } catch (error) {
+        console.error('Error al cargar los empleados:', error);
+    }
 }
 
 
