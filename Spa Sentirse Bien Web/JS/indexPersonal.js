@@ -452,6 +452,12 @@ const secciones = {
                     <option value="montoAsc">Monto Ascendente</option>
                     <option value="montoDesc">Monto Descendente</option>
                 </select>
+                
+                <input type="date" id="fechaInicio" placeholder="Fecha Inicio">
+                <input type="date" id="fechaFin" placeholder="Fecha Fin">
+                <button onclick="filtrarPagosPorFecha()">Filtrar por rango de Fecha</button>
+                
+
             </div>
 
             <div class="lineaSeparacion"></div>
@@ -465,6 +471,7 @@ const secciones = {
                             <th onclick="cambiarCriterioBusquedaPagos('reservaId')">Reserva ID</th>
                             <th onclick="cambiarCriterioBusquedaPagos('formatoPago')">Formato Pago</th>
                             <th onclick="cambiarCriterioBusquedaPagos('montoTotal')">Monto Total</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('fechaPagado')">Fecha Pagado</th>
                             <th onclick="cambiarCriterioBusquedaPagos('pagado')">Pagado</th>
                         </tr>
                     </thead>
@@ -478,6 +485,7 @@ const secciones = {
             <div class="botonesAccion">
                 <button id="btnGenerarFactura">Generar Factura/Informe</button>
                 <button id="btnGenerarPDFPagos" type="button">Generar PDF de Tabla</button>
+                <button id="btnRefrescarPagos" type="button" onclick="cargarPagosDesdeAPI()">Mostrar Todos</button>
             </div>
         </section>
     `,
@@ -1284,7 +1292,7 @@ links.forEach(link => {
                 document.getElementById('btnGenerarPDFPagos').addEventListener('click', function() {
                     // Guardar los pagos en localStorage para usarlos en la página de generación de PDF
                     localStorage.setItem('pagos', JSON.stringify(pagos));
-                    window.location.href = 'generarTablaPagos.html'; // Redirige a la nueva página
+                    window.location.href = '/generarTablaPagos.html'; // Redirige a la nueva página
                 });
                 
                 if (btnGenerarFactura) {
@@ -1590,7 +1598,17 @@ async function cargarPagosDesdeAPI() {
         console.error('Error al cargar los pagos:', error);
     }
 }
-
+function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+    if (isNaN(fecha.getTime())) {
+        console.error("Fecha inválida");
+        return null; // Si la fecha no es válida
+    }
+    const año = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Meses empiezan en 0
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    return `${año}-${mes}-${dia}`; // Solo devuelve la fecha en formato "YYYY-MM-DD"
+}
 // Función para cargar los pagos en la tabla
 function cargarPagos(pagos) {
     const tablaPagos = document.getElementById('tablaPagos');
@@ -1605,13 +1623,18 @@ function cargarPagos(pagos) {
     pagos.forEach(pago => {
         console.log('Agregando pago:', pago); // Verificar que estamos agregando cada pago
 
+        
         const fila = document.createElement('tr');
+        const fechaPagadoFormateada = pago.fechaPagado ? formatearFecha(pago.fechaPagado) : 'no se pago';
+        console.log('Fecha a formatear:', pago.fechaPagado); 
+
         fila.innerHTML = `
             <td>${pago.pagoId}</td>
             <td>${pago.usuarioId}</td>
             <td>${pago.reservaId}</td>
             <td>${pago.formatoPago}</td>
             <td>${pago.montoTotal}</td>
+            <td>${fechaPagadoFormateada}</td>
             <td>${pago.pagado ? 'Sí' : 'No'}</td>
         `;
         tablaPagos.appendChild(fila);
@@ -1715,6 +1738,35 @@ function ordenarYFiltrarPagos() {
     }
     cargarPagos(pagosOrdenados);
 }
+// Función para filtrar pagos por rango de fechas
+function filtrarPagosPorFecha() {
+    const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+    const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+    // Validar que las fechas estén ingresadas correctamente
+    if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        alert("Por favor, ingresa ambas fechas.");
+        return;
+    }
+    if(fechaInicio > fechaFin){
+        alert("Fecha Ingresada no valida");
+        return;
+    }
+
+    // Filtrar los pagos en el rango de fechas
+    const pagosFiltrados = pagos.filter(pago => {
+        const fechaPagado = new Date(pago.fechaPagado);
+        return fechaPagado >= fechaInicio && fechaPagado<= fechaFin;
+    });
+
+    // Llamada para mostrar los pagos filtrados en la tabla
+    cargarPagos(pagosFiltrados);
+}
+
+
+
+
+
 
 
 //========================================= SERVICIOS ===============================================
