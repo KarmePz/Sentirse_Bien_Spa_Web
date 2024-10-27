@@ -8,8 +8,8 @@ document.getElementById('formAgregarNoticia').addEventListener('submit', async f
     const rutaPDF = document.getElementById('rutaPDF').files[0]; // Obtener archivo PDF
 
     // Simulamos que los archivos se suben a una carpeta "uploads" en el front-end
-    const rutaImagenGuardada = `./sources/Noticias/${rutaImagen.name}`;
-    const rutaPDFGuardada = `./sources/Noticias/${rutaPDF.name}`;
+    const rutaImagenGuardada = `../sources/Noticias/${rutaImagen.name}`;
+    const rutaPDFGuardada = `../sources/Noticias/${rutaPDF.name}`;
     
     // Verificamos que los archivos se hayan seleccionado correctamente
     if (!rutaImagen || !rutaPDF) {

@@ -10,8 +10,8 @@ document.getElementById('formAgregarServicio').addEventListener('submit', async 
     const precio = document.getElementById('precio').value;
     const tiempoLimiteHoras = document.getElementById('tiempoLimiteHoras').value;
 
-    // Simulamos que los archivos se suben a una carpeta "uploads" en el front-end
-    const rutaImagenGuardada = `./sources/Servicios/${rutaImagen.name}`;
+    // Simulamos que los archivos se suben a una carpeta en el front-end
+    const rutaImagenGuardada = `../sources/Servicios/Servicios/${rutaImagen.name}`;
 
     const nuevoServicio = {
         usuarioId: usuarioId,
