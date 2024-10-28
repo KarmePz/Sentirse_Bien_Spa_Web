@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Llamada al endpoint
-        const response = await fetch(`http://localhost:5287/api/Listados/clientesPorDia?dia=${dia}&ordenarDescendiente=${ordenarDescendiente}`);
+        const response = await fetch(`https://www.ApiSpaDemo.somee.com/api/Listados/clientesPorDia?dia=${dia}&ordenarDescendiente=${ordenarDescendiente}`);
         if (!response.ok) {
             throw new Error('Error al obtener la lista de clientes');
         }

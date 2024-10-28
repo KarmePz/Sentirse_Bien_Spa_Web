@@ -309,9 +309,7 @@ const secciones = {
             <div class="botonesAccion">
                 <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
             </div>
-            <div class="botonesAccion">
-                <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
-            </div>
+            
         </section>
     `,
     'Informes de Pagos': `
@@ -662,6 +660,7 @@ const secciones = {
                 <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
                 <button id="btnAgregarHorario" type="button">Agregar Horario a Servicio</button>
                 <button id="btnEliminarHorario" type="button">Eliminar Horario de Servicio</button>
+                <button id="btnGenerarPDFServiciosPorProfesional" type="button">Servicios Realizados Por Profesional</button>
             </div>
         </section>
     `,
@@ -1733,24 +1732,24 @@ function buscarPagos() {
                 return false;
         }
     });
-    const pagosFiltrados = pagos.filter(pago => {
-        switch (criterioBusquedaPagos) {
-            case 'ID':
-                return pago.pagoId.toString().startsWith(texto);
-            case 'usuarioId':
-                return pago.usuarioId.toLowerCase().includes(texto);
-            case 'reservaId':
-                return pago.reservaId.toLowerCase().includes(texto);
-            case 'formatoPago':
-                return pago.formatoPago.toLowerCase().includes(texto);
-            case 'montoTotal':
-                return pago.montoTotal.toString().startsWith(texto);
-            case 'pagado':
-                return (pago.pagado ? 'sí' : 'no').includes(texto);
-            default:
-                return false;
-        }
-    });
+    // const pagosFiltrados = pagos.filter(pago => {
+    //     switch (criterioBusquedaPagos) {
+    //         case 'ID':
+    //             return pago.pagoId.toString().startsWith(texto);
+    //         case 'usuarioId':
+    //             return pago.usuarioId.toLowerCase().includes(texto);
+    //         case 'reservaId':
+    //             return pago.reservaId.toLowerCase().includes(texto);
+    //         case 'formatoPago':
+    //             return pago.formatoPago.toLowerCase().includes(texto);
+    //         case 'montoTotal':
+    //             return pago.montoTotal.toString().startsWith(texto);
+    //         case 'pagado':
+    //             return (pago.pagado ? 'sí' : 'no').includes(texto);
+    //         default:
+    //             return false;
+    //     }
+    // });
     cargarPagos(pagosFiltrados);
 }
 
@@ -1761,13 +1760,13 @@ function cargarFiltrosPagos() {
         inputBuscar.addEventListener('input', buscarPagos); // Añadir evento para buscar pagos por usuarioId
     }
 
-    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
-    const encabezados = document.querySelectorAll('#tablaPagos th');
-    encabezados.forEach(th => {
-        th.addEventListener('click', () => {
-            cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
-        });
-    });
+    // // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    // const encabezados = document.querySelectorAll('#tablaPagos th');
+    // encabezados.forEach(th => {
+    //     th.addEventListener('click', () => {
+    //         cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
+    //     });
+    // });
 
     // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
     const encabezados = document.querySelectorAll('#tablaPagos th');
@@ -1902,7 +1901,7 @@ let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para 
 async function cargarServiciosDesdeAPI() {
     try {
         await cargarEmpleadosServ();
-        const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true');
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true&conTurnos=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
         }
@@ -1913,6 +1912,21 @@ async function cargarServiciosDesdeAPI() {
         console.error('Error al cargar los servicios:', error);
     }
 }
+
+async function cargarEmpleadosServ() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Empleado');
+        if (!response.ok) {
+            throw new Error('Error al obtener los empleados');
+        }
+
+        empleadosServ = await response.json(); // Guardar los empleados
+    } catch (error) {
+        console.error('Error al cargar los empleados:', error);
+    }
+}
+
+
 
 // Función para cargar los servicios en la tabla
 function cargarServicios(servicios) {
@@ -2203,12 +2217,12 @@ function cargarFiltrosEmpleados() {
         inputBuscar.addEventListener('input', buscarEmpleados); // Añadir evento para buscar empleados por nombre
     }
     // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
-    const encabezados = document.querySelectorAll('#tablaEmpleados th');
-    encabezados.forEach(th => {
-        th.addEventListener('click', () => {
-            cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
-        });
-    });
+    // const encabezados = document.querySelectorAll('#tablaEmpleados th');
+    // encabezados.forEach(th => {
+    //     th.addEventListener('click', () => {
+    //         cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
+    //     });
+    // });
     // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
     const encabezados = document.querySelectorAll('#tablaEmpleados th');
     encabezados.forEach(th => {
