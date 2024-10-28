@@ -655,6 +655,7 @@ const secciones = {
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
                 <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
+                <button id="btnGenerarPDFServiciosPorProfesional" type="button">Servicios Realizados Por Profesional</button>
             </div>
         </section>
     `,
@@ -1326,6 +1327,12 @@ links.forEach(link => {
                     window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
                 });
 
+                document.getElementById('btnGenerarPDFServiciosPorProfesional').addEventListener('click', function() {
+                    localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    window.location.href = 'generarTablaServicioPorProfesional.html'; // Redirige a la nueva página
+                });
+
+
                 if (btnAgregar) {
                     btnAgregar.addEventListener('click', function() {
                         window.location.href = 'agregarServicio.html'; // Redirigir al formulario de agregar servicio
@@ -1778,12 +1785,12 @@ let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
     try {
-        const response = await fetch('https://apispademo.somee.com/api/Servicio');
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conTurnos=true&conHorarios=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
         }
-
         servicios = await response.json();
+        console.log(servicios);
         cargarServicios(servicios);
     } catch (error) {
         console.error('Error al cargar los servicios:', error);
@@ -1905,6 +1912,31 @@ function ordenarYFiltrarServicios() {
     }
     cargarServicios(serviciosOrdenados);
 }
+// Función para filtrar pagos por rango de fechas
+function filtrarServiciosPorFecha() {
+    const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+    const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+    // Validar que las fechas estén ingresadas correctamente
+    if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        alert("Por favor, ingresa ambas fechas.");
+        return;
+    }
+    if(fechaInicio > fechaFin){
+        alert("Fecha Ingresada no valida");
+        return;
+    }
+
+    // Filtrar los pagos en el rango de fechas
+    const serviciosFiltrados = servicios.filter(servicio => {
+        const fechaPagado = new Date(servicio.turnoId.fechaPagado);
+        return fechaPagado >= fechaInicio && fechaPagado<= fechaFin;
+    });
+
+    // Llamada para mostrar los pagos filtrados en la tabla
+    cargarServicios(serviciosFiltrados);
+}
+
 
 
 // =============================== ADMINISTRADOR DE EMPLEADOS ====================================
