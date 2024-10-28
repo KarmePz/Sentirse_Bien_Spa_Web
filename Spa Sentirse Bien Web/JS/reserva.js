@@ -84,6 +84,31 @@ listaTurnos.addEventListener("change", event => {
         actualizarTotal();
     }
 });
+listaTurnos.addEventListener("click", (event) => {
+    if (event.target.tagName === "LI" || event.target.tagName === "DIV") {
+        const checkbox = event.target.closest("li").querySelector(".checkbox-turno");
+        checkbox.checked = !checkbox.checked;
+        actualizarTotal(); // Actualiza el total cuando se cambia la selección
+        aplicarEstilosSeleccionado(event.target.closest("li"), checkbox.checked); // Cambia el estilo del li
+    }
+});
+
+function aplicarEstilosSeleccionado(li, isChecked) {
+    if (isChecked) {
+        li.classList.add("seleccionado");
+    } else {
+        li.classList.remove("seleccionado");
+    }
+}
+
+// Asegúrate de llamar a aplicarEstilosSeleccionado al cargar los turnos
+turnosUsuario.forEach(turno => {
+    const li = document.createElement("li");
+    // Resto del código para configurar el li
+    const checkbox = li.querySelector(".checkbox-turno");
+    checkbox.addEventListener("change", () => aplicarEstilosSeleccionado(li, checkbox.checked));
+    listaTurnos.appendChild(li);
+});
 
 // Evento para seleccionar o desmarcar todos los turnos
 checkboxSeleccionarTodos.addEventListener("change", () => {

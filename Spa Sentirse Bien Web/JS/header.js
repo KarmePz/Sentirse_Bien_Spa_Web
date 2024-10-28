@@ -89,7 +89,7 @@ function cargarHeader() {
                     justify-content: space-between;
                     align-items: center;
                     gap: 20px; 
-                    padding: 20px; 
+                    padding: 10px; 
                 }
                 .user-info, .cart-icon, .notifications {
                     order: 1; /* Colocar estos elementos en el lado izquierdo */

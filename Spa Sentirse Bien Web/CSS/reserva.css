@@ -1,17 +1,25 @@
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+/* Variables de colores */
 :root {
-    --verdeColor: #5fa510;
-    --verdeOscuroColor: #315012;
-    --rosaColor: #dc1659;
-    --rosaOscuro: #a11245;
-    --amarilloColor: #e1bc00;
-    --amarilloOscuro: #d29500;
-    --rosaClaro: rgb(248, 213, 219); 
-    --grisOscuro: #3c3c3c; 
+    --fondoClaro: #ffe5f0; 
+    --fondoOscuroHover: #c594aa;
+    --fondoOscuro:#fdcae1 ;
+    --amarilloColor: #efb810;
+    --verdeColor: #009929;
+    --verdeOscuroColor: #006414;
 }
+
 /* Estilo general del cuerpo */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     color: var(--amarilloColor);
     margin: 0;
     padding: 0;
@@ -19,10 +27,7 @@ body {
 
 /* Contenedor principal de reservas */
 .carrito-reservas {
-    width: 80%;
-    max-width: 900px;
-    margin: 50px auto;
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     padding: 20px;
     border-radius: 10px;
 }
@@ -31,7 +36,9 @@ body {
 h2 {
     text-align: center;
     color: var(--amarilloColor);
-    margin-bottom: 20px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
 }
 
 /* Contenido de reservas */
@@ -40,28 +47,40 @@ h2 {
     justify-content: space-between;
 }
 
+.checkbox-turno {
+    display: none;
+}
 /* Lista de turnos */
 #lista-turnos {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 65%;
+    max-height: 350px; /* Ajusta el valor según el diseño */
+    overflow-y: auto; /* Activa el scroll vertical */
 }
 
 #lista-turnos li {
-    background-color: var(--rosaColor);
+    background-color: var(--fondoOscuroHover);
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
+    color: var(--verdeOscuroColor);
     display: flex;
     justify-content: space-between;
+    cursor: pointer; 
 }
 
+#lista-turnos li.seleccionado {
+    background-color: var(--fondoOscuro);
+    border: 2px solid var(--amarilloColor);
+    color: var(--verdeColor);
+}
 /* Estilo del total */
 .total {
     width: 30%;
     text-align: center;
-    background-color: var(--rosaColor);
+    background-color: var(--fondoOscuro);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -77,68 +96,20 @@ h2 {
 #boton-pagar {
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: var(--verdeOscuroColor);
-    color: var(--rosaClaro);
-    border: none;
+    background-color: var(--verdeOscuroColor); 
+    color:var(--verdeColor); 
+    border: 2px solid var(--verdeColor);
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
     font-size: 16px;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
 }
 
 #boton-pagar:hover {
     background-color: var(--verdeColor);
+    color: var(--verdeOscuroColor);
+    border: 2px solid var(--verdeOscuroColor);
 }
 
-/* Contenedor de opciones de pago */
-#opciones {
-    background-color: var(--rosaColor); 
-    padding: 20px;
-    border-radius: 12px;
-    text-align: left;
-    margin-top: 20px;
-    color: var(--amarilloOscuro);
-}
-
-/* Estilo de las opciones de pago */
-.opcion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    background-color: var(--rosaClaro);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--amarilloOscuro);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.opcion:hover {
-    background-color: var(--amarilloColor);
-    color: var(--grisOscuro);
-}
-
-/* Estilo para los inputs de las opciones */
-input[type="radio"] {
-    margin-left: 10px;
-    accent-color: var(--verdeOscuroColor);
-}
-
-/* Botón de confirmar */
-#confirmar {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: var(--verdeOscuroColor);
-    color: var(--rosaClaro);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-#confirmar:hover {
-    background-color: var(--verdeColor);
-}
