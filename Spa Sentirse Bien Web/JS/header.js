@@ -36,7 +36,7 @@ function cargarHeader() {
     
             // Seleccionar el SVG y cambiar el color
             const svgCart = headerContainer.querySelector('.bi-cart2');
-            svgCart.style.fill = 'var(--amarilloColor)'; // Cambia a cualquier color que desees
+            svgCart.style.fill = 'var(--amarilloColor)'; 
             svgCart.addEventListener('click', function() {
                 window.location.href = "../reserva.html"; // Redirigir a la página del carrito
             });

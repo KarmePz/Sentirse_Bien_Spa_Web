@@ -1,59 +1,91 @@
-// ID del usuario actual
-const usuarioId = "a168b97f-1129-4e04-bd20-69f56d95424a";
+// ID del usuario actual almacenado en el local storage
+const usuarioId = sessionStorage.getItem("id");
 
-// Ejemplo de arreglo de reservas
-const reservas = [
-    { ID: "reserva1", usuarioCliente: "a168b97f-1129-4e04-bd20-69f56d95424a", nombreIdentificador: "Reserva 1" },
-    { ID: "reserva2", usuarioCliente: "b278c97f-2129-4e04-bd20-69f56d95424b", nombreIdentificador: "Reserva 2" },
-    { ID: "reserva3", usuarioCliente: "a168b97f-1129-4e04-bd20-69f56d95424a", nombreIdentificador: "Reserva 3" }
-];
-
-// Ejemplo de arreglo de turnos
-const turnos = [
-    { ID: "turno1", servicioID: "serv1", reservaID: "reserva1", fechaInicio: "2024-10-22 14:00", descripcion: "Turno de masaje" },
-    { ID: "turno2", servicioID: "serv2", reservaID: "reserva2", fechaInicio: "2024-10-23 10:00", descripcion: "Turno facial" },
-    { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno4", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno5", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" }
-];
-
-// Ejemplo de arreglo de servicios
-const servicios = [
-    { ID: "serv1", titulo: "Masaje", tipoServicio: "Relajación", descripcion: "Masaje completo", rutaImagen: "masaje.jpg", duracionMinut: 60, precio: 1500, empleadoId: "emp1" },
-    { ID: "serv2", titulo: "Facial", tipoServicio: "Cuidado facial", descripcion: "Tratamiento facial", rutaImagen: "facial.jpg", duracionMinut: 45, precio: 1200, empleadoId: "emp2" },
-    { ID: "serv3", titulo: "Manicura", tipoServicio: "Estética", descripcion: "Manicura completa", rutaImagen: "manicura.jpg", duracionMinut: 30, precio: 800, empleadoId: "emp3" }
-];
-
-// Filtrar las reservas del usuario
-const reservasUsuario = reservas.filter(reserva => reserva.usuarioCliente === usuarioId);
-
-// Obtener los turnos que corresponden a las reservas del usuario
-const turnosUsuario = turnos.filter(turno => 
-    reservasUsuario.some(reserva => reserva.ID === turno.reservaID)
-);
-
-// Obtener elementos del DOM
+// Elementos del DOM
 const listaTurnos = document.getElementById("lista-turnos");
 const botonPagar = document.getElementById("boton-pagar");
 const checkboxSeleccionarTodos = document.getElementById("seleccionar-todos");
 const textoSeleccionar = document.getElementById("texto-seleccionar");
 let totalPrecio = 0;
+let reservaIdGlobal = null; // Variable global para almacenar el ID de la reserva
 
-// Crear el listado de turnos con checkboxes
-function mostrarTurnos() {
-    listaTurnos.innerHTML = ""; // Limpiar la lista
+// Función principal para cargar reservas y turnos no pagados
+async function cargarReservasNoPagadas() {
+    try {
+        // Obtener reservas no pagadas
+        const response = await fetch(`https://apispademo.somee.com/api/Reserva/reservUserAllNoPagados?clienteId=${usuarioId}&conTurnos=true&conPago=true`);
+        if (!response.ok) {
+            throw new Error('Error al obtener las reservas no pagadas');
+        }
+        const reservas = await response.json();
 
-    turnosUsuario.forEach(turno => {
-        const servicio = servicios.find(serv => serv.ID === turno.servicioID);
-        if (!servicio) return;
+        // Si no hay reservas no pagadas, mostrar mensaje
+        if (reservas.length === 0) {
+            listaTurnos.innerHTML = '<p>No tienes reservas pendientes de pago.</p>';
+            return;
+        }
+
+        // Obtener la primera reserva (como acordamos) y sus turnos
+        const reserva = reservas[0];
+        reservaIdGlobal = reserva.reservaId; // Asignar el idReserva a la variable global
+        if (reserva.turnos.length === 0) {
+            listaTurnos.innerHTML = '<p>No tienes turnos asociados a esta reserva.</p>';
+            return;
+        }
+
+        // Mostrar los turnos
+        mostrarTurnos(reserva.turnos);
+    } catch (error) {
+        console.error('Error al cargar las reservas:', error);
+        listaTurnos.innerHTML = '<p>Ocurrió un error al cargar las reservas.</p>';
+    }
+}
+
+function obtenerIdReserva() {
+    return reservaIdGlobal; // Devolver el ID de la reserva almacenado en la variable global
+}
+
+
+botonPagar.addEventListener("click", async () => {
+    const turnosSeleccionados = obtenerTurnosSeleccionados();
+
+    if (turnosSeleccionados.length === 0) {
+        alert("Selecciona al menos un turno para continuar.");
+        return;
+    }
+
+    const idReserva = obtenerIdReserva();  // Asumimos que se obtiene del JSON de la reserva no pagada
+    const turnosTotales = document.querySelectorAll(".checkbox-turno");
+
+    // Si se seleccionaron todos los turnos, pasamos directamente al formulario con la reserva completa
+    if (turnosSeleccionados.length === turnosTotales.length) {
+        window.location.href = `formularioPagoMultiple.html?reservaId=${idReserva}&turnos=${turnosSeleccionados.join(",")}&pagoCompleto=true`;
+    } else {
+        // Si no se seleccionaron todos los turnos, pasamos al formulario para crear una nueva reserva con los turnos seleccionados
+        window.location.href = `formularioPagoMultiple.html?reservaId=${idReserva}&turnos=${turnosSeleccionados.join(",")}&pagoCompleto=false`;
+    }
+});
+
+// Mostrar los turnos del usuario
+async function mostrarTurnos(turnos) {
+    listaTurnos.innerHTML = ""; // Limpiar la lista de turnos
+
+    for (let turno of turnos) {
+        // Obtener los datos del servicio para cada turno
+        const servicioResponse = await fetch(`https://apispademo.somee.com/api/Servicio/${turno.servicioId}?conTurnos=false&conHorarios=false`);
+        if (!servicioResponse.ok) {
+            console.error(`Error al obtener datos del servicio ID ${turno.servicioId}`);
+            continue;
+        }
+        const servicio = await servicioResponse.json();
 
         // Crear elemento de lista para cada turno
         const li = document.createElement("li");
         li.innerHTML = `
-            <input type="checkbox" class="checkbox-turno" data-id="${turno.ID}" data-precio="${servicio.precio}">
+            <input type="checkbox" class="checkbox-turno" data-id="${turno.turnoId}" data-precio="${servicio.precio}">
             <div>
                 <p><strong>Servicio:</strong> ${servicio.titulo}</p>
-                <p><strong>Fecha y Hora:</strong> ${turno.fechaInicio}</p>
+                <p><strong>Fecha y Hora:</strong> ${new Date(turno.fechaInicio).toLocaleString()}</p>
                 <p><strong>Duración:</strong> ${servicio.duracionMinut} minutos</p>
                 <p><strong>Descripción:</strong> ${turno.descripcion}</p>
             </div>
@@ -62,14 +94,12 @@ function mostrarTurnos() {
             </div>
         `;
         listaTurnos.appendChild(li);
-    });
+    }
+
     actualizarTotal();
 }
 
-// Al cargar la página, mostrar los turnos
-mostrarTurnos();
-
-// Función para calcular el total de los turnos seleccionados
+// Calcular el total de los turnos seleccionados
 function actualizarTotal() {
     const checkboxes = document.querySelectorAll(".checkbox-turno:checked");
     totalPrecio = Array.from(checkboxes).reduce((total, checkbox) => 
@@ -82,6 +112,7 @@ function actualizarTotal() {
 listaTurnos.addEventListener("change", event => {
     if (event.target.classList.contains("checkbox-turno")) {
         actualizarTotal();
+        verificarSeleccionTotal();
     }
 });
 
@@ -101,20 +132,23 @@ checkboxSeleccionarTodos.addEventListener("change", () => {
     actualizarTotal();
 });
 
-// Redirigir a formulario de pago con las IDs de los turnos seleccionados
-botonPagar.addEventListener("click", () => {
-    const turnosSeleccionados = obtenerTurnosSeleccionados();
-    if (turnosSeleccionados.length > 0) {
-        window.location.href = `formularioPago.html?turnos=${turnosSeleccionados.join(",")}`;
-    } else {
-        alert("Selecciona al menos un turno para continuar.");
-    }
-});
+// Verificar si todos los turnos están seleccionados
+function verificarSeleccionTotal() {
+    const checkboxes = document.querySelectorAll(".checkbox-turno");
+    const todosSeleccionados = Array.from(checkboxes).every(checkbox => checkbox.checked);
 
-// Función para obtener IDs de los turnos seleccionados
+    // Si todos los checkboxes están seleccionados, marcar "Seleccionar Todos"
+    checkboxSeleccionarTodos.checked = todosSeleccionados;
+
+    // Cambiar el texto del label
+    textoSeleccionar.textContent = todosSeleccionados ? "Deseleccionar Todos" : "Seleccionar Todos";
+}
+
+// Función para obtener los IDs de los turnos seleccionados
 function obtenerTurnosSeleccionados() {
     const checkboxes = document.querySelectorAll(".checkbox-turno:checked");
     return Array.from(checkboxes).map(checkbox => checkbox.getAttribute("data-id"));
 }
 
-
+// Cargar las reservas no pagadas al cargar la página
+cargarReservasNoPagadas();
