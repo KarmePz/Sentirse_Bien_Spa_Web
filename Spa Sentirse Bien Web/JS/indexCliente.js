@@ -1,142 +1,30 @@
-const services = [
-    {
-    idServicio:1,
-    idEmpleado:1,
-    tipoServicio: "Masajes",
-    rutaImagen: "/sources/Servicios/Servicios/masajesAntiStress.jpg",
-    titulo: "Anti-stress",
-    descripcion: "Sumérgete en un oasis de calma con nuestro masaje anti-estrés, diseñado para deshacerte de las tensiones diarias. Disfruta de movimientos suaves y envolventes que revitalizan tu cuerpo y mente, dejándote en un estado de total relajación.",
-    duracionMin:60,
-    precio:7500,
-    },
-    {
-    idServicio:2,
-    idEmpleado:1,
-    tipoServicio: "Masajes",
-    rutaImagen: "/sources/Servicios/Servicios/masajesDecontracturantes.jpg",
-    titulo: "Descontracturantes",
-    descripcion: "Libérate de las contracturas y el malestar muscular con nuestro masaje descontracturante. Con técnicas específicas para aliviar tensiones, sentirás cómo el dolor se disuelve y tu cuerpo recupera su movilidad y confort.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:3,
-    idEmpleado:1,
-    tipoServicio: "Masajes",
-    rutaImagen: "/sources/Servicios/Servicios/masajesConPiedrasCalientes.jpg",
-    titulo: "Masajes con piedras calientes",
-    descripcion: "Experimenta el lujo de un masaje con piedras calientes, donde el calor terapéutico de las piedras volcánicas se combina con movimientos experta para aliviar el estrés y mejorar tu circulación. Perfecto para una sensación de bienestar profundo.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:4,
-    idEmpleado:1,
-    tipoServicio: "Masajes",
-    rutaImagen: "/sources/Servicios/Servicios/masajesCirculatorios.jpg",
-    titulo: "Circulatorios",
-    descripcion: "Dale a tu cuerpo el impulso que necesita con nuestro masaje circulatorio. Diseñado para mejorar la circulación sanguínea y linfática, este masaje alivia la pesadez en las piernas y rejuvenece todo tu ser.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:5,
-    idEmpleado:2,
-    tipoServicio: "Belleza",
-    rutaImagen: "/sources/Servicios/Servicios/liftingDePestanias.jpeg",
-    titulo: "Lifting de pestaña",
-    descripcion: "Realza tu mirada con nuestro lifting de pestañas. Obtén unas pestañas naturalmente curvadas y voluminosas que destacan tus ojos sin necesidad de extensiones. Ideal para un look fresco y radiante todos los días.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:6,
-    idEmpleado:2,
-    tipoServicio: "Belleza",
-    rutaImagen: "/sources/Servicios/Servicios/depilacionFacial.jpg",
-    titulo: "Depilación facial",
-    descripcion: "Disfruta de una piel suave y libre de vello con nuestra depilación facial. Utilizamos técnicas precisas para eliminar el vello de manera eficiente, dejándote con una piel perfectamente limpia y suave.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:7,
-    idEmpleado:2,
-    tipoServicio: "Belleza",
-    rutaImagen: "/sources/Servicios/Servicios/bellezaDeManosYPies.jpg",
-    titulo: "Belleza de manos y pies",
-    descripcion: "Mimamos tus manos y pies con nuestro tratamiento completo de manicura y pedicura. Desde el limado hasta el esmaltado, te garantizamos una experiencia rejuvenecedora que deja tus extremidades radiantes y perfectamente cuidadas.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:8,
-    idEmpleado:2,
-    tipoServicio: "Tratamientos Faciales",
-    rutaImagen: "/sources/Servicios/Servicios/Punta-de-diamante.jpg",
-    titulo: "Punta de Diamante (Microexfoliación)",
-    descripcion: "Rejuvenece tu piel con nuestra microexfoliación de punta de diamante. Este tratamiento elimina las células muertas y promueve una piel fresca y luminosa, dejando tu rostro con un aspecto renovado y radiante.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:9,
-    idEmpleado:2,
-    tipoServicio: "Tratamientos Faciales",
-    rutaImagen: "/sources/Servicios/Servicios/hidratacionFacial.jpg",
-    titulo: "Limpieza profunda + Hidratación",
-    descripcion: "Revitaliza tu rostro con nuestra limpieza profunda combinada con una hidratación intensiva. Elimina impurezas y proporciona una hidratación profunda, devolviendo a tu piel su vitalidad y frescura.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:10,
-    idEmpleado:2,
-    tipoServicio: "Tratamientos Faciales",
-    rutaImagen: "/sources/Servicios/Servicios/criofrecuenciaFacial.jpg",
-    titulo: "Criofrecuencia facial",
-    descripcion: "Experimenta un lifting facial instantáneo con nuestra criofrecuencia. Esta innovadora tecnología de frío crea un efecto térmico que reafirma y tonifica tu piel, brindando resultados visibles y rejuvenecedores al instante.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:11,
-    idEmpleado:1,
-    tipoServicio: "Tratamientos Corporales",
-    rutaImagen: "/sources/Servicios/Servicios/velaslim.jpg",
-    titulo: "VelaSlim",
-    descripcion: "Redefine tu figura con nuestro tratamiento VelaSlim, que combina radiofrecuencia, infrarrojos y succión mecánica para reducir la celulitis y la circunferencia corporal. Ideal para lograr una piel más firme y esbelta.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:12,
-    idEmpleado:1,
-    tipoServicio: "Tratamientos Corporales",
-    rutaImagen: "/sources/Servicios/Servicios/dermohealth.jpg",
-    titulo: "DermoHealth",
-    descripcion: "Despierta la vitalidad de tu piel con nuestro tratamiento DermoHealth. Este innovador tratamiento estimula la microcirculación y realiza un drenaje linfático, ayudando a movilizar los tejidos y mejorar la apariencia general de la piel.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:13,
-    idEmpleado:1,
-    tipoServicio: "Tratamientos Corporales",
-    rutaImagen: "/sources/Servicios/Servicios/criofrecuenciaCorporal.jpg",
-    titulo: "Criofrecuencia corporal",
-    descripcion_Ficha3: "Disfruta de un lifting corporal con nuestra criofrecuencia, que utiliza calor y frío para reafirmar tu piel y reducir la flacidez. Obtén resultados visibles con un tratamiento que rejuvenece tu cuerpo al instante.",
-    duracionMin:60,
-    precio:7500,
-    },{
-    idServicio:14,
-    idEmpleado:1,
-    tipoServicio: "Tratamientos Corporales",
-    rutaImagen: "/sources/Servicios/Servicios/ultracavitacion.jpg",
-    titulo: "Ultracavitación",
-    descripcion: "Logra una figura esculpida con nuestra técnica de ultracavitación. Utilizamos ultrasonido para desintegrar las células de grasa y reducir medidas, ofreciendo una solución efectiva para la reducción corporal y la celulitis.",
-    duracionMin:60,
-    precio:7500,
-    },
-];
+// Función para cargar los servicios desde la API
+async function cargarServiciosDesdeAPI() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conTurnos=false&conHorarios=false');
+        if (!response.ok) {
+            throw new Error('Error al obtener los servicios');
+        }
 
+        const servicios = await response.json(); // Servicios traídos desde la API
+        displayServices(servicios); // Mostrar los servicios
+        inicializarFiltros(servicios); // Inicializar los filtros con los servicios cargados
+    } catch (error) {
+        console.error('Error al cargar los servicios:', error);
+    }
+}
+
+// Función para redirigir al usuario a la página de pedido de turno
 function pedirTurno(serviceId) {
     window.location.href = `turno.html?id=${serviceId}`;
 }
 
+// Función para mostrar los servicios
 function displayServices(filteredServices) {
     const servicesContainer = document.getElementById("services");
-    servicesContainer.innerHTML = '';
+    servicesContainer.innerHTML = ''; // Limpiar el contenedor de servicios
 
+    // Mostrar cada servicio en formato de tarjeta
     filteredServices.forEach(service => {
         const serviceCard = `
             <div class="service-card">
@@ -144,34 +32,39 @@ function displayServices(filteredServices) {
                 <div class="service-info">
                     <h3>${service.titulo}</h3>
                     <p>${service.descripcion}</p>
-                    <span>Duración: ${service.duracionMin} min</span>
+                    <span>Duración: ${service.duracionMinut} min</span>
                     <span>Precio: $${service.precio}</span>
                 </div>
-                <button class="reserva_button" onclick="pedirTurno(${service.idServicio})">Pedir turno</button>
+                <button class="reserva_button" onclick="pedirTurno(${service.servicioId})">Pedir turno</button>
             </div>
         `;
         servicesContainer.innerHTML += serviceCard;
     });
 }
 
-// Inicializa la visualización con todos los servicios 
-displayServices(services);
+// Función para inicializar la búsqueda y filtros con los servicios obtenidos
+function inicializarFiltros(servicios) {
+    // Filtrar por título
+    document.getElementById("searchTitle").addEventListener("input", function() {
+        const searchTerm = this.value.toLowerCase();
+        const filteredServices = servicios.filter(service => service.titulo.toLowerCase().includes(searchTerm));
+        displayServices(filteredServices);
+    });
 
-// Filtrar por nombre, tipo de servicio o empleado
-document.getElementById("searchTitle").addEventListener("input", function() {
-    const searchTerm = this.value.toLowerCase();
-    const filteredServices = services.filter(service => service.titulo.toLowerCase().includes(searchTerm));
-    displayServices(filteredServices);
-});
+    // Filtrar por tipo de servicio
+    document.getElementById("filterType").addEventListener("change", function() {
+        const filterType = this.value;
+        const filteredServices = filterType ? servicios.filter(service => service.tipoServicio === filterType) : servicios;
+        displayServices(filteredServices);
+    });
 
-document.getElementById("filterType").addEventListener("change", function() {
-    const filterType = this.value;
-    const filteredServices = filterType ? services.filter(service => service.tipoServicio === filterType) : services;
-    displayServices(filteredServices);
-});
+    // Filtrar por empleado
+    document.getElementById("filterEmployee").addEventListener("change", function() {
+        const filterEmployee = this.value;
+        const filteredServices = filterEmployee ? servicios.filter(service => service.usuarioId === filterEmployee) : servicios;
+        displayServices(filteredServices);
+    });
+}
 
-document.getElementById("filterEmployee").addEventListener("change", function() {
-    const filterEmployee = this.value;
-    const filteredServices = filterEmployee ? services.filter(service => service.idEmpleado === parseInt(filterEmployee)) : services;
-    displayServices(filteredServices);
-});
+// Inicializa la carga de servicios desde la API al cargar la página
+cargarServiciosDesdeAPI();
