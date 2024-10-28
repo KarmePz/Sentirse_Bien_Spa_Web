@@ -9,14 +9,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 /* Variables de colores */
 :root {
-    --verdeColor: #5fa510;
-    --verdeOscuroColor: #315012;
-    --rosaColor: #dc1659;
-    --rosaOscuro: #a11245;
-    --amarilloColor: #e1bc00;
-    --amarilloOscuro: #d29500;
-    --rosaClaro: rgb(248, 213, 219); 
-    --grisOscuro: #3c3c3c; 
+    --fondoClaro: #ffe5f0; 
+    --fondoOscuroHover: #c594aa;
+    --fondoOscuro:#fdcae1 ;
+    --amarilloColor: #efb810;
+    --verdeColor: #009929;
+    --verdeOscuroColor: #006414;
 }
 
 /*++++++++++++++++++++++++++++++++++*/
@@ -34,7 +32,7 @@ body {
 /*+++++++++++++++++++++++++++++++++++++*/
 
 .header {
-    background-color: var(--rosaOscuro); /* Fondo rosa oscuro para encabezado */
+    background-color: var(--fondoOscuro); /* Fondo rosa oscuro para encabezado */
     padding: 5px;
     overflow: hidden; 
     height: auto;
@@ -61,7 +59,7 @@ body {
     font-weight: bold;
 }
 .boton_logout{
-    color: var(--amarilloOscuro);
+    color: var(--amarilloColor);
     border: none;
     padding: 3px 15px;
     cursor: pointer;
@@ -139,9 +137,7 @@ body {
     text-decoration: none; /* Asegura que los enlaces no tengan subrayado */
 }
 
-.nav_opciones a:hover {
-    background-color: var(--rosaColor);
-}
+
 
 /* Estilos del ícono hamburguesa */
 .burger {
@@ -235,9 +231,7 @@ body {
         color: var(--amarilloColor); /* Color de texto */
     }
 
-    .nav_opciones a:hover {
-        background-color: var(--rosaColor);
-    }
+    
 }
 
 
@@ -246,7 +240,7 @@ body {
 /*++++++++++++++++++++++++++++++++++++++++++++*/
 
 #pestaña_principal {
-    background-color: var(--rosaClaro); /* Fondo rosa para toda la sección */
+    background-color: var(--fondoClaro); /* Fondo rosa para toda la sección */
     height: 85vh; /* Altura ajustable, puedes cambiarla a tu preferencia */
     display: flex;
     align-items: center; /* Centrar verticalmente el contenido dentro de la sección */
@@ -268,10 +262,9 @@ body {
 
 /* Estilos para el título */
 .pestaña_principal_descripcion p {
-    font-family: "Dancing Script", sans-serif;
-    font-weight: bold;
-    color: black; /* Cambia el color del texto */
-    font-size: 50px; /* Ajusta el tamaño del texto */
+    font-family: Penultimate, cursive;
+    color: var(--verdeOscuroColor); /* Cambia el color del texto */
+    font-size: 40px; /* Ajusta el tamaño del texto */
     line-height: 1.5; /* Espaciado entre líneas */
 }
 /* Media Queries para ajustar en diferentes tamaños de pantalla */
@@ -322,7 +315,7 @@ body {
 
 /* Estilo para la sección */
 #servicios {
-    background-color: var(--rosaOscuro);
+    background-color: var(--fondoOscuro);
     padding: 10px 25px;
     height: 97vh;
     display: grid;
@@ -345,7 +338,7 @@ body {
 }
 
 .item_servicio {
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     padding: 10px;
     border-radius: 15px;
     position: relative;
@@ -386,7 +379,7 @@ body {
 .item_servicio h3, 
 .item_servicio ul {
     z-index: 2;
-    color: var(--rosaClaro); /* Texto casi blanco para mejor contraste */
+    color: var(--fondoClaro); /* Texto casi blanco para mejor contraste */
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); /* Añade sombra al texto para que resalte */
 }
 
@@ -415,7 +408,7 @@ body {
     font-family: "Comic Sans MS", cursive;
     font-weight: bold;
     background-color: var(--amarilloColor); 
-    color: var(--rosaOscuro);
+    color: var(--fondoOscuro);
     border: none;
     cursor: pointer; 
     transition: background-color 0.5s ease; 
@@ -439,7 +432,7 @@ body {
 /* Estilos generales */
 #personal {
     padding: 40px 20px;
-    background-color: var(--rosaClaro); /* Color de fondo para la sección */
+    background-color: var(--fondoClaro); /* Color de fondo para la sección */
 }
 
 .personal_titulo {
@@ -458,7 +451,7 @@ body {
     justify-content: space-between;
     margin-bottom: 40px;
     padding: 20px;
-    background-color:var(--rosaClaro);
+    background-color:var(--fondoClaro);
     border-radius: 10px;
     max-width: 1000px;
     margin-left: auto;
@@ -544,7 +537,7 @@ body {
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
 
 .noticias {
-    background-color: var(--rosaOscuro);
+    background-color: var(--fondoOscuro);
     padding: 20px;
     height: 97vh;
     display: flex;
@@ -555,7 +548,7 @@ body {
 
 .noticias_titulo {
     text-align: center;
-    color: var(--amarilloOscuro);
+    color: var(--amarilloColor);
     font-family: "Dancing Script", sans-serif;
     font-weight: bold;
     font-size: 50px;
@@ -587,7 +580,7 @@ body {
 .noticia_op {
     box-sizing: border-box;
     padding: 10px;
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     border-radius: 10px;
     text-align: center;
     flex: 0 0 calc(33.33% - 10px); /* Muestra 3 noticias a la vez */
@@ -611,8 +604,8 @@ body {
 }
 
 .descripcion_noticia h4 {
-    background-color: var(--amarilloOscuro);
-    color: var(--rosaOscuro);
+    background-color: var(--amarilloColor);
+    color: var(--fondoOscuro);
     display: inline-block;
     font-family: Nunito, sans-serif;
     font-weight: bold;
@@ -658,7 +651,7 @@ body {
 
 
 .prev:hover, .next:hover {
-    background-color: var(--rosaColor);
+    background-color: var(--fondoOscuroHover);
 }
 
 
@@ -670,13 +663,13 @@ body {
     display: flex;
     gap: 20px;
     padding: 20px;
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     border-radius: 10px;
 }
 
 .preguntas, .reseñas {
     flex: 1;
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     padding: 20px;
     border-radius: 10px;
 }
@@ -698,8 +691,8 @@ h2 {
 .pregunta-formulario input, .reseña-formulario input {
     flex: 1;
     padding: 10px;
-    background-color: var(--rosaClaro); 
-    border: 1px solid var(--rosaOscuro);
+    background-color: var(--fondoClaro); 
+    border: 1px solid var(--fondoOscuro);
     border-radius: 5px;
     color: var(--verdeOscuroColor); 
     font-family: "Comic Sans MS", cursive; 
@@ -812,7 +805,7 @@ h2 {
   }
   
 .modal-content {
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -827,7 +820,7 @@ h2 {
     position: absolute;
     top: 10px;
     right: 20px;
-    color: var(--rosaOscuro);
+    color: var(--fondoOscuro);
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -838,7 +831,7 @@ h2 {
   }
   
 .modal-body {
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     margin: 15% auto;
     padding: 20px;
     color: var(--verdeOscuroColor);
@@ -898,7 +891,7 @@ h2 {
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    background-color: var(--rosaOscuro);
+    background-color: var(--fondoOscuro);
 }
 
 /* Estilos para la sección de información */
@@ -915,11 +908,11 @@ h2 {
 .contact-info p {
     font-family: Georgia, serif;
     font-weight: normal;
-    color: var(--rosaClaro);
+    color: var(--amarilloColor);
 }
 
 .contact-info a {
-    color: var(--rosaClaro);
+    color: var(--fondoClaro);
     font-family: 'Courier New', monospace;
     text-decoration: underline;
 }
@@ -932,7 +925,7 @@ h2 {
 /* Estilos para el formulario de contacto */
 .contact-form {
     width: 55%; /* Ajuste para que ocupe el 45% del ancho */
-    background-color: var(--rosaOscuro);
+    background-color: var(--fondoOscuro);
     padding: 20px;
     border-radius: 8px;
     font-family: Caveat, sans-serif;
@@ -945,8 +938,8 @@ h2 {
 }
 
 .contact-form input, .contact-form textarea {
-    background-color: var(--rosaClaro);
-    color: var(--rosaOscuro);
+    background-color: var(--fondoClaro);
+    color: var(--fondoOscuro);
     border: none;
     padding: 10px;
     font-family: "Comic Sans MS", cursive; 
@@ -956,8 +949,8 @@ h2 {
 }
 /* Estilos para el textarea (input del mensaje) */
 .contact-form textarea {
-    background-color: var(--rosaClaro);
-    color: var(--rosaOscuro);
+    background-color: var(--fondoClaro);
+    color: var(--fondoOscuro);
     border: none;
     padding: 10px;
     font-family: "Comic Sans MS", cursive;
@@ -1008,7 +1001,7 @@ h2 {
 }
 
 .notification.error {
-    background-color:var(--rosaColor);
+    background-color:var(--fondoOscuroHover);
     color: var(--amarilloColor);
 }
 
@@ -1018,8 +1011,8 @@ h2 {
 /*++++++++++++++++++++++++++++++*/
 footer{
 padding: 20px;
-background-color: var(--rosaOscuro);
-color: var(--rosaClaro);
+background-color: var(--fondoOscuro);
+color: var(--amarilloColor);
 text-align: center;
 justify-content: space-between;
 margin-top: auto;
@@ -1035,6 +1028,7 @@ display: flex;
 text-align: center;
 align-items: center;
 position: relative;
+color: var(--amarilloColor);
 }
 #footer_cv{
     display: flex;
@@ -1045,7 +1039,7 @@ position: relative;
 
 #footer_cv label{
     position: relative;
-    color: #f39c12;
+    color: var(--amarilloColor);
     bottom: 5px;
 }
 #footer_cv a{
@@ -1060,7 +1054,7 @@ width: 50px;
 a{
 font-size: 30px;
 text-decoration: none;
-color:var(--rosaClaro);
+color:var(--amarilloColor);
 transition: font-size 0.2s ease-in-out;
 margin: 0px 10px;
 vertical-align: bottom;
@@ -1068,7 +1062,7 @@ vertical-align: bottom;
 
 a :visited{
 text-decoration: none;
-color: var(--rosaClaro);
+color: var(--amarilloColor);
 }
 
 footer a:hover{
@@ -1093,19 +1087,19 @@ iframe {
 }
 .email_redirection{
     cursor: pointer; 
-    background-color: var(--verdeColor); 
-    color: #ccc;
+    background-color: var(--verdeOscuroColor); 
+    color: var(--verdeColor);
     padding: 10px 20px; 
     font-size: 15px;
 }
 .email_redirection:hover{
-    background-color: #315012;
+    background-color: var(--verdeOscuroColor);
     font-size: 15px;
 }
 
 /*BOTON FILE*/
 /* input[type="file"]::file-selector-button {
-    background-color: var(--amarilloOscuro); 
+    background-color: var(--amarilloColor); 
     border: none; 
     color: white; 
     padding: 10px 20px; 

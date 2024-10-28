@@ -1,3 +1,24 @@
+// Lista de empleados (por ahora se trabaja con un arreglo, luego puede reemplazarse por datos de una base de datos)
+const empleados = [
+    { idEmpleado: 1, nombre: "Empleado 1" },
+    { idEmpleado: 2, nombre: "Empleado 2" },
+];
+
+// Función para cargar dinámicamente las opciones de empleados en el filtro
+function cargarEmpleados() {
+    const opcionesEmpleados = document.getElementById("opcionesEmpleados");
+    opcionesEmpleados.innerHTML = ''; // Limpiar las opciones anteriores
+
+    empleados.forEach(empleado => {
+        const option = document.createElement("option");
+        option.value = `empleado_${empleado.idEmpleado}`;
+        option.textContent = empleado.nombre;
+        opcionesEmpleados.appendChild(option);
+    });
+}
+
+// Llamar a la función para cargar los empleados al inicio
+cargarEmpleados();
 const services = [
     {
     idServicio:1,
@@ -114,7 +135,7 @@ const services = [
     tipoServicio: "Tratamientos Corporales",
     rutaImagen: "/sources/Servicios/Servicios/criofrecuenciaCorporal.jpg",
     titulo: "Criofrecuencia corporal",
-    descripcion_Ficha3: "Disfruta de un lifting corporal con nuestra criofrecuencia, que utiliza calor y frío para reafirmar tu piel y reducir la flacidez. Obtén resultados visibles con un tratamiento que rejuvenece tu cuerpo al instante.",
+    descripcion: "Disfruta de un lifting corporal con nuestra criofrecuencia, que utiliza calor y frío para reafirmar tu piel y reducir la flacidez. Obtén resultados visibles con un tratamiento que rejuvenece tu cuerpo al instante.",
     duracionMin:60,
     precio:7500,
     },{
@@ -154,24 +175,37 @@ function displayServices(filteredServices) {
     });
 }
 
+// Función para filtrar servicios según el filtro combinado y la búsqueda por título
+function filtrarServicios() {
+    const filtroSeleccionado = document.getElementById("filtroUnico").value;
+    const textoBusqueda = document.getElementById("busquedaTitulo").value.toLowerCase();
+
+    let serviciosFiltrados = services;
+
+    // Filtrar por tipo de servicio o empleado
+    if (filtroSeleccionado.startsWith('empleado_')) {
+        // Filtrar por empleado
+        const idEmpleado = parseInt(filtroSeleccionado.split('_')[1]);
+        serviciosFiltrados = serviciosFiltrados.filter(service => service.idEmpleado === idEmpleado);
+    } else if (filtroSeleccionado) {
+        // Filtrar por tipo de servicio
+        serviciosFiltrados = serviciosFiltrados.filter(service => service.tipoServicio === filtroSeleccionado);
+    }
+
+    // Filtrar por título del servicio
+    if (textoBusqueda) {
+        serviciosFiltrados = serviciosFiltrados.filter(service => service.titulo.toLowerCase().includes(textoBusqueda));
+    }
+
+    // Mostrar los servicios filtrados
+    displayServices(serviciosFiltrados);
+}
+
+// Event listeners para el filtro combinado y el campo de búsqueda
+document.getElementById("filtroUnico").addEventListener("change", filtrarServicios);
+document.getElementById("busquedaTitulo").addEventListener("input", filtrarServicios);
+
 // Inicializa la visualización con todos los servicios 
 displayServices(services);
 
-// Filtrar por nombre, tipo de servicio o empleado
-document.getElementById("searchTitle").addEventListener("input", function() {
-    const searchTerm = this.value.toLowerCase();
-    const filteredServices = services.filter(service => service.titulo.toLowerCase().includes(searchTerm));
-    displayServices(filteredServices);
-});
 
-document.getElementById("filterType").addEventListener("change", function() {
-    const filterType = this.value;
-    const filteredServices = filterType ? services.filter(service => service.tipoServicio === filterType) : services;
-    displayServices(filteredServices);
-});
-
-document.getElementById("filterEmployee").addEventListener("change", function() {
-    const filterEmployee = this.value;
-    const filteredServices = filterEmployee ? services.filter(service => service.idEmpleado === parseInt(filterEmployee)) : services;
-    displayServices(filteredServices);
-});
