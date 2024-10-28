@@ -307,7 +307,7 @@ const secciones = {
 
             <div class="lineaSeparacion"></div>
             <div class="botonesAccion">
-                <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
+                <button id="btnGenerarPDFReserva" type="button" id="btnPdf">Generar PDF de Tabla</button>
             </div>
             
         </section>
