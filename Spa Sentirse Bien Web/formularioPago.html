@@ -28,14 +28,19 @@
         </div>
     </div>
 
-    <!-- Formulario de Pago -->
+    <!-- Formulario de Pago --> 
     <form autocomplete="off">
         <div class="grupo-formulario">
-            <label for="tipo-tarjeta">Tipo de Tarjeta</label>
-            <select id="tipo-tarjeta" onchange="alternarCuotas()">
-                <option value="debito">Débito</option>
-                <option value="credito">Crédito</option>
-            </select>
+            <div id="tipo-tarjeta" class="tipo-tarjeta">
+                <div class="opcion">
+                    <input type="radio" id="debito" name="tipo-tarjeta" value="debito" onchange="alternarCuotas()">
+                    <label for="debito">Débito</label>
+                </div>
+                <div class="opcion">
+                    <input type="radio" id="credito" name="tipo-tarjeta" value="credito" onchange="alternarCuotas()">
+                    <label for="credito">Crédito</label>
+                </div>
+            </div>
         </div>
 
         <div class="grupo-formulario">
@@ -65,13 +70,23 @@
 
         <!-- Opciones de cuotas solo para tarjeta de crédito -->
         <div class="grupo-formulario" id="grupo-cuotas" style="display: none;">
-            <label for="cuotas">Seleccionar Cuotas</label>
-            <select id="cuotas" onchange="calcularCuotas()">
-                <option value="1">1 pago (sin cuotas)</option>
-                <option value="3">3 cuotas</option>
-                <option value="6">6 cuotas</option>
-            </select>
+            <label>Seleccionar Cuotas</label>
+            <div class="tipo-cuotas">
+                <div class="opcion">
+                    <input type="radio" id="cuota-1" name="cuotas" value="1" onchange="calcularCuotas()">
+                    <label for="cuota-1">1 pago (sin cuotas)</label>
+                </div>
+                <div class="opcion">
+                    <input type="radio" id="cuota-3" name="cuotas" value="3" onchange="calcularCuotas()">
+                    <label for="cuota-3">3 cuotas</label>
+                </div>
+                <div class="opcion">
+                    <input type="radio" id="cuota-6" name="cuotas" value="6" onchange="calcularCuotas()">
+                    <label for="cuota-6">6 cuotas</label>
+                </div>
+            </div>
         </div>
+        
 
         <!-- Resultado del cálculo de cuotas -->
         <div class="grupo-formulario" id="resultado-pago">

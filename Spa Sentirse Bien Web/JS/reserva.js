@@ -12,9 +12,7 @@ const reservas = [
 const turnos = [
     { ID: "turno1", servicioID: "serv1", reservaID: "reserva1", fechaInicio: "2024-10-22 14:00", descripcion: "Turno de masaje" },
     { ID: "turno2", servicioID: "serv2", reservaID: "reserva2", fechaInicio: "2024-10-23 10:00", descripcion: "Turno facial" },
-    { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno4", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno5", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" }
+    { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" }
 ];
 
 // Ejemplo de arreglo de servicios
@@ -61,6 +59,17 @@ function mostrarTurnos() {
                 <p><strong>Precio:</strong> $${servicio.precio}</p>
             </div>
         `;
+
+        // Evento para marcar el checkbox y aplicar el estilo al hacer clic en el 'li'
+        li.addEventListener("click", (event) => {
+            const checkbox = li.querySelector(".checkbox-turno");
+
+            // Cambiar el estado del checkbox y el estilo del 'li' según el estado
+            checkbox.checked = !checkbox.checked;
+            aplicarEstilosSeleccionado(li, checkbox.checked);
+            actualizarTotal();
+        });
+
         listaTurnos.appendChild(li);
     });
     actualizarTotal();
@@ -78,21 +87,7 @@ function actualizarTotal() {
     document.getElementById("total-precio").textContent = `$${totalPrecio}`;
 }
 
-// Evento para actualizar el total cuando se selecciona o deselecciona un turno
-listaTurnos.addEventListener("change", event => {
-    if (event.target.classList.contains("checkbox-turno")) {
-        actualizarTotal();
-    }
-});
-listaTurnos.addEventListener("click", (event) => {
-    if (event.target.tagName === "LI" || event.target.tagName === "DIV") {
-        const checkbox = event.target.closest("li").querySelector(".checkbox-turno");
-        checkbox.checked = !checkbox.checked;
-        actualizarTotal(); // Actualiza el total cuando se cambia la selección
-        aplicarEstilosSeleccionado(event.target.closest("li"), checkbox.checked); // Cambia el estilo del li
-    }
-});
-
+// Función para aplicar estilo a los 'li' seleccionados
 function aplicarEstilosSeleccionado(li, isChecked) {
     if (isChecked) {
         li.classList.add("seleccionado");
@@ -101,22 +96,15 @@ function aplicarEstilosSeleccionado(li, isChecked) {
     }
 }
 
-// Asegúrate de llamar a aplicarEstilosSeleccionado al cargar los turnos
-turnosUsuario.forEach(turno => {
-    const li = document.createElement("li");
-    // Resto del código para configurar el li
-    const checkbox = li.querySelector(".checkbox-turno");
-    checkbox.addEventListener("change", () => aplicarEstilosSeleccionado(li, checkbox.checked));
-    listaTurnos.appendChild(li);
-});
-
 // Evento para seleccionar o desmarcar todos los turnos
 checkboxSeleccionarTodos.addEventListener("change", () => {
     const seleccionarTodos = checkboxSeleccionarTodos.checked;
     const checkboxes = document.querySelectorAll(".checkbox-turno");
+    const itemsLista = document.querySelectorAll("#lista-turnos li");
 
-    checkboxes.forEach(checkbox => {
+    checkboxes.forEach((checkbox, index) => {
         checkbox.checked = seleccionarTodos;
+        aplicarEstilosSeleccionado(itemsLista[index], seleccionarTodos); // Aplicar estilos en el li correspondiente
     });
 
     // Cambiar el texto del label
@@ -141,5 +129,3 @@ function obtenerTurnosSeleccionados() {
     const checkboxes = document.querySelectorAll(".checkbox-turno:checked");
     return Array.from(checkboxes).map(checkbox => checkbox.getAttribute("data-id"));
 }
-
-

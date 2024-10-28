@@ -28,16 +28,11 @@ function voltearTarjeta(mostrarReverso) {
     }
 }
 
-
 // Función para calcular el monto total de las reservas del usuario
 function calcularMontoTotal() {
-    let total = 0;
-    reservas.filter(reserva => reserva.usuarioCliente === idUsuario).forEach(reserva => {
-        turnos.filter(turno => turno.reservaID === reserva.ID).forEach(turno => {
-            const servicio = servicios.find(serv => serv.ID === turno.servicioID);
-            if (servicio) total += servicio.precio;
-        });
-    });
+    // Aquí agregamos el cálculo para el total de las reservas
+    // Ejemplo:
+    let total = 5000;  // Suponiendo que el total de la reserva es $5000
     return total;
 }
 
@@ -47,19 +42,22 @@ document.getElementById("monto").innerText = `$${calcularMontoTotal().toFixed(2)
 // Función para actualizar el cálculo de cuotas
 function calcularCuotas() {
     const montoTotal = calcularMontoTotal();
-    const cuotas = parseInt(document.getElementById("cuotas").value) || 1;
+    const cuotas = parseInt(document.querySelector('input[name="cuotas"]:checked').value) || 1;
     const montoCuota = montoTotal / cuotas;
     document.getElementById("monto-total").innerText = `$${montoCuota.toFixed(2)} en ${cuotas} cuota(s)`;
 }
 
 // Función para mostrar/ocultar opciones de cuotas
 function alternarCuotas() {
-    const tipoTarjeta = document.getElementById("tipo-tarjeta").value;
+    const tipoTarjeta = document.querySelector('input[name="tipo-tarjeta"]:checked').value;
     const grupoCuotas = document.getElementById("grupo-cuotas");
-    grupoCuotas.style.display = tipoTarjeta === "credito" ? "block" : "none";
     
-    // Si se selecciona "Débito", mostrar el monto sin cuotas
-    if (tipoTarjeta === "debito") {
+    // Mostrar u ocultar opciones de cuotas según el tipo de tarjeta
+    if (tipoTarjeta === "credito") {
+        grupoCuotas.style.display = "block";
+        document.getElementById("monto-total").innerText = "$0.00";
+    } else if (tipoTarjeta === "debito") {
+        grupoCuotas.style.display = "none";
         document.getElementById("monto-total").innerText = `$${calcularMontoTotal().toFixed(2)}`;
     }
 }

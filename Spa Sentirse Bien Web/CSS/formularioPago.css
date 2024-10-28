@@ -1,3 +1,27 @@
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+/* Variables de colores */
+:root {
+    --fondoClaro: #ffe5f0; 
+    --fondoOscuroHover: #c594aa;
+    --fondoOscuro:#fdcae1 ;
+    --amarilloColor: #efb810;
+    --verdeColor: #009929;
+    --verdeOscuroColor: #006414;
+}
+
+body {
+    margin: 0;
+    background-color: var(--fondoClaro);
+}
+
+
 /* Contenedor principal */
 .contenedor {
     max-width: 400px;
@@ -27,13 +51,14 @@
     backface-visibility: hidden;
     border-radius: 10px;
     overflow: hidden;
-    background: linear-gradient(to right, #2A5298, #1E3C72);
-    color: #fff;
+    background: linear-gradient(to right, var(--fondoOscuro), var(--fondoOscuro));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: Arial, sans-serif;
+    color: var(--amarilloColor);
+    font-family: Georgia, serif;
+    font-weight: bold;
 }
 
 .tarjeta-reverso {
@@ -60,13 +85,13 @@
 .banda-magnetica {
     width: 100%;
     height: 40px;
-    background-color: #333;
+    background-color: black;
     margin-top: 15px;
 }
 
 .cvc-caja {
-    background: #fff;
-    color: #333;
+    background:white;
+    color: var(--amarilloColor);
     width: 60px;
     padding: 5px;
     border-radius: 3px;
@@ -82,23 +107,80 @@
 label {
     display: block;
     font-weight: bold;
+    color: var(--amarilloColor);
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--amarilloColor);
     border-radius: 5px;
     font-size: 1em;
+    color:var(--amarilloColor);
+    background-color:var(--fondoOscuro);
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+}
+input:focus {
+    border: 2px solid var(--amarilloColor); /* Cambia el color del borde a amarillo */
+    outline: none; /* Quita el borde predeterminado del navegador */
+    box-shadow: 0 0 5px var(--amarilloColor); /* Añade un efecto de sombra opcional */
 }
 
+
 .boton-enviar {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--verdeOscuroColor); 
+    color:var(--verdeColor); 
+    border: 2px solid var(--verdeColor);
     padding: 10px;
-    border: none;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
     border-radius: 5px;
     width: 100%;
     font-size: 1.2em;
     cursor: pointer;
 }
+
+.boton-enviar:hover{
+    background-color: var(--verdeColor);
+    color: var(--verdeOscuroColor);
+    border: 2px solid var(--verdeOscuroColor);
+}
+
+
+
+.tipo-tarjeta {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* Espaciado entre opciones */
+}
+
+input[type="radio"] {
+    background-color: var(--fondoClaro);
+    appearance: none; /* Oculta el estilo por defecto del input */
+    width: 5px; /* Tamaño del input */
+    height: 5px; /* Tamaño del input */
+    border: 2px solid var(--amarilloColor); /* Color del borde */
+    border-radius: 50%; /* Hace el radio circular */
+    outline: none; /* Elimina el contorno al enfocarlo */
+    margin-right: 5px; /* Espaciado entre el input y el label */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el input */
+    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+}
+
+input[type="radio"]:checked {
+    background-color: var(--amarilloColor); /* Color de fondo cuando está seleccionado */
+    border-color: var(--amarilloColor); /* Color del borde cuando está seleccionado */
+}
+
+
+
