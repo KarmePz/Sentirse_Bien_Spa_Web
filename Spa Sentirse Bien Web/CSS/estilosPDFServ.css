@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8d5db; /* Fondo rosa claro */
+}
+
+main {
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    background-color: #d2124b; /* Fondo rosa oscuro */
+    border-radius: 10px;
+    color: #fff;
+}
+
+h1 {
+    color: #e1bc00; /* Amarillo */
+    font-size: 28px;
+    text-align: center;
+}
+
+/* Solución al overflow, expandiendo el fondo y ajustando el layout */
+table {
+    width: 100%;
+    table-layout: auto; /* Mantener tabla flexible */
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #333;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+    word-break: break-word; /* Evitar que las palabras largas rompan el diseño */
+}
+
+thead {
+    background-color: #5fa510; /* Verde */
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Ajuste de las columnas */
+table th:nth-child(4), table td:nth-child(4) {
+    width: 30%; /* Descripción más ancha */
+}
+
+table th:nth-child(5), table td:nth-child(5) {
+    width: 15%; /* Ruta Imagen */
+}
+
+table th:nth-child(6), table td:nth-child(6) {
+    width: 8%; /* Duracion */
+}
+
+table th:nth-child(1), table td:nth-child(1) {
+    width: 5%; /* ID */
+}
+
+table th:nth-child(2), table td:nth-child(2) {
+    width: 8%; /* Titulo */
+}
+table th:nth-child(3), table td:nth-child(3) {
+    width: 8%; /* Tipo */
+}
+
+table th:nth-child(7), table td:nth-child(7) {
+    width: 5%; /* Precio */
+}
+
+table th:nth-child(8), table td:nth-child(8){
+    width: 10%; /* Empleado ID y Usuario */
+}
+
+table th:nth-child(9), table td:nth-child(9) {
+    width: 8%; /* Precio */
+}
+
+.botonesAccion {
+    margin-top: 20px;
+    text-align: center;
+}
+
+button {
+    background-color: #315012; /* Verde Oscuro */
+    color: #5fa510; /* Verde Claro */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #5fa510;
+    color: #315012;
+}
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact; /* For Safari and Chrome */
+        print-color-adjust: exact; /* For modern browsers */
+        font-size: 12px;
+    }
+
+    .botonesAccion {
+        display: none;
+    }
+
+    main {
+        background-color: #d2124b !important; 
+    }
+
+    table thead {
+        background-color: #5fa510 !important;
+    }
+    table {
+        page-break-inside: auto;
+    }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    th, td {
+        padding: 5px;
+    }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF de Tabla de Empleados</title>
+    <link rel="stylesheet" href="./css/estilosPDF.css"> <!-- Reutilizando el estilo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1><img src="./sources/logo_spa2.png"></h1>
+        <h1>Lista de Empleados</h1>
+        <table id="tablaEmpleadosPDF">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán las filas dinámicamente desde JS -->
+            </tbody>
+        </table>
+
+        <div class="botonesAccion">
+            <button id="btnDescargarPDF">Descargar PDF</button>
+            <button id="btnImprimir">Imprimir</button>
+            <button id="btnVolver">Volver</button>
+        </div>
+    </main>
+
+    <script>
+        // Obtener los empleados del localStorage
+        const empleados = JSON.parse(localStorage.getItem('empleados')) || [];
+
+        function cargarEmpleadosEnTabla() {
+            const tablaCuerpo = document.querySelector('#tablaEmpleadosPDF tbody');
+            tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de llenarla
+
+            empleados.forEach(empleado => {
+                const roles = empleado.roles.join(', '); // Convertir los roles a una cadena separada por comas
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${empleado.id}</td>
+                    <td>${empleado.userName}</td>
+                    <td>${empleado.email}</td>
+                    <td>${roles}</td>
+                `;
+                tablaCuerpo.appendChild(fila);
+            });
+        }
+
+        cargarEmpleadosEnTabla();
+
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+
+
+            //ocultar los botones de accion
+            document.querySelector('.botonesAccion').style.display = 'none';
+
+            // Agregar estilos específicos para el PDF
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                body {
+                    font-size: 12px;
+                    background-color: #f8d5db;!important;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .botonesAccion {
+                    display: none;
+                }
+                main {
+                    background-color: #d2124b !important; 
+                
+                    
+                }
+                table thead {
+                    background-color: #5fa510 !important;
+                }
+                table {
+                    page-break-inside: auto;
+                }
+                tr {
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                th, td {
+                    padding: 5px;
+                }
+            `;
+            document.head.appendChild(printStyles);
+
+            // Generar el PDF
+            const element = document.querySelector('main');
+            html2pdf().from(element).save('Empleados.pdf').then(() => {
+                // Volver a mostrar los botones después de generar el PDF
+                document.querySelector('.botonesAccion').style.display = 'inline';
+
+                // Quitar los estilos adicionales después de la generación del PDF
+                document.head.removeChild(printStyles);
+            });
+        });
+
+        document.getElementById('btnImprimir').addEventListener('click', function() {
+            window.print();
+        });
+
+        document.getElementById('btnVolver').addEventListener('click', function() {
+            window.location.href = 'indexpersonal.html';
+        });
+    </script>
+</body>
+</html>

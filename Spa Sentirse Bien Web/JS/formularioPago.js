@@ -28,7 +28,6 @@ function voltearTarjeta(mostrarReverso) {
     }
 }
 
-
 // Función para mostrar el monto total basado en el precio del servicio
 async function mostrarMontoTotal() {
     const params = new URLSearchParams(window.location.search);
@@ -74,19 +73,22 @@ async function obtenerDatosServicio(idServicio) {
 // Función para actualizar el cálculo de cuotas
 function calcularCuotas() {
     const montoTotal = calcularMontoTotal();
-    const cuotas = parseInt(document.getElementById("cuotas").value) || 1;
+    const cuotas = parseInt(document.querySelector('input[name="cuotas"]:checked').value) || 1;
     const montoCuota = montoTotal / cuotas;
     document.getElementById("monto-total").innerText = `$${montoCuota.toFixed(2)} en ${cuotas} cuota(s)`;
 }
 
 // Función para mostrar/ocultar opciones de cuotas
 function alternarCuotas() {
-    const tipoTarjeta = document.getElementById("tipo-tarjeta").value;
+    const tipoTarjeta = document.querySelector('input[name="tipo-tarjeta"]:checked').value;
     const grupoCuotas = document.getElementById("grupo-cuotas");
-    grupoCuotas.style.display = tipoTarjeta === "credito" ? "block" : "none";
     
-    // Si se selecciona "Débito", mostrar el monto sin cuotas
-    if (tipoTarjeta === "debito") {
+    // Mostrar u ocultar opciones de cuotas según el tipo de tarjeta
+    if (tipoTarjeta === "credito") {
+        grupoCuotas.style.display = "block";
+        document.getElementById("monto-total").innerText = "$0.00";
+    } else if (tipoTarjeta === "debito") {
+        grupoCuotas.style.display = "none";
         document.getElementById("monto-total").innerText = `$${calcularMontoTotal().toFixed(2)}`;
     }
 }

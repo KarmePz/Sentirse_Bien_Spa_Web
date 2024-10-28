@@ -1,25 +1,22 @@
 
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+/* Variables de colores */
 :root {
-    --verdeColor: #5fa510;
-    --verdeOscuroColor: #315012;
-    --rosaColor: #dc1659;
-    --rosaOscuro: #a11245;
-    --amarilloColor: #e1bc00;
-    --amarilloOscuro: #d29500;
-    --rosaClaro: rgb(248, 213, 219); 
-    --grisOscuro: #3c3c3c; 
+    --fondoClaro: #ffe5f0; 
+    --fondoOscuroHover: #c594aa;
+    --fondoOscuro:#fdcae1 ;
+    --amarilloColor: #efb810;
+    --verdeColor: #009929;
+    --verdeOscuroColor: #006414;
 }
 
-/* Asegúrate de que el header esté en la parte superior y ocupe todo el ancho */
-#header-container {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: auto;
-    background-color: var(--rosaColor); 
-    z-index: 1000; 
-}
 
 /* Ajusta el body para que los elementos no estén centrados verticalmente */
 body {
@@ -29,14 +26,21 @@ body {
     height: 100vh;
     margin: 0;
     padding-top: 90px; 
-    background-color: var(--rosaClaro);
+    background-color: var(--fondoClaro);
     font-family: 'Arial', sans-serif;
     box-sizing: border-box; 
 }
 
+/* Estilos para el header */
+#header-container {
+    width: 100%;
+    position: fixed; /* Fija el header en la parte superior */
+    top: 0;
+    left: 0;
+}
 /* Estilos del contenedor */
 .contenedor {
-    background-color: var(--rosaColor); 
+    background-color: var(--fondoOscuro); 
     padding: 30px; 
     border-radius: 12px; 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
@@ -47,13 +51,31 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-
+h1{
+    margin-bottom: 20px;
+    font-size: 24px; 
+    color: var(--amarilloColor); 
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+}
 h2 {
     margin-bottom: 20px;
     font-size: 24px; 
     color: var(--amarilloColor); 
-    font-family: 'Verdana', sans-serif; 
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
 }
+#datepicker {
+    color: var(--amarilloColor);
+}
+
+label[for="timepicker"] {
+    font-family: Caveat, sans-serif;
+    font-weight: bold;
+    font-size: 24px; /* Ajusta el tamaño si es necesario */
+    color: var(--amarilloColor); /* Para mantener el color amarillo */
+}
+
 
 /* Estilos para el input de fecha */
 input[type="text"] {
@@ -61,10 +83,14 @@ input[type="text"] {
     padding: 12px;
     margin: 12px 0;
     border-radius: 8px;
-    border: 1px solid #cccccc;
-    background-color: var(--rosaClaro); 
+    border: none;
+    background-color: var(--fondoClaro); 
     font-size: 16px; 
-    font-family: 'Courier New', monospace; 
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+}
+input[type="text"]:hover{
+    border: 1px solid var(--amarilloColor);
 }
 
 /* Estilos para el select de la hora */
@@ -73,31 +99,34 @@ select {
     padding: 12px;
     margin: 12px 0;
     border-radius: 8px;
-    border: 1px solid #cccccc;
-    background-color: var(--rosaClaro); 
-    color: black; 
-    font-size: 16px; 
-    font-family: 'Courier New', monospace; 
+    border: none;
+    background-color: var(--fondoClaro); 
+    color: var(--amarilloColor); 
+    font-size: 14px; 
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold; 
 }
-
-
+select:hover{
+    border: 1px solid var(--amarilloColor);
+}
 button {
     width: 100%;
     padding: 12px;
     margin-top: 20px;
     background-color: var(--verdeOscuroColor); 
-    color: white; 
-    border: none;
+    color:var(--verdeColor); 
+    border: 2px solid var(--verdeColor);
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px; 
-    font-family: 'Arial', sans-serif; 
-    transition: background-color 0.3s ease;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
 }
-
 
 button:hover {
     background-color: var(--verdeColor);
+    color: var(--verdeOscuroColor);
+    border: 2px solid var(--verdeOscuroColor);
 }
 
 
@@ -108,57 +137,8 @@ label {
 }
 
 
-/* Contenedor de opciones de pago */
-#opciones {
-    background-color: var(--rosaColor); 
-    padding: 20px;
-    border-radius: 12px;
-    text-align: left;
-    margin-top: 20px;
-    color: var(--amarilloColor); 
-    font-family: 'Arial', sans-serif;
-}
 
-/* Estilo de las opciones de pago */
-.opcion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    background-color: var(--rosaClaro);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--amarilloOscuro);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-.opcion:hover {
-    background-color: var(--amarilloColor);
-    color: black;
-}
 
-/* Estilo para los inputs de las opciones */
-input[type="radio"] {
-    margin-left: 10px;
-    accent-color: var(--verdeOscuroColor); /* Personaliza el color del radio button */
-}
 
-/* Botón de confirmar */
-#confirmar {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: var(--verdeOscuroColor); 
-    color: white; 
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s ease;
-}
 
-#confirmar:hover {
-    background-color: var(--verdeColor);
-}

@@ -1,119 +1,98 @@
-/* CSS para indexCliente.css */
+/*fuente para el texto principal*/
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+/* Variables de colores */
+:root {
+    --fondoClaro: #ffe5f0; 
+    --fondoOscuroHover: #c594aa;
+    --fondoOscuro:#fdcae1 ;
+    --amarilloColor: #efb810;
+    --verdeColor: #009929;
+    --verdeOscuroColor: #006414;
+}
 
 /* Personalización de colores y tipografía */
 body {
     font-family: Arial, sans-serif; /* Cambia la tipografía aquí */
-    background-color: #f5f5f5; /* Color de fondo general */
-    color: #333; /* Color de texto general */
+    background-color: var(--fondoClaro); /* Color de fondo general */
     margin: 0;
     padding: 0;
 }
-/*parte del heder*/
-
-.botones-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px; 
-    padding: 20px 0px; /* Añadir algo de padding arriba y abajo */
-}
-.container {
-    --color: var(--amarilloColor);
-    --size: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    font-size: var(--size);
-    user-select: none;
-    fill: var(--color);
-    
-}
-.boton_logout{
-    background-color: pink;
-    border: none;
-    padding: 8px 12px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-.container .bell-regular {
-    position: absolute;
-    animation: keyframes-fill .5s;
-}
-
-.container .bell-solid {
-    position: absolute;
-    display: none;
-    animation: keyframes-fill .5s;
-}
-
-.container input:checked ~ .bell-regular {
-    display: none;
-}
-
-.container input:checked ~ .bell-solid {
-    display: block;
-}
-
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-@keyframes keyframes-fill {
-    0% { opacity: 0; }
-    25% { transform: rotate(25deg); }
-    50% { transform: rotate(-20deg) scale(1.2); }
-    75% { transform: rotate(15deg); }
-}
-/*Cuando se loguea un usuario se muestra esto: */
-.fa-solid{
-    font-weight: 500;
-    font-size: x-large;
-    position: relative;
-    left: 30px;
-    vertical-align:super;
-    color:var(--amarilloColor)
-}
-.span_saludo{
-    color:var(--amarilloColor);
-    font-size: 17px; 
-    font-family: "Dancing Script", sans-serif;
-    font-weight: bold;
-    vertical-align:middle;
-    z-index: 11000;
-}
-
 
 
 /*parte del main*/
 h1 {
     text-align: center;
-    color: #333;
+    color: var(--amarilloColor);
     margin-top: 20px;
+    font-size: 50px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
 }
 
 /* Estilos para los filtros */
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px auto;
-    max-width: 800px;
+.contendorFiltros {
+    display: flex; /* Usamos flexbox para centrar */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Alinea verticalmente (si es necesario) */
+    margin-top: 20px; /* Espacio superior */
+}
+.filtros {
+    display: inline-block; /* Para que aparezcan uno al lado del otro */
+    margin-right: 10px; /* Espacio entre los filtros */
 }
 
-.filters input,
-.filters select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+/* Estilo del campo de búsqueda */
+#busquedaTitulo {
+    background-color: var(--fondoOscuro); /* Color de fondo */
+    color: var(--amarilloColor); /* Color del texto */
+    border: none; /* Borde */
+    padding: 8px; /* Relleno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-family: "Comic Sans MS", cursive;
+    font-weight: normal;
+    font-size: 14px; /* Tamaño de fuente */
+    width: 200px; /* Ancho del campo */
 }
+
+/* Estilo del filtro combinado */
+#filtroUnico {
+    background-color: var(--fondoOscuro); /* Color de fondo */
+    color:var(--amarilloColor); /* Color del texto */
+    border: none; /* Borde */
+    padding: 8px; /* Relleno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-family: "Comic Sans MS", cursive;
+    font-weight: normal;
+    font-size: 14px; /* Tamaño de fuente */
+    width: 220px; /* Ancho del select */
+}
+
+/* Estilo para las opciones dentro del filtro combinado */
+#filtroUnico option {
+    background-color: var(--fondoOscuro); /* Color de fondo de las opciones */
+    color: var(--verdeOscuroColor); /* Color del texto */
+    font-family: "Comic Sans MS", cursive;
+    font-weight: normal;
+}
+
+/* Estilo para el texto dentro de los campos de los filtros */
+.filtros input::placeholder {
+    color:var(--fondoClaro); /* Color del texto de placeholder */
+    font-style: italic; /* Estilo cursiva para el placeholder */
+}
+#busquedaTitulo:focus, 
+#filtroUnico:focus {
+    border: 1px solid ;
+    border-color: var(--amarilloCor); /* Cambiar color del borde al enfocarse */
+    outline: none; /* Quitar el borde exterior por defecto */
+}
+
 
 #services {
     display: grid;
@@ -126,11 +105,15 @@ h1 {
 
 /* Estilo para las tarjetas de servicio */
 .service-card {
-    background-color: #fff;
+    background-color: var(--fondoOscuro);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el contenido equitativamente */
+    height: 100%; /* Asegura que el botón esté al final */
 }
 
 .service-card:hover {
@@ -148,24 +131,30 @@ h1 {
 
 .service-info {
     padding: 15px;
+    flex-grow: 1; /* Permite que tome el espacio restante */
 }
 
 .service-info h3 {
     font-size: 18px;
-    color: #333;
+    color: var(--amarilloColor);
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
     margin: 0 0 10px;
 }
 
 .service-info p {
     font-size: 14px;
-    color: #666;
+    color: var(--verdeOscuroColor);
+    font-family: Georgia, serif;
     margin-bottom: 10px;
 }
 
 .service-info span {
     display: block;
+    font-family: Quicksand, sans-serif;
+    font-weight: bold;
     font-size: 13px;
-    color: #555;
+    color:var(--verdeColor);
     margin-bottom: 5px;
 }
 
@@ -183,17 +172,21 @@ h1 {
 }
 
 .reserva_button {
-    background-color: #ff6f61; /* Un color atractivo para el botón */
-    color: white;
-    border: none;
+    background-color: var(--verdeOscuroColor);
+    color: var(--verdeColor);
+    border: 2px solid var(--verdeColor);
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
-    margin-top: 10px;
+    margin-top: auto; /* Empuja el botón hacia la parte inferior */
+    align-self: center; /* Centra horizontalmente el botón */
+    margin-bottom: 15px; /* Distancia uniforme respecto a la parte inferior */
 }
 
 .reserva_button:hover {
-    background-color: #e65c54; /* Oscurecer el color al pasar el mouse */
+    background-color: var(--verdeColor); /* Oscurecer el color al pasar el mouse */
+    color: var(--verdeOscuroColor);
+    border: 2px solid var(--verdeOscuroColor);
 }

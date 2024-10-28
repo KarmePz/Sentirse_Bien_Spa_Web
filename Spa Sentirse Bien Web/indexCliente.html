@@ -9,24 +9,32 @@
 </head>
 <body>
     <header id="header-container"></header>
+    
     <h1>Servicios Disponibles</h1>
 
+    
     <!-- Filtros de búsqueda -->
-    <div class="filters">
-        <input type="text" id="searchTitle" placeholder="Buscar por título...">
-        <select id="filterType">
-            <option value="">Filtrar por tipo de servicio</option>
-            <option value="Masajes">Masajes</option>
-            <option value="Belleza">Belleza</option>
-            <option value="Tratamientos Faciales">Tratamientos Faciales</option>
-            <option value="Tratamientos Corporales">Tratamientos Corporales</option>
-        </select>
-        <select id="filterEmployee">
-            <option value="">Filtrar por empleado</option>
-            <option value="1">Empleado 1</option>
-            <option value="2">Empleado 2</option>
-        </select>
+    <div class="contendorFiltros">
+        <div class="filtros">
+            <input type="text" id="busquedaTitulo" placeholder="Buscar por título del servicio">
+        </div>
+        <div class="filtros">
+            <select id="filtroUnico">
+                <option value="">Filtrar por tipo de servicio o empleado</option>
+                <optgroup label="Tipos de servicio">
+                    <option value="Masajes">Masajes</option>
+                    <option value="Belleza">Belleza</option>
+                    <option value="Tratamientos Faciales">Tratamientos Faciales</option>
+                    <option value="Tratamientos Corporales">Tratamientos Corporales</option>
+                </optgroup>
+                <optgroup label="Empleados" id="opcionesEmpleados">
+                    <!-- Aquí se cargarán dinámicamente los empleados -->
+                </optgroup>
+            </select>
+        </div>
     </div>
+
+
 
     <!-- Tabla para mostrar los servicios -->
     <div class="services-container">
