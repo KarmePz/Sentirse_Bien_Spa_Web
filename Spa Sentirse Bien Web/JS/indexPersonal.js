@@ -1159,6 +1159,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     //SE DEBEN CARGAR LAS OPCIONES SEGUN EL ROL DEL USUARIO 
     console.log(sessionStorage.getItem('id'));
     var rolUsuario = await getUserData(sessionStorage.getItem('id'));
+    console.log(rolUsuario);
+    if (rolUsuario =="Cliente"){
+        window.location.href = "/indexCliente.html";
+    }
     var nombreUsuario = sessionStorage.getItem('username');
 
     console.log(rolUsuario);
@@ -2352,7 +2356,7 @@ async function getUserData(id) {
         }else if (resultado.roles.includes("Secretario")){
             return "Secretario"
         }else{
-
+            return "Cliente";
         }
     } catch (error) {
         console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);
