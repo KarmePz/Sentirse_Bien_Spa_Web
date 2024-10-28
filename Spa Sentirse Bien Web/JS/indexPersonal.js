@@ -1337,6 +1337,41 @@ links.forEach(link => {
                     window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
                 });
 
+                document.getElementById('btnAgregarHorario').addEventListener('click', function () {
+                    const servicioId = prompt("Ingrese el ID del Servicio al que desea agregar un horario:");
+                    
+                    if (!servicioId) {
+                        alert("Debe ingresar un ID de servicio válido.");
+                        return;
+                    }
+                
+                    // Validar si el servicioId ingresado existe en el arreglo de servicios
+                    const servicioExiste = servicios.some(servicio => servicio.servicioId === parseInt(servicioId));
+                
+                    if (!servicioExiste) {
+                        alert("El ID del Servicio no existe. Por favor, ingrese un ID válido.");
+                        return;
+                    }
+                
+                    // Si el servicio existe, redirigir al formulario de agregar horario, pasando el servicioId
+                    window.location.href = `agregarHorario.html?servicioId=${servicioId}`;
+                });
+
+                document.getElementById('btnEliminarHorario').addEventListener('click', function () {
+                    const servicioId = prompt("Ingrese el ID del servicio al que desea eliminar un horario:");
+                
+                    // Verificar si el ID del servicio existe en el array de servicios cargados
+                    const servicio = servicios.find(serv => serv.servicioId === parseInt(servicioId));
+                
+                    if (servicio) {
+                        // Redirigir al nuevo HTML con el servicioId en la URL
+                        window.location.href = `eliminarHorario.html?servicioId=${servicioId}`;
+                    } else {
+                        alert('El servicio con ese ID no existe. Por favor, ingrese un ID válido.');
+                    }
+                });
+                
+
                 document.getElementById('btnGenerarPDFServiciosPorProfesional').addEventListener('click', function() {
                     localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
                     window.location.href = 'generarTablaServicioPorProfesional.html'; // Redirige a la nueva página
