@@ -71,9 +71,11 @@
                 `;
                 tablaCuerpo.appendChild(fila);
             }
+            actualizarTablaConTotal();
         }
 
         cargarPagosEnTabla();
+        
 
         // Descargar la tabla como PDF
         document.getElementById('btnDescargarPDF').addEventListener('click', function() {
@@ -125,6 +127,41 @@
                 document.head.removeChild(printStyles);
             });
         });
+        //fila de total
+        // Función para actualizar la tabla y mostrar el total
+        function actualizarTablaConTotal() {
+            const tbody = document.getElementById('tablaPagosPDF').querySelector('tbody');
+            
+            // Sumar los valores de la columna "Monto Total"
+            let total = 0;
+            const filas = tbody.querySelectorAll('tr');
+            filas.forEach(fila => {
+                const montoCelda = fila.querySelector('td:nth-child(6)');
+                if (montoCelda) {
+                    const monto = parseFloat(montoCelda.textContent) || 0;
+                    total += monto;
+                }
+            });
+
+            // Remover cualquier fila de total anterior si existe
+            const filaTotalExistente = document.getElementById('filaTotal');
+            if (filaTotalExistente) {
+                filaTotalExistente.remove();
+            }
+
+            // Crear una nueva fila para el total
+            const filaTotal = document.createElement('tr');
+            filaTotal.id = 'filaTotal';
+            filaTotal.innerHTML = `
+                <td colspan="4" style="font-weight: bold; text-align: right;">Total</td>
+                <td style="font-weight: bold;">${total.toFixed(2)}</td>
+                <td colspan="2"></td>
+            `;
+
+            // Agregar la fila de total al final del tbody
+            tbody.appendChild(filaTotal);
+        }
+
 
         // Imprimir la tabla
         document.getElementById('btnImprimir').addEventListener('click', function() {

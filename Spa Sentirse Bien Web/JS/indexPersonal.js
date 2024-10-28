@@ -1650,6 +1650,8 @@ function cargarPagos(pagos) {
         `;
         tablaPagos.appendChild(fila);
     });
+    
+    actualizarTablaConTotal();
 }
 
 // Función para cambiar el criterio de búsqueda
@@ -1721,6 +1723,8 @@ function filtrarPorPagado() {
         pagosFiltrados = pagos.filter(pago => pago.pagado === true);
     } else if (selectPagado === 'false') {
         pagosFiltrados = pagos.filter(pago => pago.pagado === false);
+    }else{
+        cargarPagosDesdeAPI();
     }
 
     cargarPagos(pagosFiltrados);
@@ -1769,10 +1773,47 @@ function filtrarPagosPorFecha() {
         const fechaPagado = new Date(pago.fechaPagado);
         return fechaPagado >= fechaInicio && fechaPagado<= fechaFin;
     });
+    pagos = pagosFiltrados;
 
     // Llamada para mostrar los pagos filtrados en la tabla
     cargarPagos(pagosFiltrados);
 }
+
+//fila de total
+ // Función para actualizar la tabla y mostrar el total
+ function actualizarTablaConTotal() {
+    const tbody = document.getElementById('tablaPagos');
+    
+    // Sumar los valores de la columna "Monto Total"
+    let total = 0;
+    const filas = tbody.querySelectorAll('tr');
+    filas.forEach(fila => {
+        const montoCelda = fila.querySelector('td:nth-child(5)');
+        if (montoCelda) {
+            const monto = parseFloat(montoCelda.textContent) || 0;
+            total += monto;
+        }
+    });
+
+    // Remover cualquier fila de total anterior si existe
+    const filaTotalExistente = document.getElementById('filaTotal');
+    if (filaTotalExistente) {
+        filaTotalExistente.remove();
+    }
+
+    // Crear una nueva fila para el total
+    const filaTotal = document.createElement('tr');
+    filaTotal.id = 'filaTotal';
+    filaTotal.innerHTML = `
+        <td colspan="4" style="font-weight: bold; text-align: right;">Total</td>
+        <td style="font-weight: bold;">${total.toFixed(2)}</td>
+        <td colspan="2"></td>
+    `;
+
+    // Agregar la fila de total al final del tbody
+    tbody.appendChild(filaTotal);
+}
+
 
 
 
