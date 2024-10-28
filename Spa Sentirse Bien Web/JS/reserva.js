@@ -13,8 +13,8 @@ const turnos = [
     { ID: "turno1", servicioID: "serv1", reservaID: "reserva1", fechaInicio: "2024-10-22 14:00", descripcion: "Turno de masaje" },
     { ID: "turno2", servicioID: "serv2", reservaID: "reserva2", fechaInicio: "2024-10-23 10:00", descripcion: "Turno facial" },
     { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
-    { ID: "turno3", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" }
+    { ID: "turno4", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" },
+    { ID: "turno5", servicioID: "serv3", reservaID: "reserva3", fechaInicio: "2024-10-24 16:00", descripcion: "Turno de manicura" }
 ];
 
 // Ejemplo de arreglo de servicios
@@ -32,20 +32,25 @@ const turnosUsuario = turnos.filter(turno =>
     reservasUsuario.some(reserva => reserva.ID === turno.reservaID)
 );
 
-// Mostrar los turnos en la lista
+// Obtener elementos del DOM
+const listaTurnos = document.getElementById("lista-turnos");
+const botonPagar = document.getElementById("boton-pagar");
+const checkboxSeleccionarTodos = document.getElementById("seleccionar-todos");
+const textoSeleccionar = document.getElementById("texto-seleccionar");
+let totalPrecio = 0;
+
+// Crear el listado de turnos con checkboxes
 function mostrarTurnos() {
-    const listaTurnos = document.getElementById("lista-turnos");
     listaTurnos.innerHTML = ""; // Limpiar la lista
-    let totalPrecio = 0;
 
     turnosUsuario.forEach(turno => {
-        // Buscar el servicio asociado al turno
         const servicio = servicios.find(serv => serv.ID === turno.servicioID);
-        if (!servicio) return; // Si no se encuentra el servicio, omitir
+        if (!servicio) return;
 
         // Crear elemento de lista para cada turno
         const li = document.createElement("li");
         li.innerHTML = `
+            <input type="checkbox" class="checkbox-turno" data-id="${turno.ID}" data-precio="${servicio.precio}">
             <div>
                 <p><strong>Servicio:</strong> ${servicio.titulo}</p>
                 <p><strong>Fecha y Hora:</strong> ${turno.fechaInicio}</p>
@@ -57,29 +62,59 @@ function mostrarTurnos() {
             </div>
         `;
         listaTurnos.appendChild(li);
-
-        // Sumar el precio del turno al total
-        totalPrecio += servicio.precio;
     });
+    actualizarTotal();
+}
 
-    // Actualizar el precio total en el HTML
+// Al cargar la página, mostrar los turnos
+mostrarTurnos();
+
+// Función para calcular el total de los turnos seleccionados
+function actualizarTotal() {
+    const checkboxes = document.querySelectorAll(".checkbox-turno:checked");
+    totalPrecio = Array.from(checkboxes).reduce((total, checkbox) => 
+        total + parseFloat(checkbox.getAttribute("data-precio")), 0);
+
     document.getElementById("total-precio").textContent = `$${totalPrecio}`;
 }
 
-// Evento para el botón de pagar
-document.getElementById("boton-pagar").addEventListener("click", () => {
-    const opcionesDiv = document.getElementById("opciones");
-    opcionesDiv.style.display = "block"; // Mostrar el div de opciones
-});
-document.getElementById("confirmar").addEventListener("click", function() {
-    const seleccion = document.querySelector('input[name="status"]:checked');
-
-    if (seleccion) {
-        //aca va la parte si se pago que haga los cambios en informe de pago a pagado 
-        alert("Su pago fue realizado con exito✌️😊.");
-    } else {
-        alert("Por favor, selecciona una opción.");
+// Evento para actualizar el total cuando se selecciona o deselecciona un turno
+listaTurnos.addEventListener("change", event => {
+    if (event.target.classList.contains("checkbox-turno")) {
+        actualizarTotal();
     }
 });
-// Mostrar los turnos al cargar la página
-mostrarTurnos();
+
+// Evento para seleccionar o desmarcar todos los turnos
+checkboxSeleccionarTodos.addEventListener("change", () => {
+    const seleccionarTodos = checkboxSeleccionarTodos.checked;
+    const checkboxes = document.querySelectorAll(".checkbox-turno");
+
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = seleccionarTodos;
+    });
+
+    // Cambiar el texto del label
+    textoSeleccionar.textContent = seleccionarTodos ? "Deseleccionar Todos" : "Seleccionar Todos";
+
+    // Actualizar el total según la selección
+    actualizarTotal();
+});
+
+// Redirigir a formulario de pago con las IDs de los turnos seleccionados
+botonPagar.addEventListener("click", () => {
+    const turnosSeleccionados = obtenerTurnosSeleccionados();
+    if (turnosSeleccionados.length > 0) {
+        window.location.href = `formularioPago.html?turnos=${turnosSeleccionados.join(",")}`;
+    } else {
+        alert("Selecciona al menos un turno para continuar.");
+    }
+});
+
+// Función para obtener IDs de los turnos seleccionados
+function obtenerTurnosSeleccionados() {
+    const checkboxes = document.querySelectorAll(".checkbox-turno:checked");
+    return Array.from(checkboxes).map(checkbox => checkbox.getAttribute("data-id"));
+}
+
+

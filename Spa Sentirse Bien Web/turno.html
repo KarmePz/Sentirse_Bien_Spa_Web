@@ -10,6 +10,8 @@
     <title>Turno</title>
 </head>
 <body>
+    <header id="header-container"></header>
+    
     <div class="contenedor">
         <h1 id="servicioSeleccionado"></h1>
 
@@ -23,31 +25,13 @@
                 <option value="11:00">11:00</option>
             </select>
         </div>
-        <button id="agregarCarrito">Ageragar al carrito</button>
+        <button id="agregarCarrito">Agregar al carrito</button>
         <button id="reservarAhora">Reservar ahora</button>
-        <div id="opciones" style="display: none;">
-            <!-- Contenido del div con la selección de opciones -->
-            <div class="w-[300px] px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
-                <legend class="text-xl font-semibold mb-3 select-none">Seleccione medio de pago:</legend>
-                <!-- Opciones -->
-                <label for="html" name="status" class="opcion">
-                    <div class="w-5 fill-blue-500">Efectivo</div>
-                    <input type="radio" name="status" class="peer/html w-4 h-4 absolute right-3" id="html" />
-                </label>
-                <label for="css" class="opcion">
-                    <div class="w-5">Crédito</div>
-                    <input type="radio" name="status" class="w-4 h-4 absolute right-3" id="css" />
-                </label>
-                <label for="javascript" name="html" class="opcion">
-                    <div class="w-5">Débito</div>
-                    <input type="radio" name="status" class="w-4 h-4 absolute right-3" id="javascript" />
-                </label>
-            </div>
-            <button id="confirmar">Confirmar</button>
-        </div>   
     </div>
     
     <script src="./JS/turno.js"></script>
-    <script>src="./JS/reserva.js"</script>
+    <script src="./JS/reserva.js"></script>
+    <script src="./JS/header.js"></script>
+
 </body>
 </html>

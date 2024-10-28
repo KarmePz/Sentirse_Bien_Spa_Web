@@ -89,6 +89,42 @@ function pedirTurno(indiceFicha) {
 
 
 
+function pedirTurno() {
+    // Mostrar el modal en lugar de redirigir directamente
+    const modal = document.getElementById("modalRegistro");
+    modal.style.display = "block";
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById("modalRegistro");
+    const spanClose = document.querySelector(".close");
+
+    if (modal && spanClose) {
+        // Asignar la función de cierre al botón de cerrar (span)
+        spanClose.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // Cerrar el modal al hacer clic fuera del mismo
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    } else {
+        console.error("El modal o el botón de cierre no se encontraron en el DOM.");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const registroButton = document.getElementById("registroButton");
+    registroButton.addEventListener("click", function() {
+        window.location.href = "/signIn.html";
+    });
+});
+
+
+
 function irAPagina(indice) {
     localStorage.setItem('indiceServicio', indice); // Guardar el índice seleccionado
     window.location.href = "/tipoDeServicios.html"; // Ir a la siguiente página

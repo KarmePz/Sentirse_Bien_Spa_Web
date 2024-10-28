@@ -10,15 +10,28 @@
     --grisOscuro: #3c3c3c; 
 }
 
+/* Asegúrate de que el header esté en la parte superior y ocupe todo el ancho */
+#header-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: auto;
+    background-color: var(--rosaColor); 
+    z-index: 1000; 
+}
 
+/* Ajusta el body para que los elementos no estén centrados verticalmente */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: var(--rosaClaro); 
-    font-family: 'Arial', sans-serif; 
+    padding-top: 90px; 
+    background-color: var(--rosaClaro);
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; 
 }
 
 /* Estilos del contenedor */

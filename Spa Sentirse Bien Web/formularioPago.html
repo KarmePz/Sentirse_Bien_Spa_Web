@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <link rel="stylesheet" href="./CSS/formularioPago.css">
+</head>
+<body>
+
+<div class="contenedor">
+    <!-- Tarjeta que se voltea -->
+    <div class="contenedor-tarjeta">
+        <div class="tarjeta" id="tarjeta">
+            <div class="tarjeta-frente">
+                <img src="./sources/formularioPago/chip.png" alt="Chip" class="chip">
+                <div class="numero-tarjeta" id="numero-tarjeta">#### #### #### ####</div>
+                <div class="nombre-tarjeta" id="nombre-tarjeta">NOMBRE DEL TITULAR</div>
+                <div class="expiracion-tarjeta" id="expiracion-tarjeta">MM/AA</div>
+            </div>
+            <div class="tarjeta-reverso">
+                <div class="banda-magnetica"></div>
+                <div class="cvc-caja">
+                    <label>CVC</label>
+                    <div id="cvc-tarjeta">###</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de Pago -->
+    <form autocomplete="off">
+        <div class="grupo-formulario">
+            <label for="tipo-tarjeta">Tipo de Tarjeta</label>
+            <select id="tipo-tarjeta" onchange="alternarCuotas()">
+                <option value="debito">Débito</option>
+                <option value="credito">Crédito</option>
+            </select>
+        </div>
+
+        <div class="grupo-formulario">
+            <label for="numero">Número de la tarjeta</label>
+            <input type="text" id="numero" maxlength="16" placeholder="#### #### #### ####" oninput="actualizarNumeroTarjeta()" autocomplete="off">
+        </div>
+
+        <div class="grupo-formulario">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Nombre del titular" oninput="actualizarNombreTarjeta()" autocomplete="off">
+        </div>
+
+        <div class="grupo-formulario">
+            <label for="expiracion">Fecha de expiración</label>
+            <input type="text" id="expiracion" maxlength="5" placeholder="MM/AA" oninput="actualizarExpiracionTarjeta()" autocomplete="off">
+        </div>
+
+        <div class="grupo-formulario">
+            <label for="cvc">CVC</label>
+            <input type="text" id="cvc" maxlength="3" placeholder="CVC" onfocus="voltearTarjeta(true)" onblur="voltearTarjeta(false)" oninput="actualizarCvcTarjeta()" autocomplete="off">
+        </div>
+
+        <div class="grupo-formulario">
+            <label for="monto">Monto</label>
+            <div id="monto">$0.00</div>
+        </div>
+
+        <!-- Opciones de cuotas solo para tarjeta de crédito -->
+        <div class="grupo-formulario" id="grupo-cuotas" style="display: none;">
+            <label for="cuotas">Seleccionar Cuotas</label>
+            <select id="cuotas" onchange="calcularCuotas()">
+                <option value="1">1 pago (sin cuotas)</option>
+                <option value="3">3 cuotas</option>
+                <option value="6">6 cuotas</option>
+            </select>
+        </div>
+
+        <!-- Resultado del cálculo de cuotas -->
+        <div class="grupo-formulario" id="resultado-pago">
+            <label>Total a pagar:</label>
+            <div id="monto-total">$0.00</div>
+        </div>
+
+        <button type="button" class="boton-enviar">Pagar</button>
+    </form>
+</div>
+
+<script src="./JS/formularioPago.js"></script>
+</body>
+</html>

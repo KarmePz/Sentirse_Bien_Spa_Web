@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios</title>
+    <link rel="stylesheet" href="./CSS/indexCliente.css">
+    <link rel="stylesheet" href="./CSS/header.css">
+</head>
+<body>
+    <header id="header-container"></header>
+    <h1>Servicios Disponibles</h1>
+
+    <!-- Filtros de búsqueda -->
+    <div class="filters">
+        <input type="text" id="searchTitle" placeholder="Buscar por título...">
+        <select id="filterType">
+            <option value="">Filtrar por tipo de servicio</option>
+            <option value="Masajes">Masajes</option>
+            <option value="Belleza">Belleza</option>
+            <option value="Tratamientos Faciales">Tratamientos Faciales</option>
+            <option value="Tratamientos Corporales">Tratamientos Corporales</option>
+        </select>
+        <select id="filterEmployee">
+            <option value="">Filtrar por empleado</option>
+            <option value="1">Empleado 1</option>
+            <option value="2">Empleado 2</option>
+        </select>
+    </div>
+
+    <!-- Tabla para mostrar los servicios -->
+    <div class="services-container">
+        <!-- Aquí se mostrarán los servicios dinámicamente -->
+        <div id="services"></div>
+    </div>
+
+    <script src="./JS/indexCliente.js"></script>
+    <script src="./JS/header.js"></script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 // Código para el botón que abre la pestaña de login
 const botonAcceder = document.getElementById('boton_acceder');
 botonAcceder.addEventListener('click', function() {
+
     window.location.href = "./signIn.html"; // Redirigir a la página de login
 });
 
@@ -10,9 +11,12 @@ botonAcceder.addEventListener('click', function() {
 
 // Verificar si el usuario ya está logueado
 document.addEventListener('DOMContentLoaded', function() {
+    sessionStorage.clear()
+    localStorage.clear()
     const userName = sessionStorage.getItem('username');
     const email = sessionStorage.getItem('email');
     const botonesHeader = document.getElementById('botones_header');
+
     
     if (userName && email) {
         botonAcceder.style.display = 'none'; // Ocultar botón de acceder
