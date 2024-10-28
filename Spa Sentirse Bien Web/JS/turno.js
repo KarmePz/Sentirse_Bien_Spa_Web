@@ -1,176 +1,170 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const params = new URLSearchParams(window.location.search);
-  const idServicio = params.get('id');
+const horariosOcupados = [
+  "2024-09-10 09:00", "2024-09-10 10:00", "2024-09-10 11:00", 
+  "2024-09-25 10:00", "2024-09-27 09:00", "2024-09-25 11:00"
+];
 
-  if (idServicio) {
-      obtenerDetallesServicio(idServicio);
+document.addEventListener('DOMContentLoaded', function() {
+  const tituloFicha = localStorage.getItem('tituloFicha'); // Recupera el título de la ficha del localStorage
+  if (tituloFicha) {
+      const servicioSeleccionado = document.getElementById("servicioSeleccionado");
+      servicioSeleccionado.textContent = `Turno para: ${tituloFicha}`;
   }
 
-  inicializarCalendario(); // Iniciar calendario sin cambios aún
+  inicializarCalendario(); // Inicia el calendario
 });
 
-async function obtenerDetallesServicio(idServicio) {
-  try {
-      // Solicitud para obtener el servicio con sus turnos y horarios
-      const response = await fetch(`https://apispademo.somee.com/api/Servicio/${idServicio}?conTurnos=true&conHorarios=true`);
-      if (!response.ok) {
-          throw new Error('Error al obtener los detalles del servicio');
-      }
 
-      const servicio = await response.json();
-      const tituloServicio = servicio.titulo;
-      const duracionMinut = servicio.duracionMinut;
-      const horariosServicio = servicio.horarios;
-      const turnosTomados = servicio.turnos;
-
-      // Actualizar la UI con el título del servicio
-      document.getElementById("servicioSeleccionado").textContent = `Turno para el servicio: ${tituloServicio}`;
-
-      // Guardar los datos del servicio en variables globales
-      window.duracionMinut = duracionMinut;
-      window.horariosServicio = horariosServicio;
-      window.turnosTomados = turnosTomados.map(turno => turno.fechaInicio);
-
-      // Inicializar el calendario con estos datos
-      inicializarCalendario();
-
-  } catch (error) {
-      console.error('Error al obtener el servicio:', error);
-  }
-}
 
 function inicializarCalendario() {
   flatpickr("#datepicker", {
-      locale: "es",
-      dateFormat: "Y-m-d",
-      minDate: "today",
-      disable: [
-          function(date) {
-              return (date.getDay() === 6 || date.getDay() === 0); // Deshabilitar fines de semana
-          }
-      ],
-      onDayCreate: function(dObj, dStr, fp, dayElem) {
-          const dateStr = dayElem.dateObj.toISOString().split('T')[0];
-          const horariosTomadosDelDia = window.turnosTomados.filter(h => h.startsWith(dateStr));
-
-          // Deshabilitar el día si todos los horarios están ocupados
-          const horariosPosiblesDelDia = generarHorariosDia(window.horariosServicio, window.duracionMinut);
-          if (horariosTomadosDelDia.length === horariosPosiblesDelDia.length) {
-              dayElem.style.backgroundColor = "#dc3545"; 
-              dayElem.style.color = "white";
-              dayElem.classList.add('disabled');
-          } else if (horariosTomadosDelDia.length > 0) {
-              dayElem.style.backgroundColor = "#ff5733";
-              dayElem.style.color = "white";
-          }
-      },
-      onChange: function(selectedDates, dateStr, instance) {
-          actualizarSelectorDeHoras(dateStr);
+    locale: "es",
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    disable: [
+      function(date) {
+        return (date.getDay() === 6 || date.getDay() === 0);
       }
+    ],
+    onDayCreate: function(dObj, dStr, fp, dayElem) {
+      const dateStr = dayElem.dateObj.toISOString().split('T')[0];
+      const horariosDelDia = horariosOcupados.filter(h => h.startsWith(dateStr));
+
+      
+      if (horariosDelDia.length === 3) {
+        dayElem.style.backgroundColor = "#dc3545"; 
+        dayElem.style.color = "white";
+        dayElem.classList.add('disabled'); 
+      } else if (horariosDelDia.length === 2) {
+        dayElem.style.backgroundColor = "#ff5733";
+        dayElem.style.color = "white";
+      } else if (horariosDelDia.length === 1) {
+        dayElem.style.backgroundColor = "#ffc107";
+        dayElem.style.color = "white";
+      }
+    }
   });
 }
 
-// Función para generar los horarios disponibles en un día dado
-function generarHorariosDia(horariosServicio, duracionMinut) {
-  const horariosDisponibles = [];
-  
-  horariosServicio.forEach(horario => {
-      let horaInicio = horario.horaInicio.slice(0, 5); // Quitar los segundos
-      let horaFinal = horario.horaFinal.slice(0, 5); // Quitar los segundos
-
-      // Crear horarios según la duración del servicio, pero sin incluir la hora final
-      while (horaInicio < horaFinal) {
-          horariosDisponibles.push(horaInicio);
-          horaInicio = sumarMinutos(horaInicio, duracionMinut); // Avanzar el horario en base a la duración del servicio
-          
-          // Si la próxima hora es igual a la horaFinal, no la añadimos
-          if (horaInicio === horaFinal) {
-              break;
-          }
-      }
-  });
-
-  return horariosDisponibles;
-}
-
-
-// Función para actualizar el selector de horas según la fecha seleccionada
+// Actualiza el selector de horas basado en la fecha seleccionada
 function actualizarSelectorDeHoras(fechaSeleccionada) {
   const timepicker = document.getElementById("timepicker");
-  timepicker.innerHTML = ''; // Limpiar opciones del selector
+  
+  // Limpiar opciones del selector
+  timepicker.innerHTML = '';
 
-  const horariosPosibles = generarHorariosDia(window.horariosServicio, window.duracionMinut);
-
-  // Filtrar los horarios ya ocupados para la fecha seleccionada
-  const horariosTomadosDelDia = window.turnosTomados
-      .filter(horario => horario.startsWith(fechaSeleccionada))
-      .map(horario => horario.split('T')[1].slice(0, 5)); // Obtener solo la hora
-
-  horariosPosibles.forEach(horario => {
-      if (!horariosTomadosDelDia.includes(horario)) {
-          const option = document.createElement("option");
-          option.value = horario;
-          option.textContent = horario;
-          timepicker.appendChild(option);
-      }
+  
+  const horariosPosibles = ["09:00", "10:00", "11:00"];
+  
+  
+  const horariosDelDia = horariosOcupados
+  .filter(horario => horario.startsWith(fechaSeleccionada))
+  .map(horario => {
+    const [, hora] = horario.split(' ');
+    return hora;
   });
 
-  if (timepicker.options.length === 0) {
+
+  
+  horariosPosibles.forEach(horario => {
+    if (!horariosDelDia.includes(horario)) {
       const option = document.createElement("option");
-      option.value = "";
-      option.textContent = "No hay horarios disponibles";
+      option.value = horario;
+      option.textContent = horario;
       timepicker.appendChild(option);
+    }
+  });
+
+  
+  if (timepicker.options.length === 0) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No hay horarios disponibles";
+    timepicker.appendChild(option);
   }
 }
 
-// Función para sumar minutos a una hora (en formato HH:MM)
-function sumarMinutos(hora, minutos) {
-  const [h, m] = hora.split(':').map(Number);
-  const nuevaHora = new Date();
-  nuevaHora.setHours(h);
-  nuevaHora.setMinutes(m + minutos);
-  
-  const horas = nuevaHora.getHours().toString().padStart(2, '0');
-  const minutosActualizados = nuevaHora.getMinutes().toString().padStart(2, '0');
-  return `${horas}:${minutosActualizados}`; // Solo devolver formato HH:MM
-}
 
-
-// Redirigir al formulario de pago al presionar "Reservar ahora"
 document.getElementById("reservarAhora").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
-  const params = new URLSearchParams(window.location.search);
-  const idServicio = params.get('id');
-  
+
   if (!fechaSeleccionada) {
-      alert("Por favor, selecciona una fecha");
-      return;
-  } else if (!horaSeleccionada) {
-      alert("Por favor, selecciona una hora disponible");
-      return;
-  } else {
-      const url = `formularioPago.html?id=${idServicio}&fecha=${encodeURIComponent(fechaSeleccionada)}&hora=${encodeURIComponent(horaSeleccionada)}`;
-      window.location.href = url;
+    alert("Por favor, selecciona una fecha");
+    return;
+  }else if (!horaSeleccionada) {
+    alert("Por favor, selecciona una hora disponible");
+    return;
+  }else{
+    const opcionesDiv = document.getElementById("opciones");
+    opcionesDiv.style.display = "block"; // Mostrar el div de opciones
   }
 });
 
-// Lógica para agregar al carrito (a desarrollar)
 document.getElementById("agregarCarrito").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
-  const idUsuario = sessionStorage.getItem('id');
-  const params = new URLSearchParams(window.location.search);
-  const idServicio = params.get('id');
+  const tituloServicio = localStorage.getItem('tituloFicha');
 
-  if (!fechaSeleccionada || !horaSeleccionada) {
-      alert("Por favor, selecciona fecha y hora");
-      return;
-  }
+  if (!fechaSeleccionada) {
+    alert("Por favor, selecciona una fecha");
+    return;
+  }else if (!horaSeleccionada) {
+    alert("Por favor, selecciona una hora disponible");
+    return;
+  }else{
+    const idUsuario = sessionStorage.getItem('id');
+    const reservaUsuario = sessionStorage.setItem('reserva');
+    if(idUsuario){
+      if(reserva){
+        //cargar a reserva
+        alert("turno fue agregado a reserva 👌😊")
 
-  if (idUsuario) {
-      alert(`Turno para el servicio ${idServicio} el ${fechaSeleccionada} a las ${horaSeleccionada} agregado al carrito.`);
-  } else {
-      alert("Por favor, regístrate antes de agregar al carrito.");
+      }else{
+        //crear reserva
+        alert("turno fue agregado a reserva 👌😊")
+      }
+
+    }else{
+      alert("Por favor, registrate");
+    }
+
+
   }
 });
+
+document.getElementById("confirmar").addEventListener("click", function() {
+  const seleccion = document.querySelector('input[name="status"]:checked');
+  const fechaSeleccionada = document.getElementById("datepicker").value;
+  const horaSeleccionada = document.getElementById("timepicker").value;
+  if (seleccion) {
+      //alert("Has seleccionado: " + seleccion.id);
+      const fechaHora = `${fechaSeleccionada} ${horaSeleccionada}`;
+
+  
+      if (!horariosOcupados.includes(fechaHora)) {
+        horariosOcupados.push(fechaHora);
+        console.log("Horario confirmado:", fechaHora);
+    
+        inicializarCalendario();
+        actualizarSelectorDeHoras(fechaSeleccionada);
+        //aca estaria el de pagar ahora
+        //generar reserva 
+        alert("tu pago fue realizado exitosamente 👌😊")
+        //completar datos del pago
+
+      } else {
+        alert("Este horario ya está ocupado. Elige otro.");
+      }
+  } else {
+      alert("Por favor, selecciona una opción.");
+  }
+});
+
+
+document.getElementById("datepicker").addEventListener("change", function() {
+  const fechaSeleccionada = this.value;
+  actualizarSelectorDeHoras(fechaSeleccionada);
+});
+
+
+inicializarCalendario();

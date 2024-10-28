@@ -9,7 +9,6 @@
 </head>
 <body>
     <main>
-        <h1><img src="./sources/logo_spa2.png"></h1>
         <h1>Lista de Servicios</h1>
         <table id="tablaServiciosPDF">
             <thead>
@@ -18,7 +17,7 @@
                     <th>Título</th>
                     <th>Tipo de Servicio</th>
                     <th>Descripción</th>
-                    <th>Ruta Imagen</th>
+                    <th>Horarios</th> 
                     <th>Duración (min)</th>
                     <th>Precio</th>
                     <th>Empleado ID</th>
@@ -38,7 +37,7 @@
     </main>
 
     <script>
-        const servicios = JSON.parse(localStorage.getItem('servicios')) || [];
+        const servicios = JSON.parse(localStorage.getItem('serviciosFiltrados')) || [];
 
         async function obtenerNombreUsuarioPorId(usuarioId) {
             try {
@@ -61,13 +60,23 @@
             for (const servicio of servicios) {
                 const nombreUsuario = await obtenerNombreUsuarioPorId(servicio.usuarioId);
 
+                // Crear la cadena de horarios
+                let horariosHTML = '';
+                if (servicio.horarios && servicio.horarios.length > 0) {
+                    servicio.horarios.forEach(horario => {
+                        horariosHTML += `${horario.horaInicio} - ${horario.horaFinal}<br>`;
+                    });
+                } else {
+                    horariosHTML = 'No tiene horarios asignados';
+                }
+
                 const fila = document.createElement('tr');
                 fila.innerHTML = `
                     <td>${servicio.servicioId}</td>
                     <td>${servicio.titulo}</td>
                     <td>${servicio.tipoServicio}</td>
                     <td>${servicio.descripcion}</td>
-                    <td>${servicio.rutaImagen}</td>
+                    <td>${horariosHTML}</td> 
                     <td>${servicio.duracionMinut}</td>
                     <td>${servicio.precio}</td>
                     <td>${servicio.usuarioId}</td>
@@ -81,11 +90,27 @@
 
         document.getElementById('btnDescargarPDF').addEventListener('click', function() {
             const element = document.querySelector('main');
-            html2pdf().from(element).save('Servicios.pdf');
+            const botones = document.querySelector('.botonesAccion');
+            botones.style.display = 'none';
+            
+            const opt = {
+                margin:       0.5,         // Margen alrededor del contenido
+                filename:     'TablaServicios.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },  // Calidad de las imágenes
+                html2canvas:  { scale: 2 },  // Ajustar la escala para mejor calidad
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' } // Configuración de PDF
+            };
+
+            html2pdf().from(element).set(opt).save().then(function() {
+                botones.style.display = 'block';
+            });
         });
 
         document.getElementById('btnImprimir').addEventListener('click', function() {
+            const botones = document.querySelector('.botonesAccion');
+            botones.style.display = 'none';
             window.print();
+            botones.style.display = 'block';
         });
 
         document.getElementById('btnVolver').addEventListener('click', function() {
@@ -94,5 +119,3 @@
     </script>
 </body>
 </html>
-
-

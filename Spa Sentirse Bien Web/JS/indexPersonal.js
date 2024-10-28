@@ -36,6 +36,7 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -278,7 +279,7 @@ const secciones = {
         <section class="opcionMenuSelecionada">
             <div class="barraSuperior">
                 <h1>Reservas</h1>
-                <input type="text" id="inputBuscarReserva" placeholder="Buscar por clienteId" oninput="buscarReservas()">
+                <input type="text" id="inputBuscarReserva" placeholder="Buscar por nombre de usuario" oninput="buscarReservas()">
                 
                 <select id="opcionesOrdenarReserva" class="ordenarSelect" onchange="ordenarYFiltrarReservas()">
                     <option value="" disabled selected>Ordenar</option>
@@ -294,7 +295,7 @@ const secciones = {
                     <thead>
                         <tr>
                             <th onclick="cambiarCriterioBusquedaReserva('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Cliente ID</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Nombre de Usuario</th> <!-- Cambiado para mostrar el nombre de usuario -->
                             <th onclick="cambiarCriterioBusquedaReserva('nombreIdentificador')">Nombre Identificador</th>
                         </tr>
                     </thead>
@@ -305,6 +306,9 @@ const secciones = {
             </div>
 
             <div class="lineaSeparacion"></div>
+            <div class="botonesAccion">
+                <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
+            </div>
             <div class="botonesAccion">
                 <button id="btnGenerarPDFReserva" type="button">Generar PDF de Tabla</button>
             </div>
@@ -330,6 +334,7 @@ const secciones = {
         }
 
         section {
+            background-color: var(--rosaClaro);
             background-color: var(--rosaClaro);
             border-radius: 10px;
             padding: 20px;
@@ -636,10 +641,10 @@ const secciones = {
                             <th onclick="cambiarCriterioBusquedaServicios('titulo')">Título</th>
                             <th onclick="cambiarCriterioBusquedaServicios('tipoServicio')">Tipo de Servicio</th>
                             <th onclick="cambiarCriterioBusquedaServicios('descripcion')">Descripcion</th>
-                            <th onclick="cambiarCriterioBusquedaServicios('rutaImagen')">Ruta Imagen</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('horarios')">Horarios</th> <!-- Nueva columna para horarios -->
                             <th onclick="cambiarCriterioBusquedaServicios('duracionMinut')">Duracion (min)</th>
                             <th onclick="cambiarCriterioBusquedaServicios('precio')">Precio</th>
-                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado (Nombre de Usuario)</th> <!-- Cambiar a nombre de usuario -->
                         </tr>
                     </thead>
                     <tbody id="tablaServicios">
@@ -650,12 +655,13 @@ const secciones = {
 
 
             <div class="lineaSeparacion"></div>
-             <div class="botonesAccion">
+            <div class="botonesAccion">
                 <button id="btnAgregarServ">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
                 <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
-                <button id="btnGenerarPDFServiciosPorProfesional" type="button">Servicios Realizados Por Profesional</button>
+                <button id="btnAgregarHorario" type="button">Agregar Horario a Servicio</button>
+                <button id="btnEliminarHorario" type="button">Eliminar Horario de Servicio</button>
             </div>
         </section>
     `,
@@ -1471,11 +1477,31 @@ function ordenarYFiltrarClientes() {
 
 // Variables globales para la sección de Reservas
 let reservas = [];
+let reservasFiltradas = [];
+let clientesReserv = []; 
 let criterioBusquedaReserva = 'usuarioCliente'; // Criterio predeterminado para buscar en Reservas
+
+// Función para cargar los clientes desde la API
+async function cargarClientesReserv() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Cliente');
+        if (!response.ok) {
+            throw new Error('Error al obtener los clientes');
+        }
+
+        clientesReserv = await response.json(); // Guardar la lista de clientes
+    } catch (error) {
+        console.error('Error al cargar los clientes:', error);
+    }
+}
 
 // Función para cargar reservas desde la API
 async function cargarReservasDesdeAPI() {
     try {
+        // Primero cargamos los clientes
+        await cargarClientesReserv();
+
+        // Luego cargamos las reservas
         const response = await fetch('https://apispademo.somee.com/api/Reserva?conTurnos=false&conPago=false');
         if (!response.ok) {
             throw new Error('Error al obtener las reservas');
@@ -1496,14 +1522,19 @@ function cargarReservas(reservas) {
         return;
     }
 
-    
+    reservasFiltradas = reservas;
     tablaReservas.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     reservas.forEach(reserva => {
+        // Buscar el nombre de usuario del cliente asociado a la reserva
+        const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+        const nombreUsuario = cliente ? cliente.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${reserva.reservaId}</td>
-            <td>${reserva.clienteId}</td>
+            <td>${nombreUsuario}</td> <!-- Mostrar el nombre de usuario del cliente -->
             <td>${reserva.nombreIdentificador}</td>
         `;
         tablaReservas.appendChild(fila);
@@ -1519,7 +1550,7 @@ function cambiarCriterioBusquedaReserva(nuevoCriterio) {
     }
 }
 
-// Función para buscar reservas por clienteId
+// Función para buscar reservas
 function buscarReservas() {
     const inputBuscar = document.getElementById('inputBuscarReserva');
     if (!inputBuscar) {
@@ -1528,12 +1559,14 @@ function buscarReservas() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const reservasFiltradas = reservas.filter(reserva => {
+    reservasFiltradas = reservas.filter(reserva => {
         switch (criterioBusquedaReserva) {
             case 'ID':
                 return reserva.reservaId.toString().startsWith(texto);
             case 'usuarioCliente':
-                return reserva.clienteId.toLowerCase().includes(texto);
+                // Buscar en el nombre de usuario en lugar del clienteId
+                const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+                return cliente && cliente.userName.toLowerCase().includes(texto);
             case 'nombreIdentificador':
                 return reserva.nombreIdentificador.toLowerCase().includes(texto);
             default:
@@ -1558,10 +1591,18 @@ function ordenarYFiltrarReservas() {
     let reservasOrdenadas = [...reservas];
     switch (criterio) {
         case 'nombreAZ':
-            reservasOrdenadas.sort((a, b) => a.clienteId.localeCompare(b.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteA.userName.localeCompare(clienteB.userName);
+            });
             break;
         case 'nombreZA':
-            reservasOrdenadas.sort((a, b) => b.clienteId.localeCompare(a.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteB.userName.localeCompare(clienteA.userName);
+            });
             break;
         default:
             break;
@@ -1590,6 +1631,7 @@ function cargarFiltrosReservas() {
 
 // Variables globales para la sección de Pagos
 let pagos = [];
+let pagosFiltrados = [];
 let criterioBusquedaPagos = 'usuarioId'; // Criterio predeterminado para buscar en Pagos
 
 // Función para cargar pagos desde la API
@@ -1628,7 +1670,7 @@ function cargarPagos(pagos) {
         return;
     }
 
-    
+    pagosFiltrados = pagos;
     tablaPagos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     pagos.forEach(pago => {
@@ -1663,6 +1705,7 @@ function cambiarCriterioBusquedaPagos(nuevoCriterio) {
     }
 }
 
+
 // Función para buscar pagos por usuarioId
 function buscarPagos() {
     const inputBuscar = document.getElementById('inputBuscarPago');
@@ -1690,6 +1733,24 @@ function buscarPagos() {
                 return false;
         }
     });
+    const pagosFiltrados = pagos.filter(pago => {
+        switch (criterioBusquedaPagos) {
+            case 'ID':
+                return pago.pagoId.toString().startsWith(texto);
+            case 'usuarioId':
+                return pago.usuarioId.toLowerCase().includes(texto);
+            case 'reservaId':
+                return pago.reservaId.toLowerCase().includes(texto);
+            case 'formatoPago':
+                return pago.formatoPago.toLowerCase().includes(texto);
+            case 'montoTotal':
+                return pago.montoTotal.toString().startsWith(texto);
+            case 'pagado':
+                return (pago.pagado ? 'sí' : 'no').includes(texto);
+            default:
+                return false;
+        }
+    });
     cargarPagos(pagosFiltrados);
 }
 
@@ -1699,6 +1760,14 @@ function cargarFiltrosPagos() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarPagos); // Añadir evento para buscar pagos por usuarioId
     }
+
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaPagos th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
+        });
+    });
 
     // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
     const encabezados = document.querySelectorAll('#tablaPagos th');
@@ -1825,12 +1894,15 @@ function filtrarPagosPorFecha() {
 
 // Variables globales para la sección de Servicios
 let servicios = [];
+let serviciosFiltrados = [];
+let empleadosServ = []; // Lista de todos los empleados
 let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para buscar en Servicios
 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
     try {
-        const response = await fetch('https://apispademo.somee.com/api/Servicio?conTurnos=true&conHorarios=true');
+        await cargarEmpleadosServ();
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
         }
@@ -1850,20 +1922,34 @@ function cargarServicios(servicios) {
         return;
     }
 
-    
+    serviciosFiltrados = servicios;
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
+        let horariosHTML = '';
+        if (servicio.horarios && servicio.horarios.length > 0) {
+            servicio.horarios.forEach(horario => {
+                horariosHTML += `${horario.horaInicio} - ${horario.horaFinal}<br>`;
+            });
+        } else {
+            horariosHTML = 'No tiene horarios asignados';
+        }
+
+        // Buscar el nombre de usuario del empleado asociado al servicio
+        const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+        const nombreUsuario = empleado ? empleado.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${servicio.servicioId}</td>
             <td>${servicio.titulo}</td>
             <td>${servicio.tipoServicio}</td>
             <td>${servicio.descripcion}</td>
-            <td>${servicio.rutaImagen}</td>
+            <td>${horariosHTML}</td> 
             <td>${servicio.duracionMinut}</td>
             <td>${servicio.precio}</td>
-            <td>${servicio.usuarioId}</td> <!-- empleadoId -->
+            <td>${empleado.userName}</td> 
         `;
         tablaServicios.appendChild(fila);
     });
@@ -1887,7 +1973,29 @@ function buscarServicios() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const serviciosFiltrados = servicios.filter(servicio => servicio.tipoServicio.toLowerCase().includes(texto));
+    const serviciosFiltrados = servicios.filter(servicio => {
+            switch (criterioBusquedaServicios) {
+                case 'ID':
+                    return servicio.servicioId.toString().startsWith(texto);
+                case 'titulo':
+                    return servicio.titulo.toLowerCase().includes(texto);
+                case 'tipoServicio':
+                    return servicio.tipoServicio.toLowerCase().includes(texto);
+                case 'descripcion':
+                    return servicio.descripcion.toLowerCase().includes(texto);
+                case 'horariosHTML':
+                    return false;
+                case 'duracionMinut':
+                    return servicio.duracionMinut.toString().includes(texto);
+                case 'precio':
+                    return servicio.precio.toString().startsWith(texto);
+                case 'empleado':
+                    const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+                    return empleado && empleado.userName.toLowerCase().includes(texto);
+                default:
+                    return false;
+            }
+        });
     cargarServicios(serviciosFiltrados);
 }
 
@@ -1988,6 +2096,7 @@ function filtrarServiciosPorFecha() {
 
 // Variables globales para la sección de Empleados
 let empleados = [];
+let empleadosFiltrados = [];
 let criterioBusquedaEmpleado = 'ID'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar empleados desde la API
@@ -2024,6 +2133,7 @@ function cargarEmpleados(empleados) {
         return;
     }
 
+    empleadosFiltrados = empleados;
     tablaEmpleados.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     empleados.forEach(empleado => {
@@ -2050,6 +2160,17 @@ function cambiarCriterioBusquedaEmpleado(nuevoCriterio) {
 }
 
 
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaEmpleado(nuevoCriterio) {
+    criterioBusquedaEmpleado = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarEmpleado');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
+
 // Función para buscar empleados por nombre
 function buscarEmpleados() {
     const inputBuscar = document.getElementById('inputBuscarEmpleado');
@@ -2059,7 +2180,19 @@ function buscarEmpleados() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const empleadosFiltrados = empleados.filter(empleado => empleado.userName.toLowerCase().includes(texto));
+    const empleadosFiltrados = empleados.filter(empleado =>  {
+        switch (criterioBusquedaEmpleado) {
+        case 'ID':
+            return empleado.id.toString().startsWith(texto);
+        case 'userName':
+            return empleado.userName.toLowerCase().includes(texto);
+        case 'email':
+            return empleado.email.toLowerCase().includes(texto);
+        case 'roles':
+            return empleado.roles.some(rol => rol.toLowerCase().includes(texto));
+        default:
+            return false;
+    }});
     cargarEmpleados(empleadosFiltrados);
 }
 
@@ -2076,12 +2209,20 @@ function cargarFiltrosEmpleados() {
             cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
         });
     });
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaEmpleados th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
+        });
+    });
 }
 
 // ========================================== NOTICIAS ===================================================
 
 // Variables globales para la sección de Noticias
 let noticias = [];
+let noticiasFiltrados = [];
 let criterioBusquedaNoticia = 'titulo'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar noticias desde la API
@@ -2107,6 +2248,7 @@ function cargarNoticias(noticias) {
         return;
     }
 
+    noticiasFiltrados = noticias;
     tablaNoticias.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     noticias.forEach(noticia => {
@@ -2209,9 +2351,40 @@ async function eliminarNoticia() {
     }
 }
 
+// Función para eliminar una noticia
+async function eliminarNoticia() {
+    const id = prompt("Ingrese el ID de la noticia que desea eliminar:");
+    if (!id) {
+        alert("Por favor, ingrese una ID válida.");
+        return;
+    }
+
+    const confirmacion = confirm(`¿Está seguro que desea eliminar la noticia con ID ${id}?`);
+    if (!confirmacion) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://apispademo.somee.com/api/Noticia/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar la noticia');
+        }
+
+        alert(`La noticia con ID ${id} ha sido eliminada exitosamente.`);
+        cargarNoticiasDesdeAPI(); // Refresca la lista de noticias después de eliminar
+    } catch (error) {
+        console.error('Error al eliminar la noticia:', error);
+        alert('Ocurrió un error al intentar eliminar la noticia.');
+    }
+}
+
 
 //TURNOS----------------
-
+let turnosFiltrados = [];
+let criterioBusquedaTurno = "ID";
 
 // Función para cargar noticias desde la API
 async function cargarTurnosDesdeAPI() {
@@ -2236,6 +2409,7 @@ function cargarTurnos(turnos) {
         return;
     }
 
+    turnosFiltrados = turnos;
     tablaTurnos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     turnos.forEach(turno => {
@@ -2276,7 +2450,7 @@ function cambiarCriterioBusquedaTurno(nuevoCriterio) {
     }
 }
 
-// Función para buscar noticias según el criterio actual
+// Función para buscar turnos según el criterio actual
 function buscarTurnos() {
     const inputBuscar = document.getElementById('inputBuscarTurno');
     if (!inputBuscar) {
@@ -2286,9 +2460,9 @@ function buscarTurnos() {
 
     const texto = inputBuscar.value.toLowerCase();
     const turnosFiltrados = turnos.filter(turno => {
-        switch (criterioBusquedaNoticia) {
+        switch (criterioBusquedaTurno) {
             case 'ID':
-                return noticia.noticiaId.toString().startsWith(texto);
+                return turno.turnoId.toString().startsWith(texto);
             case 'Servicio ID':
                 return turno.servicioId.toLowerCase().includes(texto);
             case 'Reserva ID':
@@ -2296,12 +2470,13 @@ function buscarTurnos() {
             case 'descripcion':
                 return turno.descripcion.toLowerCase().includes(texto);
             case 'fecha':
-                return turno.fechaInicio.includes(texto);
+                const fechaConFormato = formatearFecha(turno.fechaInicio);
+                return fechaConFormato.includes(texto);
             default:
                 return false;
         }
     });
-    cargarNoticias(turnosFiltrados);
+    cargarTurnos(turnosFiltrados);
 }
 
 // Función para formatear la fecha en el formato dd/mm/yyyy hh:mm
