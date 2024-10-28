@@ -28,6 +28,7 @@ function voltearTarjeta(mostrarReverso) {
     }
 }
 
+
 // Función para mostrar el monto total basado en el precio del servicio
 async function mostrarMontoTotal() {
     const params = new URLSearchParams(window.location.search);
@@ -72,23 +73,23 @@ async function obtenerDatosServicio(idServicio) {
 
 // Función para actualizar el cálculo de cuotas
 function calcularCuotas() {
-    const montoTotal = calcularMontoTotal();
-    const cuotas = parseInt(document.querySelector('input[name="cuotas"]:checked').value) || 1;
-    const montoCuota = montoTotal / cuotas;
+    // Recuperar el monto total original desde el HTML
+    const montoOriginal = parseFloat(document.getElementById("monto").textContent.replace('$', ''));
+    
+    const cuotas = parseInt(document.getElementById("cuotas").value) || 1;
+    const montoCuota = montoOriginal / cuotas;
+    
     document.getElementById("monto-total").innerText = `$${montoCuota.toFixed(2)} en ${cuotas} cuota(s)`;
 }
 
 // Función para mostrar/ocultar opciones de cuotas
 function alternarCuotas() {
-    const tipoTarjeta = document.querySelector('input[name="tipo-tarjeta"]:checked').value;
+    const tipoTarjeta = document.getElementById("tipo-tarjeta").value;
     const grupoCuotas = document.getElementById("grupo-cuotas");
+    grupoCuotas.style.display = tipoTarjeta === "credito" ? "block" : "none";
     
-    // Mostrar u ocultar opciones de cuotas según el tipo de tarjeta
-    if (tipoTarjeta === "credito") {
-        grupoCuotas.style.display = "block";
-        document.getElementById("monto-total").innerText = "$0.00";
-    } else if (tipoTarjeta === "debito") {
-        grupoCuotas.style.display = "none";
+    // Si se selecciona "Débito", mostrar el monto sin cuotas
+    if (tipoTarjeta === "debito") {
         document.getElementById("monto-total").innerText = `$${calcularMontoTotal().toFixed(2)}`;
     }
 }
@@ -101,7 +102,8 @@ document.getElementById('btnVolver').addEventListener('click', function() {
 
 
 document.querySelector('.boton-enviar').addEventListener('click', async function() {
-    const tipoTarjeta = document.getElementById('tipo-tarjeta').value;
+    let tipoTarjeta = document.getElementById('tipo-tarjeta').value.toLowerCase();
+    tipoTarjeta = tipoTarjeta.charAt(0).toUpperCase() + tipoTarjeta.slice(1);
     const username = sessionStorage.getItem('username'); // Obtener el nombre del usuario autenticado
     const idUsuario = sessionStorage.getItem('id'); // Obtener el ID del usuario del localStorage
     const idServicio = new URLSearchParams(window.location.search).get('id'); // Obtener el ID del servicio

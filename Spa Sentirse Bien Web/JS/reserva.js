@@ -93,17 +93,6 @@ async function mostrarTurnos(turnos) {
                 <p><strong>Precio:</strong> $${servicio.precio}</p>
             </div>
         `;
-
-        // Evento para marcar el checkbox y aplicar el estilo al hacer clic en el 'li'
-        li.addEventListener("click", (event) => {
-            const checkbox = li.querySelector(".checkbox-turno");
-
-            // Cambiar el estado del checkbox y el estilo del 'li' según el estado
-            checkbox.checked = !checkbox.checked;
-            aplicarEstilosSeleccionado(li, checkbox.checked);
-            actualizarTotal();
-        });
-
         listaTurnos.appendChild(li);
     }
 
@@ -131,11 +120,9 @@ listaTurnos.addEventListener("change", event => {
 checkboxSeleccionarTodos.addEventListener("change", () => {
     const seleccionarTodos = checkboxSeleccionarTodos.checked;
     const checkboxes = document.querySelectorAll(".checkbox-turno");
-    const itemsLista = document.querySelectorAll("#lista-turnos li");
 
-    checkboxes.forEach((checkbox, index) => {
+    checkboxes.forEach(checkbox => {
         checkbox.checked = seleccionarTodos;
-        aplicarEstilosSeleccionado(itemsLista[index], seleccionarTodos); // Aplicar estilos en el li correspondiente
     });
 
     // Cambiar el texto del label

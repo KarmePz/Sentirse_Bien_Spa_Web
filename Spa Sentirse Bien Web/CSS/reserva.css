@@ -46,10 +46,11 @@ h2 {
     display: flex;
     justify-content: space-between;
 }
-
+/*
 .checkbox-turno {
     display: none;
 }
+*/
 /* Lista de turnos */
 #lista-turnos {
     list-style-type: none;
