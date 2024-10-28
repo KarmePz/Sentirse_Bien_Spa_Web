@@ -9,6 +9,7 @@
 </head>
 <body>
     <main>
+        <h1><img src="./sources/logo_spa2.png"></h1>
         <h1>Lista de Pagos</h1>
         <table id="tablaPagosPDF">
             <thead>
@@ -76,8 +77,53 @@
 
         // Descargar la tabla como PDF
         document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+
+
+            //ocultar los botones de accion
+            document.querySelector('.botonesAccion').style.display = 'none';
+
+            // Agregar estilos específicos para el PDF
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                body {
+                    font-size: 12px;
+                    background-color: #f8d5db;!important;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .botonesAccion {
+                    display: none;
+                }
+                main {
+                    background-color: #d2124b !important; 
+                
+                    
+                }
+                table thead {
+                    background-color: #5fa510 !important;
+                }
+                table {
+                    page-break-inside: auto;
+                }
+                tr {
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                th, td {
+                    padding: 5px;
+                }
+            `;
+            document.head.appendChild(printStyles);
+
+            // Generar el PDF
             const element = document.querySelector('main');
-            html2pdf().from(element).save('Pagos.pdf');
+            html2pdf().from(element).save('Pagos.pdf').then(() => {
+                // Volver a mostrar los botones después de generar el PDF
+                document.querySelector('.botonesAccion').style.display = 'inline';
+
+                // Quitar los estilos adicionales después de la generación del PDF
+                document.head.removeChild(printStyles);
+            });
         });
 
         // Imprimir la tabla

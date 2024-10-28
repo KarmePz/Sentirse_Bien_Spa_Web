@@ -9,11 +9,14 @@
 </head>
 <body>
     <main>
+        <h1><img src="./sources/logo_spa2.png"></h1>
         <h1>Lista de Servicios</h1>
         <input type="date" id="fechaInicio" placeholder="Fecha Inicio">
         <input type="date" id="fechaFin" placeholder="Fecha Fin">
-        <button onclick="filtrarServiciosPorFecha()">Filtrar por rango de Fecha</button>
-        <button onclick="cargarServiciosEnTabla(servicios)">Mostrar Todos</button>
+    
+        <button class="botonesAccion"onclick="filtrarServiciosPorFecha()">Filtrar por rango de Fecha</button>
+        <button class="botonesAccion" id="btnMostrarTodos"onclick="cargarServiciosEnTabla(servicios)">Mostrar Todos</button>
+       
         <table id="tablaServiciosPDF">
             <thead>
                 <tr>
@@ -191,8 +194,53 @@
         cargarServiciosEnTabla(servicios);
 
         document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            //ocultar los botones de accion
+            document.querySelector('.botonesAccion').style.display = 'none';
+            document.getElementById("btnMostrarTodos").style.display = 'none';
+
+            // Agregar estilos específicos para el PDF
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                body {
+                    font-size: 12px;
+                    background-color: #f8d5db;!important;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .botonesAccion {
+                    display: none;
+                }
+                main {
+                    background-color: #d2124b !important; 
+                   
+                    
+                }
+                table thead {
+                    background-color: #5fa510 !important;
+                }
+                table {
+                    page-break-inside: auto;
+                }
+                tr {
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                th, td {
+                    padding: 5px;
+                }
+            `;
+            document.head.appendChild(printStyles);
+
+            // Generar el PDF
             const element = document.querySelector('main');
-            html2pdf().from(element).save('Servicios.pdf');
+            html2pdf().from(element).save('ServiciosProfesional.pdf').then(() => {
+                // Volver a mostrar los botones después de generar el PDF
+                document.querySelector('.botonesAccion').style.display = 'inline';
+                document.getElementById("btnMostrarTodos").style.display = 'inline';
+
+                // Quitar los estilos adicionales después de la generación del PDF
+                document.head.removeChild(printStyles);
+            });
         });
 
         document.getElementById('btnImprimir').addEventListener('click', function() {
@@ -203,20 +251,6 @@
             window.location.href = 'indexpersonal.html';
         });
 
-        // cargarServiciosEnTabla();
-
-        // document.getElementById('btnDescargarPDF').addEventListener('click', function() {
-        //     const element = document.querySelector('main');
-        //     html2pdf().from(element).save('Servicios.pdf');
-        // });
-
-        // document.getElementById('btnImprimir').addEventListener('click', function() {
-        //     window.print();
-        // });
-
-        // document.getElementById('btnVolver').addEventListener('click', function() {
-        //     window.location.href = 'indexpersonal.html';
-        // });
 
 
 

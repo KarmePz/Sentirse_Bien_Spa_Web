@@ -75,11 +75,13 @@ table td {
     body {
         -webkit-print-color-adjust: exact; /* For Safari and Chrome */
         print-color-adjust: exact; /* For modern browsers */
+        font-size: 12px;
     }
 
     .botonesAccion {
-        display: none;
+        display: none !important;
     }
+    
 
     main {
         background-color: #d2124b !important; 
@@ -87,5 +89,15 @@ table td {
 
     table thead {
         background-color: #5fa510 !important;
+    }
+    table {
+        page-break-inside: auto;
+    }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    th, td {
+        padding: 5px;
     }
 }
