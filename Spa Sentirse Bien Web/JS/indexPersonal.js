@@ -1333,6 +1333,7 @@ links.forEach(link => {
                 const btnEliminar = document.getElementById('btnEliminarServ');
                 document.getElementById('btnGenerarPDFServicios').addEventListener('click', function() {
                     localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    
                     window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
                 });
 
@@ -1937,6 +1938,7 @@ function cargarServicios(servicios) {
     }
 
     serviciosFiltrados = servicios;
+    localStorage.setItem('serviciosFiltrados', JSON.stringify(servicios))
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
