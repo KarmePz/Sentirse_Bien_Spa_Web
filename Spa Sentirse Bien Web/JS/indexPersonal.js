@@ -36,6 +36,11 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -139,6 +144,12 @@ const secciones = {
                     </tbody>
                 </table>
             </div>
+            <div class="lineaSeparacion"></div>
+
+            <div class="botonesAccion">
+                <button id="btnListaClientesDia">Lista de Clientes a Atender por Día</button>
+                <button id="btnListaClientesEmpleado">Lista de Clientes por Empleado</button>
+            </div>
         </section>
     `,
     'Reservas': `
@@ -162,6 +173,10 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -264,7 +279,7 @@ const secciones = {
         <section class="opcionMenuSelecionada">
             <div class="barraSuperior">
                 <h1>Reservas</h1>
-                <input type="text" id="inputBuscarReserva" placeholder="Buscar por clienteId" oninput="buscarReservas()">
+                <input type="text" id="inputBuscarReserva" placeholder="Buscar por nombre de usuario" oninput="buscarReservas()">
                 
                 <select id="opcionesOrdenarReserva" class="ordenarSelect" onchange="ordenarYFiltrarReservas()">
                     <option value="" disabled selected>Ordenar</option>
@@ -279,9 +294,9 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th onclick="cambiarCriterioBusqueda('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusqueda('usuarioCliente')">usuarioCliente</th>
-                            <th onclick="cambiarCriterioBusqueda('nombreIdentificador')">nombreIdentificador</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaReserva('usuarioCliente')">Nombre de Usuario</th> <!-- Cambiado para mostrar el nombre de usuario -->
+                            <th onclick="cambiarCriterioBusquedaReserva('nombreIdentificador')">Nombre Identificador</th>
                         </tr>
                     </thead>
                     <tbody id="tablaReservas">
@@ -291,6 +306,10 @@ const secciones = {
             </div>
 
             <div class="lineaSeparacion"></div>
+            <div class="botonesAccion">
+                <button id="btnGenerarPDFReserva" type="button" id="btnPdf">Generar PDF de Tabla</button>
+            </div>
+            
         </section>
     `,
     'Informes de Pagos': `
@@ -314,6 +333,11 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -431,6 +455,12 @@ const secciones = {
                     <option value="montoAsc">Monto Ascendente</option>
                     <option value="montoDesc">Monto Descendente</option>
                 </select>
+                
+                <input type="date" id="fechaInicio" placeholder="Fecha Inicio">
+                <input type="date" id="fechaFin" placeholder="Fecha Fin">
+                <button onclick="filtrarPagosPorFecha()">Filtrar por rango de Fecha</button>
+                
+
             </div>
 
             <div class="lineaSeparacion"></div>
@@ -439,12 +469,13 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>usuarioId</th>
-                            <th>reservaId</th>
-                            <th>formatoPago</th>
-                            <th>montoTotal</th>
-                            <th>Pagado</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('usuarioId')">Cliente ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('reservaId')">Reserva ID</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('formatoPago')">Formato Pago</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('montoTotal')">Monto Total</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('fechaPagado')">Fecha Pagado</th>
+                            <th onclick="cambiarCriterioBusquedaPagos('pagado')">Pagado</th>
                         </tr>
                     </thead>
                     <tbody id="tablaPagos">
@@ -454,6 +485,11 @@ const secciones = {
             </div>
 
             <div class="lineaSeparacion"></div>
+            <div class="botonesAccion">
+                <button id="btnGenerarFactura">Generar Factura/Informe</button>
+                <button id="btnGenerarPDFPagos" type="button">Generar PDF de Tabla</button>
+                <button id="btnRefrescarPagos" type="button" onclick="cargarPagosDesdeAPI()">Mostrar Todos</button>
+            </div>
         </section>
     `,
     'Servicios': `
@@ -477,6 +513,10 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -595,14 +635,14 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>titulo</th>
-                            <th>tipoServicio</th>
-                            <th>descripcion</th>
-                            <th>rutaImagen</th>
-                            <th>duracionMinut</th>
-                            <th>precio</th>
-                            <th>empleadoId</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('titulo')">Título</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('tipoServicio')">Tipo de Servicio</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('descripcion')">Descripcion</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('horarios')">Horarios</th> <!-- Nueva columna para horarios -->
+                            <th onclick="cambiarCriterioBusquedaServicios('duracionMinut')">Duracion (min)</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('precio')">Precio</th>
+                            <th onclick="cambiarCriterioBusquedaServicios('empleado')">Empleado (Nombre de Usuario)</th> <!-- Cambiar a nombre de usuario -->
                         </tr>
                     </thead>
                     <tbody id="tablaServicios">
@@ -613,10 +653,14 @@ const secciones = {
 
 
             <div class="lineaSeparacion"></div>
-             <div class="botonesAccion">
+            <div class="botonesAccion">
                 <button id="btnAgregarServ">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminarServ">Eliminar</button>
+                <button id="btnGenerarPDFServicios" type="button">Generar PDF de Tabla</button>
+                <button id="btnAgregarHorario" type="button">Agregar Horario a Servicio</button>
+                <button id="btnEliminarHorario" type="button">Eliminar Horario de Servicio</button>
+                <button id="btnGenerarPDFServiciosPorProfesional" type="button">Servicios Realizados Por Profesional</button>
             </div>
         </section>
     `,
@@ -641,6 +685,10 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -752,10 +800,10 @@ const secciones = {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Roles</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('ID')">ID</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('userName')">Nombre</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('email')">Email</th>
+                            <th onclick="cambiarCriterioBusquedaEmpleado('roles')">Roles</th>
                         </tr>
                     </thead>
                     <tbody id="tablaEmpleados">
@@ -770,6 +818,7 @@ const secciones = {
                 <button id="btnAgregarEmp">Agregar</button>
                 <button>Modificar</button>
                 <button>Eliminar</button>
+                <button id="btnGenerarPDFEmp">Generar PDF de Tabla</button>
             </div>
         </section>
     `,
@@ -794,6 +843,10 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -914,7 +967,7 @@ const secciones = {
                     <thead>
                         <tr>
                             <th onclick="cambiarCriterioBusquedaNoticia('ID')">ID</th>
-                            <th onclick="cambiarCriterioBusquedaNoticia('Titulo')">Titulo</th>
+                            <th onclick="cambiarCriterioBusquedaNoticia('titulo')">Titulo</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('tipo')">Tipo</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('rutaImagen')">Ruta Imagen</th>
                             <th onclick="cambiarCriterioBusquedaNoticia('rutaPDF')">Ruta PDF</th>
@@ -933,11 +986,12 @@ const secciones = {
                 <button id="btnAgregar">Agregar</button>
                 <button>Modificar</button>
                 <button id="btnEliminar">Eliminar</button>
+                <button id="btnGenerarPDFNoticias">Generar PDF de Tabla</button>
             </div>
         </section>
     `,
     'Turnos': `
-            <style>
+        <style>
         :root {
             --verdeColor: #5fa510;
             --verdeOscuroColor: #315012;
@@ -957,6 +1011,10 @@ const secciones = {
 
         section {
             background-color: var(--rosaClaro);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
         .barraSuperior {
             display: flex;
@@ -1093,9 +1151,7 @@ const secciones = {
             <div class="lineaSeparacion"></div>
 
             <div class="botonesAccion">
-                <button id="agregar_turno_btn">Agregar</button>
-                <button id="modificar_turno_btn">Modificar</button>
-                <button id="eliminar_turno_btn">Eliminar</button>
+                <button id="btnGenerarPDFTurnos">Generar PDF de Tabla</button>
             </div>
         </section>
     `
@@ -1108,6 +1164,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     //SE DEBEN CARGAR LAS OPCIONES SEGUN EL ROL DEL USUARIO 
     console.log(sessionStorage.getItem('id'));
     var rolUsuario = await getUserData(sessionStorage.getItem('id'));
+    console.log(rolUsuario);
+    if (rolUsuario =="Cliente"){
+        window.location.href = "/indexCliente.html";
+    }
     var nombreUsuario = sessionStorage.getItem('username');
 
     console.log(rolUsuario);
@@ -1211,18 +1271,77 @@ links.forEach(link => {
             if (opcionSeleccionada === 'Clientes') {
                 cargarFiltros();  // Función para inicializar los filtros de clientes
                 cargarUsuariosDesdeAPI();  // Cargar los usuarios desde la API cada vez que se entre en la sección de clientes
+
+                const btnListaClientesDia = document.getElementById('btnListaClientesDia');
+                const btnListaClientesEmpleado = document.getElementById('btnListaClientesEmpleado');
+                if (btnListaClientesDia) {
+                    btnListaClientesDia.addEventListener('click', function() {
+                        window.location.href = 'clientesPorDia.html'; // Redirigir al nuevo HTML
+                    });
+                }
+                if (btnListaClientesEmpleado) {
+                    btnListaClientesEmpleado.addEventListener('click', function() {
+                        window.location.href = 'clientesPorDiaEmpleado.html'; // Redirigir al nuevo HTML
+                    });
+                }
             } else if (opcionSeleccionada === 'Reservas') {
                 cargarFiltrosReservas(); // Función para inicializar los filtros de reservas
                 cargarReservasDesdeAPI();  // Cargar las reservas desde la API cada vez que se entre en la sección de reservas
+
+                document.getElementById('btnGenerarPDFReserva').addEventListener('click', function() {
+                    // Guardar las reservas en localStorage para usarlas en la página de generación de PDF
+                    localStorage.setItem('reservas', JSON.stringify(reservas));
+                    window.location.href = 'generarTablaReservas.html'; // Redirige a la nueva página
+                });
             } else if (opcionSeleccionada === 'Informes de Pagos') {
                 cargarFiltrosPagos(); // Función para inicializar los filtros de pagos
                 cargarPagosDesdeAPI();  // Cargar los pagos desde la API cada vez que se entre en la sección de pagos
+
+                // Añadir el event listener para el botón de Generar Factura
+                const btnGenerarFactura = document.getElementById('btnGenerarFactura');
+                document.getElementById('btnGenerarPDFPagos').addEventListener('click', function() {
+                    // Guardar los pagos en localStorage para usarlos en la página de generación de PDF
+                    localStorage.setItem('pagos', JSON.stringify(pagos));
+                    window.location.href = '/generarTablaPagos.html'; // Redirige a la nueva página
+                });
+                
+                if (btnGenerarFactura) {
+                    btnGenerarFactura.addEventListener('click', function () {
+                        const pagoId = prompt('Ingrese el ID del pago para generar la factura:');
+                        if (pagoId) {
+                            const pagoSeleccionado = pagos.find(pago => pago.pagoId === parseInt(pagoId));
+                            if (!pagoSeleccionado) {
+                                alert('El pago con ese ID no existe. Intente de nuevo.');
+                                return;
+                            }
+
+                            // Obtener el reservaId del pago seleccionado
+                            const reservaId = pagoSeleccionado.reservaId;
+
+                            // Redirigir a una nueva página con el ID del pago como query parameter
+                            window.location.href = `factura.html?reservaId=${reservaId}&pagoId=${pagoId}`;
+                        } else {
+                            alert('Por favor, ingrese un ID de pago válido.');
+                        }
+                    });
+                }
             } else if (opcionSeleccionada === 'Servicios') {
                 cargarFiltrosServicios(); // Función para inicializar los filtros de servicios
                 cargarServiciosDesdeAPI();  // Cargar los servicios desde la API cada vez que se entre en la sección de servicios
                 // Añadir los event listeners para el botón de Agregar
                 const btnAgregar = document.getElementById('btnAgregarServ');
                 const btnEliminar = document.getElementById('btnEliminarServ');
+                document.getElementById('btnGenerarPDFServicios').addEventListener('click', function() {
+                    localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    
+                    window.location.href = 'generarTablaServicio.html'; // Redirige a la nueva página
+                });
+
+                document.getElementById('btnGenerarPDFServiciosPorProfesional').addEventListener('click', function() {
+                    localStorage.setItem('servicios', JSON.stringify(servicios)); // Almacenar en localStorage
+                    window.location.href = 'generarTablaServicioPorProfesional.html'; // Redirige a la nueva página
+                });
+
 
                 if (btnAgregar) {
                     btnAgregar.addEventListener('click', function() {
@@ -1240,6 +1359,12 @@ links.forEach(link => {
 
                 // Añadir los event listeners para el botón de Agregar
                 const btnAgregar = document.getElementById('btnAgregarEmp');
+                document.getElementById('btnGenerarPDFEmp').addEventListener('click', function() {
+                    // Guardar los empleados en localStorage para poder usarlos en el nuevo HTML
+                    localStorage.setItem('empleados', JSON.stringify(empleados));
+                    window.location.href = 'generarTablaEmpleados.html'; // Redirigir al HTML de generación de PDF
+                });
+                
 
                 if (btnAgregar) {
                     btnAgregar.addEventListener('click', function() {
@@ -1253,22 +1378,32 @@ links.forEach(link => {
                 cargarNoticiasDesdeAPI();  // Cargar las noticias desde la API cada vez que se entre en la sección de noticias
 
 
-                 // Añadir los event listeners para Agregar y Eliminar
-                 const btnAgregar = document.getElementById('btnAgregar');
-                 const btnEliminar = document.getElementById('btnEliminar');
+                // Añadir los event listeners para Agregar y Eliminar
+                const btnAgregar = document.getElementById('btnAgregar');
+                const btnEliminar = document.getElementById('btnEliminar');
  
-                 if (btnAgregar) {
-                     btnAgregar.addEventListener('click', function() {
-                         window.location.href = 'agregarNoticia.html'; // Redirigir al formulario de agregar noticia
-                     });
-                 }
+                if (btnAgregar) {
+                    btnAgregar.addEventListener('click', function() {
+                        window.location.href = 'agregarNoticia.html'; // Redirigir al formulario de agregar noticia
+                    });
+                }
  
-                 if (btnEliminar) {
-                     btnEliminar.addEventListener('click', eliminarNoticia); // Vincular el botón Eliminar
-                 }
+                if (btnEliminar) {
+                    btnEliminar.addEventListener('click', eliminarNoticia); // Vincular el botón Eliminar
+                }
+                document.getElementById('btnGenerarPDFNoticias').addEventListener('click', function() {
+                    // Guardar las noticias en localStorage para poder usarlas en el nuevo HTML
+                    localStorage.setItem('noticias', JSON.stringify(noticias));
+                    window.location.href = 'generarTablaNoticias.html'; // Redirigir al HTML de generación de PDF
+                });
                  
             }else if (opcionSeleccionada === 'Turnos'){
                 cargarTurnosDesdeAPI();
+                document.getElementById('btnGenerarPDFTurnos').addEventListener('click', function() {
+                    // Guardar los turnos en localStorage para poder usarlos en el nuevo HTML
+                    localStorage.setItem('turnos', JSON.stringify(turnos));
+                    window.location.href = 'generarTablaTurnos.html'; // Redirigir al HTML de generación de PDF
+                });
             }
         }
     });
@@ -1342,10 +1477,31 @@ function ordenarYFiltrarClientes() {
 
 // Variables globales para la sección de Reservas
 let reservas = [];
+let reservasFiltradas = [];
+let clientesReserv = []; 
+let criterioBusquedaReserva = 'usuarioCliente'; // Criterio predeterminado para buscar en Reservas
+
+// Función para cargar los clientes desde la API
+async function cargarClientesReserv() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Cliente');
+        if (!response.ok) {
+            throw new Error('Error al obtener los clientes');
+        }
+
+        clientesReserv = await response.json(); // Guardar la lista de clientes
+    } catch (error) {
+        console.error('Error al cargar los clientes:', error);
+    }
+}
 
 // Función para cargar reservas desde la API
 async function cargarReservasDesdeAPI() {
     try {
+        // Primero cargamos los clientes
+        await cargarClientesReserv();
+
+        // Luego cargamos las reservas
         const response = await fetch('https://apispademo.somee.com/api/Reserva?conTurnos=false&conPago=false');
         if (!response.ok) {
             throw new Error('Error al obtener las reservas');
@@ -1366,20 +1522,35 @@ function cargarReservas(reservas) {
         return;
     }
 
+    reservasFiltradas = reservas;
     tablaReservas.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     reservas.forEach(reserva => {
+        // Buscar el nombre de usuario del cliente asociado a la reserva
+        const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+        const nombreUsuario = cliente ? cliente.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${reserva.reservaId}</td>
-            <td>${reserva.clienteId}</td>
+            <td>${nombreUsuario}</td> <!-- Mostrar el nombre de usuario del cliente -->
             <td>${reserva.nombreIdentificador}</td>
         `;
         tablaReservas.appendChild(fila);
     });
 }
 
-// Función para buscar reservas por clienteId
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaReserva(nuevoCriterio) {
+    criterioBusquedaReserva = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarReserva');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
+// Función para buscar reservas
 function buscarReservas() {
     const inputBuscar = document.getElementById('inputBuscarReserva');
     if (!inputBuscar) {
@@ -1388,7 +1559,20 @@ function buscarReservas() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const reservasFiltradas = reservas.filter(reserva => reserva.clienteId.toLowerCase().includes(texto));
+    reservasFiltradas = reservas.filter(reserva => {
+        switch (criterioBusquedaReserva) {
+            case 'ID':
+                return reserva.reservaId.toString().startsWith(texto);
+            case 'usuarioCliente':
+                // Buscar en el nombre de usuario en lugar del clienteId
+                const cliente = clientesReserv.find(cli => cli.id === reserva.clienteId);
+                return cliente && cliente.userName.toLowerCase().includes(texto);
+            case 'nombreIdentificador':
+                return reserva.nombreIdentificador.toLowerCase().includes(texto);
+            default:
+                return false;
+        }
+    });
     cargarReservas(reservasFiltradas);
 }
 
@@ -1407,10 +1591,18 @@ function ordenarYFiltrarReservas() {
     let reservasOrdenadas = [...reservas];
     switch (criterio) {
         case 'nombreAZ':
-            reservasOrdenadas.sort((a, b) => a.clienteId.localeCompare(b.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteA.userName.localeCompare(clienteB.userName);
+            });
             break;
         case 'nombreZA':
-            reservasOrdenadas.sort((a, b) => b.clienteId.localeCompare(a.clienteId));
+            reservasOrdenadas.sort((a, b) => {
+                const clienteA = clientesReserv.find(cli => cli.id === a.clienteId);
+                const clienteB = clientesReserv.find(cli => cli.id === b.clienteId);
+                return clienteB.userName.localeCompare(clienteA.userName);
+            });
             break;
         default:
             break;
@@ -1418,11 +1610,29 @@ function ordenarYFiltrarReservas() {
     cargarReservas(reservasOrdenadas);
 }
 
+// Función para inicializar el comportamiento de los filtros
+function cargarFiltrosReservas() {
+    const inputBuscar = document.getElementById('inputBuscarReserva');
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', buscarReservas); // Añadir evento para buscar según el criterio
+    }
+
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaReservas th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaReserva(th.getAttribute('data-criterio'));
+        });
+    });
+}
+
 
 // ============================================= PAGOS ===============================================
 
 // Variables globales para la sección de Pagos
 let pagos = [];
+let pagosFiltrados = [];
+let criterioBusquedaPagos = 'usuarioId'; // Criterio predeterminado para buscar en Pagos
 
 // Función para cargar pagos desde la API
 async function cargarPagosDesdeAPI() {
@@ -1441,7 +1651,17 @@ async function cargarPagosDesdeAPI() {
         console.error('Error al cargar los pagos:', error);
     }
 }
-
+function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+    if (isNaN(fecha.getTime())) {
+        console.error("Fecha inválida");
+        return null; // Si la fecha no es válida
+    }
+    const año = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Meses empiezan en 0
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    return `${año}-${mes}-${dia}`; // Solo devuelve la fecha en formato "YYYY-MM-DD"
+}
 // Función para cargar los pagos en la tabla
 function cargarPagos(pagos) {
     const tablaPagos = document.getElementById('tablaPagos');
@@ -1450,23 +1670,41 @@ function cargarPagos(pagos) {
         return;
     }
 
+    pagosFiltrados = pagos;
     tablaPagos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     pagos.forEach(pago => {
         console.log('Agregando pago:', pago); // Verificar que estamos agregando cada pago
 
+        
         const fila = document.createElement('tr');
+        const fechaPagadoFormateada = pago.fechaPagado ? formatearFecha(pago.fechaPagado) : 'no se pago';
+        console.log('Fecha a formatear:', pago.fechaPagado); 
+
         fila.innerHTML = `
             <td>${pago.pagoId}</td>
             <td>${pago.usuarioId}</td>
             <td>${pago.reservaId}</td>
             <td>${pago.formatoPago}</td>
             <td>${pago.montoTotal}</td>
+            <td>${fechaPagadoFormateada}</td>
             <td>${pago.pagado ? 'Sí' : 'No'}</td>
         `;
         tablaPagos.appendChild(fila);
     });
+    
+    actualizarTablaConTotal();
 }
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaPagos(nuevoCriterio) {
+    criterioBusquedaPagos = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarPago');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
 
 // Función para buscar pagos por usuarioId
 function buscarPagos() {
@@ -1477,7 +1715,42 @@ function buscarPagos() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const pagosFiltrados = pagos.filter(pago => pago.usuarioId.toLowerCase().includes(texto));
+    const pagosFiltrados = pagos.filter(pago => {
+        switch (criterioBusquedaPagos) {
+            case 'ID':
+                return pago.pagoId.toString().startsWith(texto);
+            case 'usuarioId':
+                return pago.usuarioId.toLowerCase().includes(texto);
+            case 'reservaId':
+                return pago.reservaId.toLowerCase().includes(texto);
+            case 'formatoPago':
+                return pago.formatoPago.toLowerCase().includes(texto);
+            case 'montoTotal':
+                return pago.montoTotal.toString().startsWith(texto);
+            case 'pagado':
+                return (pago.pagado ? 'sí' : 'no').includes(texto);
+            default:
+                return false;
+        }
+    });
+    // const pagosFiltrados = pagos.filter(pago => {
+    //     switch (criterioBusquedaPagos) {
+    //         case 'ID':
+    //             return pago.pagoId.toString().startsWith(texto);
+    //         case 'usuarioId':
+    //             return pago.usuarioId.toLowerCase().includes(texto);
+    //         case 'reservaId':
+    //             return pago.reservaId.toLowerCase().includes(texto);
+    //         case 'formatoPago':
+    //             return pago.formatoPago.toLowerCase().includes(texto);
+    //         case 'montoTotal':
+    //             return pago.montoTotal.toString().startsWith(texto);
+    //         case 'pagado':
+    //             return (pago.pagado ? 'sí' : 'no').includes(texto);
+    //         default:
+    //             return false;
+    //     }
+    // });
     cargarPagos(pagosFiltrados);
 }
 
@@ -1487,6 +1760,22 @@ function cargarFiltrosPagos() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarPagos); // Añadir evento para buscar pagos por usuarioId
     }
+
+    // // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    // const encabezados = document.querySelectorAll('#tablaPagos th');
+    // encabezados.forEach(th => {
+    //     th.addEventListener('click', () => {
+    //         cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
+    //     });
+    // });
+
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaPagos th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaPagos(th.getAttribute('data-criterio'));
+        });
+    });
 
     const selectPagado = document.getElementById('filtroPagado');
     if (selectPagado) {
@@ -1503,6 +1792,8 @@ function filtrarPorPagado() {
         pagosFiltrados = pagos.filter(pago => pago.pagado === true);
     } else if (selectPagado === 'false') {
         pagosFiltrados = pagos.filter(pago => pago.pagado === false);
+    }else{
+        cargarPagosDesdeAPI();
     }
 
     cargarPagos(pagosFiltrados);
@@ -1531,27 +1822,112 @@ function ordenarYFiltrarPagos() {
     }
     cargarPagos(pagosOrdenados);
 }
+// Función para filtrar pagos por rango de fechas
+function filtrarPagosPorFecha() {
+    const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+    const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+    // Validar que las fechas estén ingresadas correctamente
+    if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        alert("Por favor, ingresa ambas fechas.");
+        return;
+    }
+    if(fechaInicio > fechaFin){
+        alert("Fecha Ingresada no valida");
+        return;
+    }
+
+    // Filtrar los pagos en el rango de fechas
+    const pagosFiltrados = pagos.filter(pago => {
+        const fechaPagado = new Date(pago.fechaPagado);
+        return fechaPagado >= fechaInicio && fechaPagado<= fechaFin;
+    });
+    pagos = pagosFiltrados;
+
+    // Llamada para mostrar los pagos filtrados en la tabla
+    cargarPagos(pagosFiltrados);
+}
+
+//fila de total
+ // Función para actualizar la tabla y mostrar el total
+ function actualizarTablaConTotal() {
+    const tbody = document.getElementById('tablaPagos');
+    
+    // Sumar los valores de la columna "Monto Total"
+    let total = 0;
+    const filas = tbody.querySelectorAll('tr');
+    filas.forEach(fila => {
+        const montoCelda = fila.querySelector('td:nth-child(5)');
+        if (montoCelda) {
+            const monto = parseFloat(montoCelda.textContent) || 0;
+            total += monto;
+        }
+    });
+
+    // Remover cualquier fila de total anterior si existe
+    const filaTotalExistente = document.getElementById('filaTotal');
+    if (filaTotalExistente) {
+        filaTotalExistente.remove();
+    }
+
+    // Crear una nueva fila para el total
+    const filaTotal = document.createElement('tr');
+    filaTotal.id = 'filaTotal';
+    filaTotal.innerHTML = `
+        <td colspan="4" style="font-weight: bold; text-align: right;">Total</td>
+        <td style="font-weight: bold;">${total.toFixed(2)}</td>
+        <td colspan="2"></td>
+    `;
+
+    // Agregar la fila de total al final del tbody
+    tbody.appendChild(filaTotal);
+}
+
+
+
+
+
+
 
 
 //========================================= SERVICIOS ===============================================
 
 // Variables globales para la sección de Servicios
 let servicios = [];
+let serviciosFiltrados = [];
+let empleadosServ = []; // Lista de todos los empleados
+let criterioBusquedaServicios = 'tipoServicio'; // Criterio predeterminado para buscar en Servicios
 
 // Función para cargar servicios desde la API
 async function cargarServiciosDesdeAPI() {
     try {
-        const response = await fetch('https://apispademo.somee.com/api/Servicio');
+        await cargarEmpleadosServ();
+        const response = await fetch('https://apispademo.somee.com/api/Servicio?conHorarios=true&conTurnos=true');
         if (!response.ok) {
             throw new Error('Error al obtener los servicios');
         }
-
         servicios = await response.json();
+        console.log(servicios);
         cargarServicios(servicios);
     } catch (error) {
         console.error('Error al cargar los servicios:', error);
     }
 }
+
+async function cargarEmpleadosServ() {
+    try {
+        const response = await fetch('https://apispademo.somee.com/api/Usuario/getAllUsersByRol/Empleado');
+        if (!response.ok) {
+            throw new Error('Error al obtener los empleados');
+        }
+
+        empleadosServ = await response.json(); // Guardar los empleados
+    } catch (error) {
+        console.error('Error al cargar los empleados:', error);
+    }
+}
+
+
 
 // Función para cargar los servicios en la tabla
 function cargarServicios(servicios) {
@@ -1561,22 +1937,47 @@ function cargarServicios(servicios) {
         return;
     }
 
+    serviciosFiltrados = servicios;
+    localStorage.setItem('serviciosFiltrados', JSON.stringify(servicios))
     tablaServicios.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     servicios.forEach(servicio => {
+        let horariosHTML = '';
+        if (servicio.horarios && servicio.horarios.length > 0) {
+            servicio.horarios.forEach(horario => {
+                horariosHTML += `${horario.horaInicio} - ${horario.horaFinal}<br>`;
+            });
+        } else {
+            horariosHTML = 'No tiene horarios asignados';
+        }
+
+        // Buscar el nombre de usuario del empleado asociado al servicio
+        const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+        const nombreUsuario = empleado ? empleado.userName : 'Desconocido';
+
+        // Crear la fila de la tabla
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${servicio.servicioId}</td>
             <td>${servicio.titulo}</td>
             <td>${servicio.tipoServicio}</td>
             <td>${servicio.descripcion}</td>
-            <td>${servicio.rutaImagen}</td>
+            <td>${horariosHTML}</td> 
             <td>${servicio.duracionMinut}</td>
             <td>${servicio.precio}</td>
-            <td>${servicio.usuarioId}</td> <!-- empleadoId -->
+            <td>${empleado.userName}</td> 
         `;
         tablaServicios.appendChild(fila);
     });
+}
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaServicios(nuevoCriterio) {
+    criterioBusquedaServicios = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarServicio');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
 }
 
 // Función para buscar servicios por tipoServicio
@@ -1588,7 +1989,29 @@ function buscarServicios() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const serviciosFiltrados = servicios.filter(servicio => servicio.tipoServicio.toLowerCase().includes(texto));
+    const serviciosFiltrados = servicios.filter(servicio => {
+            switch (criterioBusquedaServicios) {
+                case 'ID':
+                    return servicio.servicioId.toString().startsWith(texto);
+                case 'titulo':
+                    return servicio.titulo.toLowerCase().includes(texto);
+                case 'tipoServicio':
+                    return servicio.tipoServicio.toLowerCase().includes(texto);
+                case 'descripcion':
+                    return servicio.descripcion.toLowerCase().includes(texto);
+                case 'horariosHTML':
+                    return false;
+                case 'duracionMinut':
+                    return servicio.duracionMinut.toString().includes(texto);
+                case 'precio':
+                    return servicio.precio.toString().startsWith(texto);
+                case 'empleado':
+                    const empleado = empleadosServ.find(emp => emp.id === servicio.usuarioId);
+                    return empleado && empleado.userName.toLowerCase().includes(texto);
+                default:
+                    return false;
+            }
+        });
     cargarServicios(serviciosFiltrados);
 }
 
@@ -1598,6 +2021,13 @@ function cargarFiltrosServicios() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarServicios); // Añadir evento para buscar servicios por tipoServicio
     }
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaServicios th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaServicios(th.getAttribute('data-criterio'));
+        });
+    });
 }
 
 // Función para eliminar un servicio
@@ -1651,12 +2081,39 @@ function ordenarYFiltrarServicios() {
     }
     cargarServicios(serviciosOrdenados);
 }
+// Función para filtrar pagos por rango de fechas
+function filtrarServiciosPorFecha() {
+    const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+    const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+    // Validar que las fechas estén ingresadas correctamente
+    if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        alert("Por favor, ingresa ambas fechas.");
+        return;
+    }
+    if(fechaInicio > fechaFin){
+        alert("Fecha Ingresada no valida");
+        return;
+    }
+
+    // Filtrar los pagos en el rango de fechas
+    const serviciosFiltrados = servicios.filter(servicio => {
+        const fechaPagado = new Date(servicio.turnoId.fechaPagado);
+        return fechaPagado >= fechaInicio && fechaPagado<= fechaFin;
+    });
+
+    // Llamada para mostrar los pagos filtrados en la tabla
+    cargarServicios(serviciosFiltrados);
+}
+
 
 
 // =============================== ADMINISTRADOR DE EMPLEADOS ====================================
 
 // Variables globales para la sección de Empleados
 let empleados = [];
+let empleadosFiltrados = [];
+let criterioBusquedaEmpleado = 'ID'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar empleados desde la API
 async function cargarEmpleadosDesdeAPI() {
@@ -1692,6 +2149,7 @@ function cargarEmpleados(empleados) {
         return;
     }
 
+    empleadosFiltrados = empleados;
     tablaEmpleados.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     empleados.forEach(empleado => {
@@ -1707,6 +2165,28 @@ function cargarEmpleados(empleados) {
     });
 }
 
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaEmpleado(nuevoCriterio) {
+    criterioBusquedaEmpleado = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarEmpleado');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
+
+
+// Función para cambiar el criterio de búsqueda
+function cambiarCriterioBusquedaEmpleado(nuevoCriterio) {
+    criterioBusquedaEmpleado = nuevoCriterio;
+    const inputBuscar = document.getElementById('inputBuscarEmpleado');
+    if (inputBuscar) {
+        inputBuscar.placeholder = `Buscar por ${nuevoCriterio}`;
+    }
+}
+
+
 // Función para buscar empleados por nombre
 function buscarEmpleados() {
     const inputBuscar = document.getElementById('inputBuscarEmpleado');
@@ -1716,7 +2196,19 @@ function buscarEmpleados() {
     }
 
     const texto = inputBuscar.value.toLowerCase();
-    const empleadosFiltrados = empleados.filter(empleado => empleado.userName.toLowerCase().includes(texto));
+    const empleadosFiltrados = empleados.filter(empleado =>  {
+        switch (criterioBusquedaEmpleado) {
+        case 'ID':
+            return empleado.id.toString().startsWith(texto);
+        case 'userName':
+            return empleado.userName.toLowerCase().includes(texto);
+        case 'email':
+            return empleado.email.toLowerCase().includes(texto);
+        case 'roles':
+            return empleado.roles.some(rol => rol.toLowerCase().includes(texto));
+        default:
+            return false;
+    }});
     cargarEmpleados(empleadosFiltrados);
 }
 
@@ -1726,12 +2218,27 @@ function cargarFiltrosEmpleados() {
     if (inputBuscar) {
         inputBuscar.addEventListener('input', buscarEmpleados); // Añadir evento para buscar empleados por nombre
     }
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    // const encabezados = document.querySelectorAll('#tablaEmpleados th');
+    // encabezados.forEach(th => {
+    //     th.addEventListener('click', () => {
+    //         cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
+    //     });
+    // });
+    // Añadir los eventos para cambiar el criterio al hacer clic en los encabezados de la tabla
+    const encabezados = document.querySelectorAll('#tablaEmpleados th');
+    encabezados.forEach(th => {
+        th.addEventListener('click', () => {
+            cambiarCriterioBusquedaEmpleado(th.getAttribute('data-criterio'));
+        });
+    });
 }
 
 // ========================================== NOTICIAS ===================================================
 
 // Variables globales para la sección de Noticias
 let noticias = [];
+let noticiasFiltrados = [];
 let criterioBusquedaNoticia = 'titulo'; // Criterio predeterminado para buscar en Noticias
 
 // Función para cargar noticias desde la API
@@ -1757,6 +2264,7 @@ function cargarNoticias(noticias) {
         return;
     }
 
+    noticiasFiltrados = noticias;
     tablaNoticias.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     noticias.forEach(noticia => {
@@ -1859,9 +2367,40 @@ async function eliminarNoticia() {
     }
 }
 
+// Función para eliminar una noticia
+async function eliminarNoticia() {
+    const id = prompt("Ingrese el ID de la noticia que desea eliminar:");
+    if (!id) {
+        alert("Por favor, ingrese una ID válida.");
+        return;
+    }
+
+    const confirmacion = confirm(`¿Está seguro que desea eliminar la noticia con ID ${id}?`);
+    if (!confirmacion) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://apispademo.somee.com/api/Noticia/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar la noticia');
+        }
+
+        alert(`La noticia con ID ${id} ha sido eliminada exitosamente.`);
+        cargarNoticiasDesdeAPI(); // Refresca la lista de noticias después de eliminar
+    } catch (error) {
+        console.error('Error al eliminar la noticia:', error);
+        alert('Ocurrió un error al intentar eliminar la noticia.');
+    }
+}
+
 
 //TURNOS----------------
-
+let turnosFiltrados = [];
+let criterioBusquedaTurno = "ID";
 
 // Función para cargar noticias desde la API
 async function cargarTurnosDesdeAPI() {
@@ -1886,15 +2425,17 @@ function cargarTurnos(turnos) {
         return;
     }
 
+    turnosFiltrados = turnos;
     tablaTurnos.innerHTML = ''; // Limpiar la tabla antes de llenarla
 
     turnos.forEach(turno => {
+        const fechaFormateada = formatearFecha(turno.fechaInicio);
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${turno.turnoId}</td>
             <td>${turno.servicioId}</td>
             <td>${turno.reservaId || 'N/A'}</td> <!-- Asume que el tipo puede no estar disponible -->
-            <td>${turno.fechaInicio}</td>
+            <td>${fechaFormateada}</td>
             <td>${turno.descripcion}</td>
         `;
         tablaTurnos.appendChild(fila);
@@ -1916,8 +2457,6 @@ function cargarFiltrosTurnos() {
 }
 
 
-
-
 // Función para cambiar el criterio de búsqueda
 function cambiarCriterioBusquedaTurno(nuevoCriterio) {
     criterioBusquedaTurno = nuevoCriterio;
@@ -1927,7 +2466,7 @@ function cambiarCriterioBusquedaTurno(nuevoCriterio) {
     }
 }
 
-// Función para buscar noticias según el criterio actual
+// Función para buscar turnos según el criterio actual
 function buscarTurnos() {
     const inputBuscar = document.getElementById('inputBuscarTurno');
     if (!inputBuscar) {
@@ -1937,9 +2476,9 @@ function buscarTurnos() {
 
     const texto = inputBuscar.value.toLowerCase();
     const turnosFiltrados = turnos.filter(turno => {
-        switch (criterioBusquedaNoticia) {
+        switch (criterioBusquedaTurno) {
             case 'ID':
-                return noticia.noticiaId.toString().startsWith(texto);
+                return turno.turnoId.toString().startsWith(texto);
             case 'Servicio ID':
                 return turno.servicioId.toLowerCase().includes(texto);
             case 'Reserva ID':
@@ -1947,13 +2486,25 @@ function buscarTurnos() {
             case 'descripcion':
                 return turno.descripcion.toLowerCase().includes(texto);
             case 'fecha':
-                return turno.fechaInicio.includes(texto);
+                const fechaConFormato = formatearFecha(turno.fechaInicio);
+                return fechaConFormato.includes(texto);
             default:
                 return false;
         }
     });
-    cargarNoticias(turnosFiltrados);}
+    cargarTurnos(turnosFiltrados);
+}
 
+// Función para formatear la fecha en el formato dd/mm/yyyy hh:mm
+function formatearFecha(fecha) {
+    const date = new Date(fecha);
+    const dia = date.getDate().toString().padStart(2, '0');
+    const mes = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+    const anio = date.getFullYear();
+    const horas = date.getHours().toString().padStart(2, '0');
+    const minutos = date.getMinutes().toString().padStart(2, '0');
+    return `${dia}/${mes}/${anio} ${horas}:${minutos}`;
+}
 
 
 
@@ -2037,7 +2588,7 @@ async function getUserData(id) {
         }else if (resultado.roles.includes("Secretario")){
             return "Secretario"
         }else{
-
+            return "Cliente";
         }
     } catch (error) {
         console.error("Hubo un problema al realizar la petición de los datos de usuario:", error);
@@ -2060,3 +2611,14 @@ botonLogout.addEventListener('click', async function() {
     // Redireccionar a la página de inicio
     window.location.href = "/index.html"; 
 });
+
+
+//--------------------------------------------------------------------------
+///LISTADOS Y PDFS
+//--------------------------------------------------------------------------
+
+
+
+
+
+

@@ -38,3 +38,7 @@ document.getElementById('formAgregarEmpleado').addEventListener('submit', async 
         alert('Ocurrió un error al intentar registrar el empleado/secretario.');
     }
 });
+
+document.getElementById('btnVolver').addEventListener('click', function() {
+    window.location.href = 'indexpersonal.html';
+});

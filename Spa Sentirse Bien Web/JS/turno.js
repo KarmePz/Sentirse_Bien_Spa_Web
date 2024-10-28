@@ -4,21 +4,14 @@ const horariosOcupados = [
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
-  const params = new URLSearchParams(window.location.search);
-  const idServicio = params.get('id');
-
-  if (idServicio) {
-      const servicioSeleccionado = document.getElementById("servicioSeleccionado");
-      servicioSeleccionado.textContent = `Turno para el servicio ID: ${idServicio}`;
-  }
-  const tituloFicha = localStorage.getItem('tituloFicha'); 
+  const tituloFicha = localStorage.getItem('tituloFicha'); // Recupera el título de la ficha del localStorage
   if (tituloFicha) {
-      servicioSeleccionado.textContent += ` - ${tituloFicha}`;
+      const servicioSeleccionado = document.getElementById("servicioSeleccionado");
+      servicioSeleccionado.textContent = `Turno para: ${tituloFicha}`;
   }
-  actualizarSelectorDeHoras();
+
   inicializarCalendario(); // Inicia el calendario
 });
-
 
 
 
@@ -60,7 +53,7 @@ function actualizarSelectorDeHoras(fechaSeleccionada) {
   timepicker.innerHTML = '';
 
   
-  const horariosPosibles = ["09:00", "10:00", "11:00", "13:00", "12:00"];
+  const horariosPosibles = ["09:00", "10:00", "11:00"];
   
   
   const horariosDelDia = horariosOcupados
@@ -94,28 +87,23 @@ function actualizarSelectorDeHoras(fechaSeleccionada) {
 document.getElementById("reservarAhora").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
-  const params = new URLSearchParams(window.location.search);
-  const idServicio = params.get('id');
-  
+
   if (!fechaSeleccionada) {
     alert("Por favor, selecciona una fecha");
     return;
-  } else if (!horaSeleccionada) {
+  }else if (!horaSeleccionada) {
     alert("Por favor, selecciona una hora disponible");
     return;
-  } else {
-    // Construimos la URL con los parámetros necesarios
-    const url = `formularioPago.html?id=${idServicio}&fecha=${encodeURIComponent(fechaSeleccionada)}&hora=${encodeURIComponent(horaSeleccionada)}`;
-    
-    // Redirigimos a formularioPago.html con los datos
-    window.location.href = url;
+  }else{
+    const opcionesDiv = document.getElementById("opciones");
+    opcionesDiv.style.display = "block"; // Mostrar el div de opciones
   }
 });
-
 
 document.getElementById("agregarCarrito").addEventListener("click", function() {
   const fechaSeleccionada = document.getElementById("datepicker").value;
   const horaSeleccionada = document.getElementById("timepicker").value;
+  const tituloServicio = localStorage.getItem('tituloFicha');
 
   if (!fechaSeleccionada) {
     alert("Por favor, selecciona una fecha");
@@ -125,17 +113,15 @@ document.getElementById("agregarCarrito").addEventListener("click", function() {
     return;
   }else{
     const idUsuario = sessionStorage.getItem('id');
-    const params = new URLSearchParams(window.location.search);
-    const idServicio = params.get('id');
-
+    const reservaUsuario = sessionStorage.setItem('reserva');
     if(idUsuario){
       if(reserva){
         //cargar a reserva
-        
+        alert("turno fue agregado a reserva 👌😊")
 
       }else{
         //crear reserva
-
+        alert("turno fue agregado a reserva 👌😊")
       }
 
     }else{
@@ -143,6 +129,34 @@ document.getElementById("agregarCarrito").addEventListener("click", function() {
     }
 
 
+  }
+});
+
+document.getElementById("confirmar").addEventListener("click", function() {
+  const seleccion = document.querySelector('input[name="status"]:checked');
+  const fechaSeleccionada = document.getElementById("datepicker").value;
+  const horaSeleccionada = document.getElementById("timepicker").value;
+  if (seleccion) {
+      //alert("Has seleccionado: " + seleccion.id);
+      const fechaHora = `${fechaSeleccionada} ${horaSeleccionada}`;
+
+  
+      if (!horariosOcupados.includes(fechaHora)) {
+        horariosOcupados.push(fechaHora);
+        console.log("Horario confirmado:", fechaHora);
+    
+        inicializarCalendario();
+        actualizarSelectorDeHoras(fechaSeleccionada);
+        //aca estaria el de pagar ahora
+        //generar reserva 
+        alert("tu pago fue realizado exitosamente 👌😊")
+        //completar datos del pago
+
+      } else {
+        alert("Este horario ya está ocupado. Elige otro.");
+      }
+  } else {
+      alert("Por favor, selecciona una opción.");
   }
 });
 

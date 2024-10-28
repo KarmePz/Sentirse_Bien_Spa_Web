@@ -10,8 +10,8 @@ document.getElementById('formAgregarServicio').addEventListener('submit', async 
     const precio = document.getElementById('precio').value;
     const tiempoLimiteHoras = document.getElementById('tiempoLimiteHoras').value;
 
-    // Simulamos que los archivos se suben a una carpeta "uploads" en el front-end
-    const rutaImagenGuardada = `./sources/Servicios/${rutaImagen.name}`;
+    // Simulamos que los archivos se suben a una carpeta en el front-end
+    const rutaImagenGuardada = `../sources/Servicios/Servicios/${rutaImagen.name}`;
 
     const nuevoServicio = {
         usuarioId: usuarioId,
@@ -44,4 +44,8 @@ document.getElementById('formAgregarServicio').addEventListener('submit', async 
         console.error('Error al agregar el servicio:', error);
         alert('Ocurrió un error al intentar agregar el servicio.');
     }
+});
+
+document.getElementById('btnVolver').addEventListener('click', function() {
+    window.location.href = 'indexpersonal.html';
 });

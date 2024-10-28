@@ -227,7 +227,7 @@ async function getUserData(id) {
         localStorage.setItem('roles', JSON.stringify(resultado.roles));
         localStorage.setItem('idUsuario', resultado.idUser);
 
-        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")) {
+        if (resultado.roles.includes("Admin") || resultado.roles.includes("Empleado")||resultado.roles.includes["Secretario"]) {
             window.location.href = "/indexPersonal.html";
         } else {
             window.location.href = "/indexCliente.html";

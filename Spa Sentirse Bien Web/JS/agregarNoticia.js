@@ -8,8 +8,8 @@ document.getElementById('formAgregarNoticia').addEventListener('submit', async f
     const rutaPDF = document.getElementById('rutaPDF').files[0]; // Obtener archivo PDF
 
     // Simulamos que los archivos se suben a una carpeta "uploads" en el front-end
-    const rutaImagenGuardada = `./sources/Noticias/${rutaImagen.name}`;
-    const rutaPDFGuardada = `./sources/Noticias/${rutaPDF.name}`;
+    const rutaImagenGuardada = `../sources/Noticias/${rutaImagen.name}`;
+    const rutaPDFGuardada = `../sources/Noticias/${rutaPDF.name}`;
     
     // Verificamos que los archivos se hayan seleccionado correctamente
     if (!rutaImagen || !rutaPDF) {
@@ -44,4 +44,8 @@ document.getElementById('formAgregarNoticia').addEventListener('submit', async f
         console.error('Error al agregar la noticia:', error);
         alert('Ocurrió un error al intentar agregar la noticia.');
     }
+});
+
+document.getElementById('btnVolver').addEventListener('click', function() {
+    window.location.href = 'indexpersonal.html';
 });
